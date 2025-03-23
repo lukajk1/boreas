@@ -32,11 +32,30 @@ public abstract class Weapon
 
     public abstract float BaseDamage { get; }
     public abstract float FireRate { get; }
+    public abstract float ReloadSpeed { get; }
 
     public abstract float LifestealRatio { get; }
 
     public float[,] DamageFalloffTable;
 
-    public abstract bool Fire();
-    public abstract void Reload();
+    public void Fire()
+    {
+        currentAmmo--;
+        EventBus.BCOnWeaponFired(); // currentAmmo has to decrement before broadcast for ammo count to be accurate
+        Debug.Log(currentAmmo);
+        if (currentAmmo <= 0)
+        {
+            Reload();
+        }
+    }
+    public void Reload()
+    {
+        currentAmmo = ClipSize;
+        EventBus.BCOnWeaponFired(); // hack way of updating ammo count.. change later
+    }
+
+    public Weapon()
+    {
+        currentAmmo = ClipSize;
+    }
 }

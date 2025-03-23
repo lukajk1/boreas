@@ -13,9 +13,21 @@ public class Inventory : MonoBehaviour
         }
         Instance = this;
     }
+    public void SetActiveSlot(int slot)
+    {
+        if (slot != activeSlot && (slot == 0 || slot == 1))
+        {
+            activeSlot = slot;
+            EventBus.BCOnActiveWeaponChanged();
+        }
+    }
     public void SetWeapon(int slot, Weapon weapon)
     {
         equippedWeapons[slot] = weapon;
+        if (slot == activeSlot)
+        {
+            EventBus.BCOnActiveWeaponChanged();
+        }
     }
 
     public Weapon GetWeapon(int slot) 

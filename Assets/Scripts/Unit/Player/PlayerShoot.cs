@@ -17,8 +17,7 @@ public class PlayerShoot : MonoBehaviour
 
     private void Start()
     {
-        Inventory.Instance.SetWeapon(0, new TrackingGun());
-        Debug.Log(Inventory.Instance.GetActiveWeapon().FireRate);
+        Inventory.Instance.SetWeapon(0, new Railgun());
         weapon = Inventory.Instance.GetActiveWeapon();
     }
     private void Update()
@@ -33,7 +32,9 @@ public class PlayerShoot : MonoBehaviour
 
     private bool Fire()
     {
+        weapon.Fire();
         shootSound.Play();
+
         if (Physics.Raycast(fpCamera.transform.position, fpCamera.transform.forward, out hit, Range))
         {
 
