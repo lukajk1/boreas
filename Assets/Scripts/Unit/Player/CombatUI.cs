@@ -19,16 +19,16 @@ public class CombatUI : MonoBehaviour
         Instance = this;
     }
 
-    public void ShowHitMarker(float duration)
+    public void ShowHitMarker()
     {
         if (hitmarkerCR != null)
         {
             StopCoroutine(hitmarkerCR);
         }
-        hitmarkerCR = StartCoroutine(HitmarkerRoutine(duration));
+        hitmarkerCR = StartCoroutine(HitmarkerRoutine());
     }
 
-    IEnumerator HitmarkerRoutine(float duration)
+    IEnumerator HitmarkerRoutine()
     {
         hitmarker.enabled = true;
         yield return new WaitForSeconds(0.3f);

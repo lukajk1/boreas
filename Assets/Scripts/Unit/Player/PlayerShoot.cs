@@ -9,17 +9,24 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private CombatUI combatUI;
 
     private const float Range = 999f;
-    private const float FireRate = 0.2f;
     private float nextFireTime = 0f;
 
     private RaycastHit hit;
 
+    private Weapon weapon;
 
+    private void Start()
+    {
+        Inventory.Instance.SetWeapon(0, new TrackingGun());
+        Debug.Log(Inventory.Instance.GetActiveWeapon().FireRate);
+        weapon = Inventory.Instance.GetActiveWeapon();
+    }
     private void Update()
     {
+
         if (Input.GetButton("Fire1") && Time.time >= nextFireTime)
         {
-            nextFireTime = Time.time + FireRate;
+            nextFireTime = Time.time + weapon.FireRate;
             Fire();
         }
     }
@@ -32,13 +39,13 @@ public class PlayerShoot : MonoBehaviour
 
             if (hit.collider.TryGetComponent<EnemyBody>(out var enemy))
             {
-                combatUI.ShowHitMarker(FireRate * 1.4f);
+                combatUI.ShowHitMarker();
                 hitSound.Play();
                 return true;
             }
             else if (hit.collider.TryGetComponent<CriticalEnemy>(out var enemyCritical))
             {
-                combatUI.ShowHitMarker(FireRate * 1.4f);
+                combatUI.ShowHitMarker();
                 critSound.Play();
                 return true;
             }

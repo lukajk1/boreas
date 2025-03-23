@@ -127,6 +127,10 @@ public class Console : MonoBehaviour
             {
                 return WeatherController.Instance.SetWeatherFromString(parsed[2]);
             }
+            else if (parsed[1] == "tracking")
+            {
+                //Inventory.Instance.SetWeapon(1, )
+            }
         }
 
         else if (parsed[0] == "reset" || parsed[0] == "r")
