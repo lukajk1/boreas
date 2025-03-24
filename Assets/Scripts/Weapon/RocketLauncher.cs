@@ -7,5 +7,6 @@ public class RocketLauncher : Weapon
     public override float BaseDamage => 65f;
     public override float FireRate => 0.70f;
     public override float ReloadSpeed => 1.25f;
+    public override float ReadySpeed => 0.65f;
     public override float LifestealRatio => 0.07f;
 }

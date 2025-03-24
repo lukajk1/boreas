@@ -33,6 +33,7 @@ public abstract class Weapon
     public abstract float BaseDamage { get; }
     public abstract float FireRate { get; }
     public abstract float ReloadSpeed { get; }
+    public abstract float ReadySpeed { get; } // how fast a gun can be fired after being switched to
 
     public abstract float LifestealRatio { get; }
 

@@ -16,4 +16,5 @@ public static class WeaponEventBus
     {
         OnWeaponFired?.Invoke();
     }
+
 }

@@ -7,6 +7,8 @@ public class PlayerSwapWeapons : MonoBehaviour
 {
 
     private Inventory inventory;
+    private float scrollSwapCD = 0.3f;
+    private float scrollSwapCDCount = 0;
 
     private void Start()
     {
@@ -14,18 +16,15 @@ public class PlayerSwapWeapons : MonoBehaviour
     }
     private void Update()
     {
+        scrollSwapCDCount -= Time.deltaTime;
+
         Vector2 scroll = Mouse.current.scroll.ReadValue();
         float scrollY = scroll.y;
 
-        if (scrollY > 0)
+        if (scrollY != 0 && scrollSwapCDCount <= 0f)
         {
             inventory.SwapActiveWeapon();
-            Debug.Log("scroll up");
-        }
-        else if (scrollY < 0)
-        {
-            inventory.SwapActiveWeapon();
-            Debug.Log("scroll upd");
+            scrollSwapCDCount = scrollSwapCD;
         }
 
 

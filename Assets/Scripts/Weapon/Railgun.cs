@@ -7,5 +7,6 @@ public class Railgun : Weapon
     public override float BaseDamage => 90f;
     public override float FireRate => 1.75f;
     public override float ReloadSpeed => 1.75f;
+    public override float ReadySpeed => 0.7f;
     public override float LifestealRatio => 0.06f;
 }

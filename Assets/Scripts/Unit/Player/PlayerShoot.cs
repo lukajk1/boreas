@@ -50,6 +50,11 @@ public class PlayerShoot : MonoBehaviour
 
         if (Physics.Raycast(fpCamera.transform.position, fpCamera.transform.forward, out hit, Range))
         {
+            if (hit.transform.root.TryGetComponent<Unit>(out var unit))
+            {
+                unit.TakeDamage(50);
+            }
+
 
             if (hit.collider.TryGetComponent<EnemyBody>(out var enemy))
             {
