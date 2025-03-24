@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public static class EventBus
+public static class WeaponEventBus
 {
     public static event Action OnActiveWeaponChanged;
 

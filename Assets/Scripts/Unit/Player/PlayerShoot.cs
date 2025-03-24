@@ -15,11 +15,24 @@ public class PlayerShoot : MonoBehaviour
 
     private Weapon weapon;
 
-    private void Start()
+    private void OnEnable()
     {
-        Inventory.Instance.SetWeapon(0, new Railgun());
+        WeaponEventBus.OnActiveWeaponChanged += UpdateActiveWeapon;
+    }
+    private void OnDisable()
+    {
+        WeaponEventBus.OnActiveWeaponChanged -= UpdateActiveWeapon;
+    }
+    public void Setup()
+    {
+        UpdateActiveWeapon();
+    }
+
+    private void UpdateActiveWeapon()
+    {
         weapon = Inventory.Instance.GetActiveWeapon();
     }
+
     private void Update()
     {
 

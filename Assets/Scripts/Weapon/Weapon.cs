@@ -41,8 +41,8 @@ public abstract class Weapon
     public void Fire()
     {
         currentAmmo--;
-        EventBus.BCOnWeaponFired(); // currentAmmo has to decrement before broadcast for ammo count to be accurate
-        Debug.Log(currentAmmo);
+        WeaponEventBus.BCOnWeaponFired(); // currentAmmo has to decrement before broadcast for ammo count to be accurate
+
         if (currentAmmo <= 0)
         {
             Reload();
@@ -51,7 +51,7 @@ public abstract class Weapon
     public void Reload()
     {
         currentAmmo = ClipSize;
-        EventBus.BCOnWeaponFired(); // hack way of updating ammo count.. change later
+        WeaponEventBus.BCOnWeaponFired(); // hack way of updating ammo count.. change later
     }
 
     public Weapon()

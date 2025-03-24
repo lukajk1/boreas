@@ -18,7 +18,7 @@ public class Inventory : MonoBehaviour
         if (slot != activeSlot && (slot == 0 || slot == 1))
         {
             activeSlot = slot;
-            EventBus.BCOnActiveWeaponChanged();
+            WeaponEventBus.BCOnActiveWeaponChanged();
         }
     }
     public void SetWeapon(int slot, Weapon weapon)
@@ -26,8 +26,13 @@ public class Inventory : MonoBehaviour
         equippedWeapons[slot] = weapon;
         if (slot == activeSlot)
         {
-            EventBus.BCOnActiveWeaponChanged();
+            WeaponEventBus.BCOnActiveWeaponChanged();
         }
+    }
+
+    public void SwapActiveWeapon()
+    {
+        SetActiveSlot(1 - activeSlot);
     }
 
     public Weapon GetWeapon(int slot) 
