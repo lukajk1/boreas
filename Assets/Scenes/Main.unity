@@ -9678,6 +9678,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1709681676}
   - {fileID: 1676365673}
   - {fileID: 284004323}
   - {fileID: 1229569015}
@@ -9685,7 +9686,6 @@ RectTransform:
   - {fileID: 1808563815}
   - {fileID: 500321982}
   - {fileID: 2098948991}
-  - {fileID: 1709681676}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -17959,7 +17959,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d00f89baa2d8e94ba89ef5255db2403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fpCamera: {fileID: 963194227}
   bloodSplatter: {fileID: 3363091657943225602, guid: 3cacb96d46605b943a6962849f56f156, type: 3}
+  damageNumberCanvas: {fileID: 1523489834756774161, guid: 520c108cd37820741a0b9dcad41f9ece, type: 3}
 --- !u!1 &1541518350
 GameObject:
   m_ObjectHideFlags: 0

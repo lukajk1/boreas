@@ -52,7 +52,6 @@ public class PlayerShoot : MonoBehaviour
         {
             if (hit.transform.root.TryGetComponent<Unit>(out var unit))
             {
-                unit.TakeDamage(17);
             }
 
 
@@ -60,14 +59,16 @@ public class PlayerShoot : MonoBehaviour
             {
                 combatUI.ShowHitMarker(false);
                 HUDSFXManager.I.PlaySound(HUDSFXManager.SFX.NormalHit);
-                WeaponEventBus.BCOnEnemyHit(hit.point);
+                WeaponEventBus.BCOnEnemyHit(17, false, hit.point);
+                unit.TakeDamage(false, 17);
                 return true;
             }
             else if (hit.collider.TryGetComponent<CriticalEnemy>(out var enemyCritical))
             {
                 combatUI.ShowHitMarker(true);
                 HUDSFXManager.I.PlaySound(HUDSFXManager.SFX.CriticalHit);
-                WeaponEventBus.BCOnEnemyHit(hit.point);
+                WeaponEventBus.BCOnEnemyHit(17, true, hit.point);
+                unit.TakeDamage(true, 17);
                 return true;
             }
             else return false;

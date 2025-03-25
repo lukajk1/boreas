@@ -11,9 +11,9 @@ public static class WeaponEventBus
 
     public static void BCOnWeaponFired() => OnWeaponFired?.Invoke();
 
-    public static event Action<Vector3> OnEnemyHit;
+    public static event Action<int, bool, Vector3> OnEnemyHit;
 
-    public static void BCOnEnemyHit(Vector3 pos) => OnEnemyHit?.Invoke(pos);
+    public static void BCOnEnemyHit(int damage, bool isCrit, Vector3 pos) => OnEnemyHit?.Invoke(damage, isCrit, pos);
 
     public static event Action OnEnemyDeath;
 

@@ -33,7 +33,7 @@ public class Healthbar : MonoBehaviour
 
     }
 
-    private void UpdateBar(int damage)
+    private void UpdateBar(bool isCrit, int damage)
     {
         currentHealth -= damage;
         healthbar.value = (float)currentHealth / unitTarget.BaseMaxHealth; // cast to float to avoid int division

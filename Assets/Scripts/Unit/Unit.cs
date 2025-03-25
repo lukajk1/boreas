@@ -10,7 +10,7 @@ public abstract class Unit : MonoBehaviour
     public abstract float BaseMoveSpeed { get; } // in units per s
     public float CurrentMoveSpeed { get; private set; }
 
-    public event Action<int> OnUnitDamaged;
+    public event Action<bool, int> OnUnitDamaged;
     public event Action OnUnitReady;
     public event Action OnUnitDeath;
 
@@ -20,7 +20,7 @@ public abstract class Unit : MonoBehaviour
         OnUnitReady?.Invoke();
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(bool isCrit, int damage)
     {
         if (damage > 0)
         {
@@ -31,7 +31,7 @@ public abstract class Unit : MonoBehaviour
             else
             {
                 CurrentHealth -= damage;
-                OnUnitDamaged?.Invoke(damage);
+                OnUnitDamaged?.Invoke(isCrit, damage);
             }
         }
     }
