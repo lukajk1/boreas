@@ -5,15 +5,18 @@ public abstract class Unit : MonoBehaviour
 {
     public abstract string Name { get; }
     public int CurrentHealth { get; private set; }
-    public abstract int MaxHealth { get; }
+    public abstract int BaseMaxHealth { get; }
+    public int CurrentMaxHealth { get; private set; }
     public abstract float BaseMoveSpeed { get; } // in units per s
+    public float CurrentMoveSpeed { get; private set; }
 
     public event Action<int> OnUnitDamaged;
     public event Action OnUnitReady;
+    public event Action OnUnitDeath;
 
     private void Start()
     {
-        CurrentHealth = MaxHealth;
+        CurrentHealth = BaseMaxHealth;
         OnUnitReady?.Invoke();
     }
 
@@ -33,8 +36,9 @@ public abstract class Unit : MonoBehaviour
         }
     }
 
-    private void Die()
+    protected virtual void Die()
     {
-        // ..
+        OnUnitDeath?.Invoke();
+        Destroy(gameObject);
     }
 }

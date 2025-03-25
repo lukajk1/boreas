@@ -52,20 +52,22 @@ public class PlayerShoot : MonoBehaviour
         {
             if (hit.transform.root.TryGetComponent<Unit>(out var unit))
             {
-                unit.TakeDamage(50);
+                unit.TakeDamage(17);
             }
 
 
             if (hit.collider.TryGetComponent<EnemyBody>(out var enemy))
             {
-                combatUI.ShowHitMarker();
+                combatUI.ShowHitMarker(false);
                 hitSound.Play();
+                WeaponEventBus.BCOnEnemyHit(hit.point);
                 return true;
             }
             else if (hit.collider.TryGetComponent<CriticalEnemy>(out var enemyCritical))
             {
-                combatUI.ShowHitMarker();
+                combatUI.ShowHitMarker(true);
                 critSound.Play();
+                WeaponEventBus.BCOnEnemyHit(hit.point);
                 return true;
             }
             else return false;

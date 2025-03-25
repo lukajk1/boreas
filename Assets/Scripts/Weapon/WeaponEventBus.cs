@@ -17,4 +17,11 @@ public static class WeaponEventBus
         OnWeaponFired?.Invoke();
     }
 
+    public static event Action<Vector3> OnEnemyHit;
+
+    public static void BCOnEnemyHit(Vector3 pos)
+    {
+        OnEnemyHit?.Invoke(pos);
+    }
+
 }

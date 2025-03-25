@@ -19,8 +19,11 @@ public class CombatUI : MonoBehaviour
         Instance = this;
     }
 
-    public void ShowHitMarker()
+    public void ShowHitMarker(bool isCrit)
     {
+        if (isCrit) hitmarker.color = new Color(1f, 0, 0, 0.63f);
+        else hitmarker.color = new Color(1f, 1f, 1f, 0.63f);
+
         if (hitmarkerCR != null)
         {
             StopCoroutine(hitmarkerCR);

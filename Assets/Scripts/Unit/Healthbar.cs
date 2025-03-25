@@ -17,21 +17,26 @@ public class Healthbar : MonoBehaviour
     void OnEnable()
     {
         if (unitTarget != null)
+        {
             unitTarget.OnUnitDamaged += UpdateBar;
             unitTarget.OnUnitReady += Setup;
+        }
     }
 
     void OnDisable()
     {
         if (unitTarget != null)
+        {
             unitTarget.OnUnitDamaged -= UpdateBar;
-        unitTarget.OnUnitReady -= Setup;
+            unitTarget.OnUnitReady -= Setup;
+        }
+
     }
 
     private void UpdateBar(int damage)
     {
         currentHealth -= damage;
-        healthbar.value = (float)currentHealth / unitTarget.MaxHealth; // cast to float to avoid int division
+        healthbar.value = (float)currentHealth / unitTarget.BaseMaxHealth; // cast to float to avoid int division
     }
 
     private void Setup()
@@ -45,7 +50,7 @@ public class Healthbar : MonoBehaviour
         playerTransform = Game.Instance.PlayerTransform;
         playerCamera = Game.Instance.PlayerCamera;
 
-        currentHealth = unitTarget.MaxHealth;
+        currentHealth = unitTarget.BaseMaxHealth;
     }
 
     private void Update()
