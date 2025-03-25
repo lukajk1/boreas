@@ -38,7 +38,7 @@ public abstract class Unit : MonoBehaviour
 
     protected virtual void Die()
     {
-        OnUnitDeath?.Invoke();
+        OnUnitDeath?.Invoke(); // for "local" processes that need to know about the unit dying
         Destroy(gameObject);
     }
 }

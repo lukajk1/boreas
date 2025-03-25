@@ -46,7 +46,7 @@ public class PlayerShoot : MonoBehaviour
     private bool Fire()
     {
         weapon.Fire();
-        shootSound.Play();
+        HUDSFXManager.I.PlaySound(HUDSFXManager.SFX.ShotFired);
 
         if (Physics.Raycast(fpCamera.transform.position, fpCamera.transform.forward, out hit, Range))
         {
@@ -59,14 +59,14 @@ public class PlayerShoot : MonoBehaviour
             if (hit.collider.TryGetComponent<EnemyBody>(out var enemy))
             {
                 combatUI.ShowHitMarker(false);
-                hitSound.Play();
+                HUDSFXManager.I.PlaySound(HUDSFXManager.SFX.NormalHit);
                 WeaponEventBus.BCOnEnemyHit(hit.point);
                 return true;
             }
             else if (hit.collider.TryGetComponent<CriticalEnemy>(out var enemyCritical))
             {
                 combatUI.ShowHitMarker(true);
-                critSound.Play();
+                HUDSFXManager.I.PlaySound(HUDSFXManager.SFX.CriticalHit);
                 WeaponEventBus.BCOnEnemyHit(hit.point);
                 return true;
             }
