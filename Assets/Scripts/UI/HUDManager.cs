@@ -9,14 +9,14 @@ public class HUDManager : MonoBehaviour
 
     private void OnEnable()
     {
-        WeaponEventBus.OnActiveWeaponChanged += SetActiveWeapon;
-        WeaponEventBus.OnWeaponFired += UpdateAmmoHUD;
+        CombatEventBus.OnActiveWeaponChanged += SetActiveWeapon;
+        CombatEventBus.OnWeaponFired += UpdateAmmoHUD;
     }
 
     private void OnDisable()
     {
-        WeaponEventBus.OnActiveWeaponChanged -= SetActiveWeapon;
-        WeaponEventBus.OnWeaponFired -= UpdateAmmoHUD;
+        CombatEventBus.OnActiveWeaponChanged -= SetActiveWeapon;
+        CombatEventBus.OnWeaponFired -= UpdateAmmoHUD;
     }
 
     private void SetActiveWeapon()

@@ -17,11 +17,11 @@ public class PlayerShoot : MonoBehaviour
 
     private void OnEnable()
     {
-        WeaponEventBus.OnActiveWeaponChanged += UpdateActiveWeapon;
+        CombatEventBus.OnActiveWeaponChanged += UpdateActiveWeapon;
     }
     private void OnDisable()
     {
-        WeaponEventBus.OnActiveWeaponChanged -= UpdateActiveWeapon;
+        CombatEventBus.OnActiveWeaponChanged -= UpdateActiveWeapon;
     }
     public void Setup()
     {
@@ -59,16 +59,22 @@ public class PlayerShoot : MonoBehaviour
             {
                 combatUI.ShowHitMarker(false);
                 HUDSFXManager.I.PlaySound(HUDSFXManager.SFX.NormalHit);
-                WeaponEventBus.BCOnEnemyHit(17, false, hit.point);
-                unit.TakeDamage(false, 17);
+
+                int damageDealt = weapon.BaseDamage;
+
+                CombatEventBus.BCOnEnemyHit(damageDealt, false, hit.point);
+                unit.TakeDamage(false, damageDealt);
                 return true;
             }
             else if (hit.collider.TryGetComponent<CriticalEnemy>(out var enemyCritical))
             {
                 combatUI.ShowHitMarker(true);
                 HUDSFXManager.I.PlaySound(HUDSFXManager.SFX.CriticalHit);
-                WeaponEventBus.BCOnEnemyHit(17, true, hit.point);
-                unit.TakeDamage(true, 17);
+
+                int damageDealt = (int)(weapon.BaseDamage * 1.7f);
+
+                CombatEventBus.BCOnEnemyHit(damageDealt, true, hit.point);
+                unit.TakeDamage(true, damageDealt);
                 return true;
             }
             else return false;

@@ -85,7 +85,11 @@ public class Console : MonoBehaviour
             Debug.LogWarning("Command cannot be empty.");
             return false;
         }
-
+        if (parsed[0] == "printstats")
+        {
+            FindFirstObjectByType<RunStatsManager>().PrintStats();
+            return true;
+        }
         if (parsed[0] == "player" || parsed[0] == "p")
         {
             if (parsed[1] == "speed" || parsed[1] == "s")

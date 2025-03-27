@@ -14,7 +14,7 @@ public class PlayerLookAndMove : MonoBehaviour
 
     [SerializeField] private Transform lastJumpedFrom;
 
-    private float moveSpeed = 6f;
+    private float moveSpeed;
     public float MoveSpeed
     {
         get
@@ -58,6 +58,7 @@ public class PlayerLookAndMove : MonoBehaviour
     private InputAction jump;
 
     private Game game;
+    private PlayerUnit playerUnit;
 
     private float positionSaveInterval = 0.5f;
     private float timeSinceLastSave = 0f;
@@ -70,6 +71,9 @@ public class PlayerLookAndMove : MonoBehaviour
 
         rb = player.GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotation;
+
+        playerUnit = GetComponent<PlayerUnit>();
+        moveSpeed = playerUnit.BaseMoveSpeed;
     }
 
     private void OnEnable()

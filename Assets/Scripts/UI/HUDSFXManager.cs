@@ -23,11 +23,11 @@ public class HUDSFXManager : MonoBehaviour
 
     private void OnEnable()
     {
-        WeaponEventBus.OnEnemyDeath += OnEnemyDeath;
+        CombatEventBus.OnEnemyDeath += OnEnemyDeath;
     }
     private void OnDisable()
     {
-        WeaponEventBus.OnEnemyDeath -= OnEnemyDeath;
+        CombatEventBus.OnEnemyDeath -= OnEnemyDeath;
     }
 
     private void Awake()
@@ -55,6 +55,7 @@ public class HUDSFXManager : MonoBehaviour
         if (source == null)
             throw new System.NullReferenceException($"AudioSource for '{sfx}' is null.");
 
+        source.pitch = Random.Range(0.9f, 1.1f);
         source.Play();
     }
 

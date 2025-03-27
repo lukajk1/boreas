@@ -3,10 +3,10 @@ using UnityEngine;
 
 public abstract class EnemyUnit : Unit
 {
-
+    public abstract int ScoreWeight { get; }
     protected override void Die()
     {
-        WeaponEventBus.BCOnEnemyDeath();
+        CombatEventBus.BCOnEnemyDeath();
         base.Die();
     }
 }

@@ -11,7 +11,7 @@ public class DamageNumbers : MonoBehaviour
 
     private Color startingColor;
 
-    private float height;
+    private float height = 30f;
 
     private Camera playerCamera;
     private Transform playerTransform;

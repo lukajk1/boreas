@@ -30,7 +30,7 @@ public abstract class Weapon
         }
     }
 
-    public abstract float BaseDamage { get; }
+    public abstract int BaseDamage { get; }
     public abstract float FireRate { get; }
     public abstract float ReloadSpeed { get; }
     public abstract float ReadySpeed { get; } // how fast a gun can be fired after being switched to
@@ -39,10 +39,12 @@ public abstract class Weapon
 
     public float[,] DamageFalloffTable;
 
-    public void Fire()
+    public virtual void Fire()
     {
         currentAmmo--;
-        WeaponEventBus.BCOnWeaponFired(); // currentAmmo has to decrement before broadcast for ammo count to be accurate
+        CombatEventBus.BCOnWeaponFired(); // currentAmmo has to decrement before broadcast for ammo count to be accurate
+
+
 
         if (currentAmmo <= 0)
         {
@@ -52,7 +54,7 @@ public abstract class Weapon
     public void Reload()
     {
         currentAmmo = ClipSize;
-        WeaponEventBus.BCOnWeaponFired(); // hack way of updating ammo count.. change later
+        CombatEventBus.BCOnWeaponFired(); // hack way of updating ammo count.. change later
     }
 
     public Weapon()

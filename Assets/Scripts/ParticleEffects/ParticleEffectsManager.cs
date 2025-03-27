@@ -23,12 +23,12 @@ public class ParticleEffectsManager : MonoBehaviour
 
     private void OnEnable()
     {
-        WeaponEventBus.OnEnemyHit += OnEnemyHit;
+        CombatEventBus.OnEnemyHit += OnEnemyHit;
     }
 
     private void OnDisable()
     {
-        WeaponEventBus.OnEnemyHit -= OnEnemyHit;
+        CombatEventBus.OnEnemyHit -= OnEnemyHit;
     }
 
     private void OnEnemyHit(int damage, bool isCrit, Vector3 pos)
