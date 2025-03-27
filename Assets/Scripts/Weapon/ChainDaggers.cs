@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class Deagle : Weapon
+public class ChainDaggers : Weapon
 {
-    public override string Name => "Deagle";
+    public override string Name => "Chain Daggers";
     public override int ClipSize => 7;
     public override int BaseDamage => 45;
     public override float FireRate => 0.63f;

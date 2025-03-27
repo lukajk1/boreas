@@ -1,10 +1,12 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class HUDManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI gunName;
     [SerializeField] private TextMeshProUGUI ammoHUD;
+    [SerializeField] private Slider healthbar;
     private Weapon activeWeapon;
 
     private void OnEnable()
