@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 
 public abstract class Weapon
 {
@@ -36,20 +37,46 @@ public abstract class Weapon
     public abstract float ReadySpeed { get; } // how fast a gun can be fired after being switched to
 
     public abstract float LifestealRatio { get; }
+    public abstract float Range { get; }
 
     public float[,] DamageFalloffTable;
+    protected WeaponTimer weaponTimer;
+    protected RaycastHit hit;
 
-    public virtual void Fire()
+    public Weapon()
     {
-        currentAmmo--;
-        CombatEventBus.BCOnWeaponFired(); // currentAmmo has to decrement before broadcast for ammo count to be accurate
-
-
-
+        currentAmmo = ClipSize;
+        weaponTimer = new GameObject($"{Name} Timer").AddComponent<WeaponTimer>();
+        weaponTimer.Setup(this);
+    }
+    public abstract void Fire(Vector3 firingOrigin, Vector3 forwardFacingVector);
+    protected virtual bool TryFire()
+    {
         if (currentAmmo <= 0)
         {
-            Reload();
+            return false;
         }
+        if (weaponTimer.QueryCanFire())
+        {
+            HUDSFXManager.I.PlaySound(HUDSFXManager.SFX.ShotFired); // eventually this will be weapon specific and will be moved out of here
+            currentAmmo--;
+            CombatEventBus.BCOnWeaponFired(); // currentAmmo has to decrement before broadcast for ammo count to be accurate
+
+            if (currentAmmo <= 0)
+            {
+                if (!weaponTimer.IsReloading())
+                {
+                    StartReload();
+                }
+            }
+
+            return true;
+        }
+        else return false;
+    }
+    protected void StartReload()
+    {
+        weaponTimer.Reload();
     }
     public void Reload()
     {
@@ -57,8 +84,30 @@ public abstract class Weapon
         CombatEventBus.BCOnWeaponFired(); // hack way of updating ammo count.. change later
     }
 
-    public Weapon()
+    protected void ProcessHit(RaycastHit hit)
     {
-        currentAmmo = ClipSize;
+        if (hit.transform.root.TryGetComponent<Unit>(out var unit))
+        {
+            // keep this for now
+        }
+
+        if (hit.collider.TryGetComponent<EnemyBody>(out var enemy))
+        {
+            HUDSFXManager.I.PlaySound(HUDSFXManager.SFX.NormalHit);
+
+            int damageDealt = BaseDamage;
+
+            CombatEventBus.BCOnEnemyHit(damageDealt, false, hit.point);
+            unit.TakeDamage(false, damageDealt);
+        }
+        else if (hit.collider.TryGetComponent<CriticalEnemy>(out var enemyCritical))
+        {
+            HUDSFXManager.I.PlaySound(HUDSFXManager.SFX.CriticalHit);
+
+            int damageDealt = (int)(BaseDamage * 1.75f);
+
+            CombatEventBus.BCOnEnemyHit(damageDealt, true, hit.point);
+            unit.TakeDamage(true, damageDealt);
+        }
     }
 }

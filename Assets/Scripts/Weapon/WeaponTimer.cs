@@ -1,0 +1,58 @@
+using System;
+using System.Collections;
+using UnityEngine;
+
+public class WeaponTimer : MonoBehaviour
+{
+    private Weapon weapon;
+    private Coroutine fireCooldown;
+    private Coroutine reloadTimer;
+    public void Setup(Weapon weapon)
+    {
+        this.weapon = weapon;
+    }
+    public bool QueryCanFire()
+    {
+        if (fireCooldown == null)
+        {
+            fireCooldown = StartCoroutine(Timer(weapon.FireRate, () => fireCooldown = null));
+            //Debug.Log("okay to fire");
+            return true;
+        }
+        else
+        {
+            //Debug.Log("can't fire");
+            return false;
+        }
+    }
+
+    public bool IsReloading()
+    {
+        if (reloadTimer == null)
+        {
+            return false;
+        }
+        else return true;
+    }
+
+    public void Reload()
+    {
+        if (reloadTimer == null)
+        {
+            reloadTimer = StartCoroutine(Reload(weapon.ReloadSpeed, () => reloadTimer = null));
+        }
+    }
+
+    private IEnumerator Timer(float duration, Action onComplete)
+    {
+        yield return new WaitForSeconds(duration);
+        onComplete?.Invoke();
+    }
+
+    private IEnumerator Reload(float duration, Action onComplete) // bad practice probably but also idrc
+    {
+        yield return new WaitForSeconds(duration);
+        onComplete?.Invoke();
+        weapon.Reload();
+    }
+}

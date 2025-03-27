@@ -7,7 +7,6 @@ public class PlayerFiring : MonoBehaviour
     private const float Range = 999f;
     private float nextFireTime = 0f;
 
-    private RaycastHit hit;
 
     private Weapon weapon;
 
@@ -39,41 +38,8 @@ public class PlayerFiring : MonoBehaviour
         }
     }
 
-    private bool Fire()
+    private void Fire()
     {
-        weapon.Fire();
-        HUDSFXManager.I.PlaySound(HUDSFXManager.SFX.ShotFired);
-
-        if (Physics.Raycast(fpCamera.transform.position, fpCamera.transform.forward, out hit, Range))
-        {
-            if (hit.transform.root.TryGetComponent<Unit>(out var unit))
-            {
-                // keep this for now
-            }
-
-            if (hit.collider.TryGetComponent<EnemyBody>(out var enemy))
-            {
-                HUDSFXManager.I.PlaySound(HUDSFXManager.SFX.NormalHit);
-
-                int damageDealt = weapon.BaseDamage;
-
-                CombatEventBus.BCOnEnemyHit(damageDealt, false, hit.point);
-                unit.TakeDamage(false, damageDealt);
-                return true;
-            }
-            else if (hit.collider.TryGetComponent<CriticalEnemy>(out var enemyCritical))
-            {
-                HUDSFXManager.I.PlaySound(HUDSFXManager.SFX.CriticalHit);
-
-                int damageDealt = (int)(weapon.BaseDamage * 1.7f);
-
-                CombatEventBus.BCOnEnemyHit(damageDealt, true, hit.point);
-                unit.TakeDamage(true, damageDealt);
-                return true;
-            }
-            else return false;
-
-        }
-        else return false;
+        weapon.Fire(fpCamera.transform.position, fpCamera.transform.forward);
     }
 }
