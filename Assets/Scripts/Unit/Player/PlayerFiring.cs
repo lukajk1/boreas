@@ -3,11 +3,6 @@ using UnityEngine;
 public class PlayerFiring : MonoBehaviour
 {
     [SerializeField] private Camera fpCamera;
-
-    private const float Range = 999f;
-    private float nextFireTime = 0f;
-
-
     private Weapon weapon;
 
     private void OnEnable()
@@ -25,21 +20,14 @@ public class PlayerFiring : MonoBehaviour
 
     private void UpdateActiveWeapon()
     {
-        weapon = Inventory.Instance.GetActiveWeapon();
+        weapon = Inventory.I.GetActiveWeapon();
     }
 
     private void Update()
     {
-
-        if (Input.GetButton("Fire1") && Time.time >= nextFireTime)
+        if (Input.GetButton("Fire1"))
         {
-            nextFireTime = Time.time + weapon.FireRate;
-            Fire();
+            weapon.Fire(fpCamera.transform.position, fpCamera.transform.forward);
         }
-    }
-
-    private void Fire()
-    {
-        weapon.Fire(fpCamera.transform.position, fpCamera.transform.forward);
     }
 }

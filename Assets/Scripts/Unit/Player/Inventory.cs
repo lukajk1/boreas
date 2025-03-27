@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public static Inventory Instance;
+    public static Inventory I;
     private Weapon[] equippedWeapons = new Weapon[2];
     private int activeSlot = 0;
     private void Awake()
     {
-        if (Instance != null)
+        if (I != null)
         {
             Debug.LogError("multiple singletons in scene");
         }
-        Instance = this;
+        I = this;
     }
     public void SetActiveSlot(int slot)
     {

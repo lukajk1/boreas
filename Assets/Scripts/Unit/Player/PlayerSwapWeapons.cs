@@ -12,7 +12,7 @@ public class PlayerSwapWeapons : MonoBehaviour
 
     private void Start()
     {
-        inventory = Inventory.Instance;
+        inventory = Inventory.I;
     }
     private void Update()
     {

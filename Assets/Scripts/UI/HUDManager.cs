@@ -23,7 +23,7 @@ public class HUDManager : MonoBehaviour
 
     private void SetActiveWeapon()
     {
-        activeWeapon = Inventory.Instance.GetActiveWeapon();
+        activeWeapon = Inventory.I.GetActiveWeapon();
         gunName.text = activeWeapon.Name;
         ammoHUD.text = $"{activeWeapon.CurrentAmmo} / {activeWeapon.ClipSize}";
     }

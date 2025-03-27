@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
 
 public abstract class Weapon
 {
@@ -35,7 +34,6 @@ public abstract class Weapon
     public abstract float FireRate { get; }
     public abstract float ReloadSpeed { get; }
     public abstract float ReadySpeed { get; } // how fast a gun can be fired after being switched to
-
     public abstract float LifestealRatio { get; }
     public abstract float Range { get; }
 
