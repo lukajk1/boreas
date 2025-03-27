@@ -1,17 +1,21 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class PlayerFiring : MonoBehaviour
+public class PlayerWeaponManager : MonoBehaviour
 {
     [SerializeField] private Camera fpCamera;
+    [SerializeField] private PlayerInput playerInput;
     private Weapon weapon;
 
     private void OnEnable()
     {
         CombatEventBus.OnActiveWeaponChanged += UpdateActiveWeapon;
+        playerInput.actions["Reload"].performed += OnReloadPressed;
     }
     private void OnDisable()
     {
         CombatEventBus.OnActiveWeaponChanged -= UpdateActiveWeapon;
+        playerInput.actions["Reload"].performed -= OnReloadPressed;
     }
     public void Setup()
     {
@@ -29,5 +33,9 @@ public class PlayerFiring : MonoBehaviour
         {
             weapon.Fire(fpCamera.transform.position, fpCamera.transform.forward);
         }
+    }
+    private void OnReloadPressed(InputAction.CallbackContext ctx)
+    {
+        weapon.Reload();
     }
 }

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class BloodSiphonTimer : MonoBehaviour
 {
-    private BloodSiphon weapon;
+    private BloodSiphon bloodSiphon;
     private Coroutine regenDelay;
     private Coroutine hasFired;
     private float regenDelayLength;
-    public void Setup(BloodSiphon weapon)
+    public void Setup(BloodSiphon bloodSiphon)
     {
-        this.weapon = weapon;
-        regenDelayLength = weapon.RegenDelay;
+        this.bloodSiphon = bloodSiphon;
+        regenDelayLength = bloodSiphon.AmmoRegenRate;
     }
 
     private void Update()
@@ -25,7 +25,7 @@ public class BloodSiphonTimer : MonoBehaviour
     private IEnumerator Regen(float duration, Action onComplete)
     {
         yield return new WaitForSeconds(duration);
-        weapon.ModifyCurrentAmmo(1);
+        bloodSiphon.SetCurrentAmmo(bloodSiphon.CurrentAmmo + 1);
         onComplete?.Invoke();
     }
 
@@ -41,6 +41,6 @@ public class BloodSiphonTimer : MonoBehaviour
         {
             StopCoroutine(hasFired);
         }
-        hasFired = StartCoroutine(Timer(weapon.DelayAfterFiringToStartRegen, () => hasFired = null));
+        hasFired = StartCoroutine(Timer(bloodSiphon.DelayAfterFiringToStartRegen, () => hasFired = null));
     }
 }

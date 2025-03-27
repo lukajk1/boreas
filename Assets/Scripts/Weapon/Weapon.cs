@@ -64,7 +64,7 @@ public abstract class Weapon
             {
                 if (!weaponTimer.IsReloading())
                 {
-                    StartReload();
+                    Reload();
                 }
             }
 
@@ -72,20 +72,18 @@ public abstract class Weapon
         }
         else return false;
     }
-    protected void StartReload()
+    public virtual void Reload()
     {
         weaponTimer.Reload();
     }
-    public virtual void Reload()
-    {
-        currentAmmo = ClipSize;
-        CombatEventBus.BCOnWeaponFired(); // hack way of updating ammo count.. change later
-    }
 
-    public void ModifyCurrentAmmo(int amount)
+    public void SetCurrentAmmo(int amount)
     {
-        CurrentAmmo += amount;
-        CombatEventBus.BCOnWeaponFired(); // hack way of updating ammo count.. change later
+        if (CurrentAmmo != amount) // reduce unnecessary broadcasts
+        {
+            CombatEventBus.BCOnWeaponFired(); // hack way of updating ammo count.. change later
+            CurrentAmmo = amount;
+        }
     }
 
     protected void ProcessHit(RaycastHit hit)
@@ -97,6 +95,7 @@ public abstract class Weapon
 
         if (hit.collider.TryGetComponent<EnemyBody>(out var enemy))
         {
+            OnNormalHit();
             HUDSFXManager.I.PlaySound(HUDSFXManager.SFX.NormalHit);
 
             int damageDealt = BaseDamage;
@@ -106,6 +105,7 @@ public abstract class Weapon
         }
         else if (hit.collider.TryGetComponent<CriticalEnemy>(out var enemyCritical))
         {
+            OnCriticalHit();
             HUDSFXManager.I.PlaySound(HUDSFXManager.SFX.CriticalHit);
 
             int damageDealt = (int)(BaseDamage * 1.75f);
@@ -114,4 +114,7 @@ public abstract class Weapon
             unit.TakeDamage(true, damageDealt);
         }
     }
+
+    protected virtual void OnCriticalHit() { }
+    protected virtual void OnNormalHit() { }
 }

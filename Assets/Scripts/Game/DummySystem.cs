@@ -6,7 +6,7 @@ public class DummySystem : MonoBehaviour
     {
         Inventory.I.SetWeapon(0, new BloodSiphon());
         Inventory.I.SetWeapon(1, new ChainDaggers());
-        FindFirstObjectByType<PlayerFiring>().Setup();
+        FindFirstObjectByType<PlayerWeaponManager>().Setup();
         MainEventBus.BCOnRunStart();
     }
 }

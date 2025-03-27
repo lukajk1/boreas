@@ -22,4 +22,8 @@ public class ChainDaggers : Weapon
             }
         }
     }
+    protected override void OnCriticalHit()
+    {
+        SetCurrentAmmo(CurrentAmmo + 1); // refund ammo on critical hit
+    }
 }

@@ -53,6 +53,6 @@ public class WeaponTimer : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
         onComplete?.Invoke();
-        weapon.Reload();
+        weapon.SetCurrentAmmo(weapon.ClipSize);
     }
 }
