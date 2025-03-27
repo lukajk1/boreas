@@ -21,7 +21,7 @@ public class CheckForInteractable : MonoBehaviour
     {
         isInteractable = false;
 
-        pressedInteract = Input.GetKeyDown(KeyCode.E);
+        pressedInteract = Input.GetKeyDown(KeyCode.G);
 
         if (Physics.Raycast(fpCamera.transform.position, fpCamera.transform.forward, out hit, Range))
         {

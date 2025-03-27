@@ -10559,7 +10559,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fpCamera: {fileID: 963194227}
-  combatUI: {fileID: 0}
 --- !u!4 &1087732539 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7541199040595490254, guid: 82e9797f46f43ce45bd0c7ef6e881c77, type: 3}
@@ -11627,7 +11626,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '[e] interact'
+  m_text: '[G] interact'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 048436e80454f1e48919a31ef30a262c, type: 2}
   m_sharedMaterial: {fileID: 5586534966655269528, guid: 048436e80454f1e48919a31ef30a262c, type: 2}
