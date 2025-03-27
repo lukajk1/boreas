@@ -44,7 +44,7 @@ public abstract class Weapon
     public Weapon()
     {
         currentAmmo = ClipSize;
-        weaponTimer = new GameObject($"{Name} Timer").AddComponent<WeaponTimer>();
+        weaponTimer = new GameObject($"Generic {Name} Timer").AddComponent<WeaponTimer>();
         weaponTimer.Setup(this);
     }
     public abstract void Fire(Vector3 firingOrigin, Vector3 forwardFacingVector);
@@ -76,9 +76,15 @@ public abstract class Weapon
     {
         weaponTimer.Reload();
     }
-    public void Reload()
+    public virtual void Reload()
     {
         currentAmmo = ClipSize;
+        CombatEventBus.BCOnWeaponFired(); // hack way of updating ammo count.. change later
+    }
+
+    public void ModifyCurrentAmmo(int amount)
+    {
+        CurrentAmmo += amount;
         CombatEventBus.BCOnWeaponFired(); // hack way of updating ammo count.. change later
     }
 
