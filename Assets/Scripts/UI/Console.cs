@@ -32,49 +32,6 @@ public class Console : MonoBehaviour
         HandleKeyboardCommands();
     }
 
-    private void HandleKeyboardCommands()
-    {
-        if (inputParent.activeSelf)
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                inputParent.SetActive(false);
-                Game.MenusOpen--;
-            }
-            else if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                inputField.text = lastCommand;
-                inputField.caretPosition = inputField.text.Length;
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.Slash))
-        {
-            Game.MenusOpen++;
-            inputParent.SetActive(true);
-            inputField.ActivateInputField();
-        }
-    }
-
-    private void OnSubmit(string command)
-    {
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
-        {
-            if (HandleCommand(command))
-            {
-                lastCommand = command;
-            }
-
-            inputField.text = ""; // Clear the input field
-            inputParent.SetActive(false);
-            Game.MenusOpen--;
-        }
-    }
-
-    private string[] SplitCommand(string command)
-    {
-        return command.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-    }
-
     private bool HandleCommand(string commandArg)
     {
         string formatted = commandArg.Trim().ToLower();
@@ -90,6 +47,13 @@ public class Console : MonoBehaviour
             FindFirstObjectByType<RunStatsManager>().PrintStats();
             return true;
         }
+
+
+        if (parsed[0] == "s" && parsed.Length == 2)
+        {
+            return WaveSpawner.I.SpawnEnemy(parsed[1]);
+        }
+
         if (parsed[0] == "player" || parsed[0] == "p")
         {
             if (parsed[1] == "speed" || parsed[1] == "s")
@@ -157,5 +121,48 @@ public class Console : MonoBehaviour
         return false;
     }
 
+
+    private void HandleKeyboardCommands()
+    {
+        if (inputParent.activeSelf)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                inputParent.SetActive(false);
+                Game.MenusOpen--;
+            }
+            else if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                inputField.text = lastCommand;
+                inputField.caretPosition = inputField.text.Length;
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Slash))
+        {
+            Game.MenusOpen++;
+            inputParent.SetActive(true);
+            inputField.ActivateInputField();
+        }
+    }
+
+    private void OnSubmit(string command)
+    {
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            if (HandleCommand(command))
+            {
+                lastCommand = command;
+            }
+
+            inputField.text = ""; // Clear the input field
+            inputParent.SetActive(false);
+            Game.MenusOpen--;
+        }
+    }
+
+    private string[] SplitCommand(string command)
+    {
+        return command.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+    }
 
 }
