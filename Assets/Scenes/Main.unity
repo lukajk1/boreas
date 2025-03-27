@@ -10465,8 +10465,8 @@ GameObject:
   - component: {fileID: 1085522345}
   - component: {fileID: 1085522338}
   - component: {fileID: 1085522339}
-  - component: {fileID: 1085522340}
   - component: {fileID: 1085522344}
+  - component: {fileID: 1085522346}
   m_Layer: 0
   m_Name: _Scripts
   m_TagString: Untagged
@@ -10522,23 +10522,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fpCamera: {fileID: 963194227}
   interactPrompt: {fileID: 408892466}
---- !u!114 &1085522340
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1085522335}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56fd3b672e4fb4346b9d25a08807e492, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fpCamera: {fileID: 963194227}
-  shootSound: {fileID: 0}
-  hitSound: {fileID: 0}
-  critSound: {fileID: 0}
-  combatUI: {fileID: 949356132}
 --- !u!114 &1085522344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10563,6 +10546,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80bbf6d3deba6b6449a313464f6e8751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1085522346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085522335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05956aebacfc8db458c5ce84c6a8d773, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fpCamera: {fileID: 963194227}
+  combatUI: {fileID: 0}
 --- !u!4 &1087732539 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7541199040595490254, guid: 82e9797f46f43ce45bd0c7ef6e881c77, type: 3}

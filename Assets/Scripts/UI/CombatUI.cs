@@ -19,7 +19,21 @@ public class CombatUI : MonoBehaviour
         Instance = this;
     }
 
-    public void ShowHitMarker(bool isCrit)
+    private void OnEnable()
+    {
+        CombatEventBus.OnEnemyHit += OnEnemyHit;
+    }
+    private void OnDisable()
+    {
+        CombatEventBus.OnEnemyHit -= OnEnemyHit;
+    }
+
+    private void OnEnemyHit(int damage, bool isCrit, Vector3 pos)
+    {
+        ShowHitMarker(isCrit);
+    }
+
+    private void ShowHitMarker(bool isCrit)
     {
         if (isCrit) hitmarker.color = new Color(1f, 0, 0, 0.63f);
         else hitmarker.color = new Color(1f, 1f, 1f, 0.63f);

@@ -1,12 +1,8 @@
 using UnityEngine;
 
-public class PlayerShoot : MonoBehaviour
+public class PlayerFiring : MonoBehaviour
 {
     [SerializeField] private Camera fpCamera;
-    [SerializeField] private AudioSource shootSound;
-    [SerializeField] private AudioSource hitSound;
-    [SerializeField] private AudioSource critSound;
-    [SerializeField] private CombatUI combatUI;
 
     private const float Range = 999f;
     private float nextFireTime = 0f;
@@ -52,12 +48,11 @@ public class PlayerShoot : MonoBehaviour
         {
             if (hit.transform.root.TryGetComponent<Unit>(out var unit))
             {
+                // keep this for now
             }
-
 
             if (hit.collider.TryGetComponent<EnemyBody>(out var enemy))
             {
-                combatUI.ShowHitMarker(false);
                 HUDSFXManager.I.PlaySound(HUDSFXManager.SFX.NormalHit);
 
                 int damageDealt = weapon.BaseDamage;
@@ -68,7 +63,6 @@ public class PlayerShoot : MonoBehaviour
             }
             else if (hit.collider.TryGetComponent<CriticalEnemy>(out var enemyCritical))
             {
-                combatUI.ShowHitMarker(true);
                 HUDSFXManager.I.PlaySound(HUDSFXManager.SFX.CriticalHit);
 
                 int damageDealt = (int)(weapon.BaseDamage * 1.7f);

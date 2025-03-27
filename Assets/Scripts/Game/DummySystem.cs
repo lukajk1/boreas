@@ -6,7 +6,7 @@ public class DummySystem : MonoBehaviour
     {
         Inventory.Instance.SetWeapon(0, new TrackingGun());
         Inventory.Instance.SetWeapon(1, new Deagle());
-        FindFirstObjectByType<PlayerShoot>().Setup();
+        FindFirstObjectByType<PlayerFiring>().Setup();
         MainEventBus.BCOnRunStart();
     }
 }
