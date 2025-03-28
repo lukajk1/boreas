@@ -84,7 +84,6 @@ public class PlayerLookAndMove : MonoBehaviour
     private InputAction crouchAction;
 
     private Vector3 movementVector;
-    private bool hasJumped;
 
     private void Awake()
     {
@@ -138,7 +137,6 @@ public class PlayerLookAndMove : MonoBehaviour
 
         if (IsGrounded)
         {
-            if (hasJumped) hasJumped = false;
 
             if (hit.collider.gameObject.layer == 4)
             {
@@ -176,30 +174,33 @@ public class PlayerLookAndMove : MonoBehaviour
     }
     private void OnJumpPerformed(InputAction.CallbackContext context)
     {
+
         if (IsGrounded && !Game.IsPaused)
         {
-            hasJumped = true;
-
-            ForceMode forceMode = ForceMode.Impulse;
-
-            player.transform.localScale = playerScale; // removes crouch mode
-            isCrouching = false;
-
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z); // Reset vertical velocity
-            rb.AddForce(Vector3.up * _jumpForce, forceMode);
-
-            //// add force based on vector from movement keys as well
-            //Vector2 moveDir = move.ReadValue<Vector2>().normalized * MoveSpeed * currentSpeedMultiplier * (!isGrounded ? airStrafeInfluence : 1f);
-
-            //float yRotation = transform.eulerAngles.y;
-            //Vector3 forward = new Vector3(Mathf.Sin(yRotation * Mathf.Deg2Rad), 0, Mathf.Cos(yRotation * Mathf.Deg2Rad)) * moveDir.y;
-            //Vector3 right = transform.right * moveDir.x;
-            //Vector3 movementVector = forward + right;
-
-            //rb.AddForce(movementVector * _jumpForce * 0.3f, forceMode);
-
-
+            Jump();
         }
+    }
+
+    public void Jump()
+    {
+        ForceMode forceMode = ForceMode.Impulse;
+
+        player.transform.localScale = playerScale; // removes crouch mode
+        isCrouching = false;
+
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z); // Reset vertical velocity
+        rb.AddForce(Vector3.up * _jumpForce, forceMode);
+
+        //// add force based on vector from movement keys as well
+        //Vector2 moveDir = move.ReadValue<Vector2>().normalized * MoveSpeed * currentSpeedMultiplier * (!isGrounded ? airStrafeInfluence : 1f);
+
+        //float yRotation = transform.eulerAngles.y;
+        //Vector3 forward = new Vector3(Mathf.Sin(yRotation * Mathf.Deg2Rad), 0, Mathf.Cos(yRotation * Mathf.Deg2Rad)) * moveDir.y;
+        //Vector3 right = transform.right * moveDir.x;
+        //Vector3 movementVector = forward + right;
+
+        //rb.AddForce(movementVector * _jumpForce * 0.3f, forceMode);
+
     }
     private void OnCrouchPerformed(InputAction.CallbackContext context)
     {

@@ -9,7 +9,7 @@ public class PlayerWallclimb : MonoBehaviour
 
     private GameObject player;
 
-    [SerializeField] private float wallClimbDuration = 0.7f;
+    private float wallClimbDuration = 0.7f;
     private float wallClimbTimer = 0f;
     private bool canWallClimb = true;
 

@@ -10293,7 +10293,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.1
   far clip plane: 1000
   field of view: 85
   orthographic: 0
@@ -11207,6 +11207,7 @@ MonoBehaviour:
   pMovement: {fileID: 362600148}
   playerLookAndMoveTransform: {fileID: 362600147}
   rb: {fileID: 545182813}
+  wallClimbDuration: 0.7
 --- !u!4 &1087732539 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7541199040595490254, guid: 82e9797f46f43ce45bd0c7ef6e881c77, type: 3}
