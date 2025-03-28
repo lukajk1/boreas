@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,7 @@ public class PlayerWallclimb : MonoBehaviour
     [SerializeField] private Rigidbody rb;
 
     private GameObject player;
+    private HUDManager hudManager;
 
     private float wallClimbDuration = 0.7f;
     private float wallClimbTimer = 0f;
@@ -25,6 +27,7 @@ public class PlayerWallclimb : MonoBehaviour
 
     private void Start()
     {
+        hudManager = FindFirstObjectByType<HUDManager>();
         player = transform.root.gameObject;
     }
 
@@ -59,6 +62,8 @@ public class PlayerWallclimb : MonoBehaviour
 
             if (bottomHit && middleHit && topHit)
             {
+                hudManager.SetWallClimbMeter(true);
+
                 wallClimbTimer += Time.fixedDeltaTime;
                 if (wallClimbTimer >= wallClimbDuration)
                 {
@@ -68,6 +73,8 @@ public class PlayerWallclimb : MonoBehaviour
                 {
                     rb.linearVelocity = new Vector3(rb.linearVelocity.x, 10f, rb.linearVelocity.z);
                 }
+
+                hudManager.SetWallClimbStamina((wallClimbDuration - wallClimbTimer) / wallClimbDuration);
             }
         }
     }
@@ -78,6 +85,7 @@ public class PlayerWallclimb : MonoBehaviour
         {
             wallClimbTimer = 0f;
             canWallClimb = true;
+            hudManager.SetWallClimbMeter(false);
         }
     }
 }
