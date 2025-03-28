@@ -35,7 +35,7 @@ public class ParticleEffectsManager : MonoBehaviour
     {
         BloodSplatter(pos);
 
-        if (Vector3.Distance(Game.Instance.PlayerTransform.position, pos) < 20f)
+        if (Vector3.Distance(Game.I.PlayerTransform.position, pos) < 20f)
         {
             ShowDamageNumbers(damage, isCrit, Vector3.Lerp(fpCamera.transform.position, pos + new Vector3(0, 1.4f, 0), 0.8f));
         }

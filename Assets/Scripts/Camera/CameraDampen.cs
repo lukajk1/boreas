@@ -10,7 +10,7 @@ public class CameraDampen : MonoBehaviour
     private Vector3 delayedPos;
     private Vector3 dampedPos;
 
-    private float verticalOffset = 1.2f;
+    private float verticalOffset = 0f; // not needed any more since target transform is now tied to a head, but here in case it's useful in the future
 
     private void LateUpdate()
     {
