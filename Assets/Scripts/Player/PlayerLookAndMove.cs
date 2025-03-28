@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.HID;
@@ -51,11 +52,26 @@ public class PlayerLookAndMove : MonoBehaviour
     private float xRotation;
     private float yRotation;
 
-    private bool isGrounded;
+    private bool _isGrounded;
+    public bool IsGrounded
+    {
+        get => _isGrounded;
+        private set
+        {
+            if (_isGrounded != value)
+            {
+                _isGrounded = value;
+                OnGroundedChanged?.Invoke(_isGrounded);
+            }
+        }
+    }
+
+    public event Action<bool> OnGroundedChanged;
+
     private bool isCrouching;
 
     private Game game;
-    private PlayerUnit playerUnit;
+    [SerializeField] private PlayerUnit playerUnit;
 
     private float positionSaveInterval = 0.5f;
     private float timeSinceLastSave = 0f;
@@ -68,6 +84,7 @@ public class PlayerLookAndMove : MonoBehaviour
     private InputAction crouchAction;
 
     private Vector3 movementVector;
+    private bool hasJumped;
 
     private void Awake()
     {
@@ -77,7 +94,6 @@ public class PlayerLookAndMove : MonoBehaviour
         actions = new InputSystem_Actions(); 
 
         rb = player.GetComponent<Rigidbody>();
-        playerUnit = GetComponent<PlayerUnit>();
         _moveSpeed = playerUnit.BaseMoveSpeed;
 
 
@@ -114,14 +130,16 @@ public class PlayerLookAndMove : MonoBehaviour
         timeSinceLastSave += Time.fixedDeltaTime;
 
         RaycastHit hit;
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, out hit, .35f);
+        IsGrounded = Physics.Raycast(transform.position, Vector3.down, out hit, .35f);
 
         //Debug.Log(isGrounded);
 
         rb.AddForce(Vector3.down * extraGravityForce, ForceMode.Force);
 
-        if (isGrounded)
+        if (IsGrounded)
         {
+            if (hasJumped) hasJumped = false;
+
             if (hit.collider.gameObject.layer == 4)
             {
                 player.transform.position = lastJumpedFrom.position;
@@ -158,8 +176,9 @@ public class PlayerLookAndMove : MonoBehaviour
     }
     private void OnJumpPerformed(InputAction.CallbackContext context)
     {
-        if (isGrounded && !Game.IsPaused) // possibly do a check to Mathf.Abs(rb.linearVelocity.y) < 0.01f but this could return true in cases where it shouldn't
+        if (IsGrounded && !Game.IsPaused)
         {
+            hasJumped = true;
 
             ForceMode forceMode = ForceMode.Impulse;
 
@@ -212,7 +231,7 @@ public class PlayerLookAndMove : MonoBehaviour
     private Vector3 DetermineMovementVector()
     {
 
-        Vector2 moveDir = move.ReadValue<Vector2>().normalized * MoveSpeed * currentSpeedMultiplier * (!isGrounded ? airStrafeInfluence : 1);
+        Vector2 moveDir = move.ReadValue<Vector2>().normalized * MoveSpeed * currentSpeedMultiplier * (!IsGrounded ? airStrafeInfluence : 1);
 
         // Get only the horizontal (yaw) rotation of the player, ignoring the pitch (up/down)
         float yRotation = transform.eulerAngles.y;

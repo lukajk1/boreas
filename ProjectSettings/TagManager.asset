@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Interact
+  - EnvCollidable
   layers:
   - Default
   - TransparentFX
