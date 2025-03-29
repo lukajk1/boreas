@@ -11,7 +11,7 @@ public class PlayerWallclimb : MonoBehaviour
     private GameObject player;
     private HUDManager hudManager;
 
-    private float wallClimbDuration = 0.7f;
+    private float wallClimbDuration = 0.5f;
     private float wallClimbTimer = 0f;
     private bool canWallClimb = true;
 
@@ -60,7 +60,7 @@ public class PlayerWallclimb : MonoBehaviour
             Debug.DrawLine(middle, middle + forward * rayLength, Color.green);
             Debug.DrawLine(top, top + forward * rayLength, Color.blue);
 
-            if (bottomHit && middleHit && topHit)
+            if (bottomHit || middleHit || topHit)
             {
                 hudManager.SetWallClimbMeter(true);
 

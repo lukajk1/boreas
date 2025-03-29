@@ -56,6 +56,7 @@ public class Game : MonoBehaviour
     public Camera PlayerCamera;
 
     public static Action<bool> PauseUpdated;
+    public static Action InitializeRun;
     public static Game I { get; private set; }
 
     private void Awake()
@@ -66,5 +67,10 @@ public class Game : MonoBehaviour
         }
 
         I = this;
+    }
+
+    private void Start()
+    {
+        InitializeRun?.Invoke();
     }
 }

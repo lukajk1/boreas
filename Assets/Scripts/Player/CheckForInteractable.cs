@@ -4,7 +4,7 @@ public class CheckForInteractable : MonoBehaviour
 {
     [SerializeField] private Camera fpCamera;
 
-    private const float Range = 5.0f;
+    private const float Range = 6.0f;
 
     private RaycastHit hit;
     [SerializeField] private InteractPrompt interactPrompt;

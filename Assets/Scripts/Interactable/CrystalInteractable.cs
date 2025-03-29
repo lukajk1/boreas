@@ -4,6 +4,7 @@ public class CrystalInteractable : Interactable
 {
     public override void OnInteract()
     {
-        // do nothin.. for now
+        SwapArenas.I.RandomlySwitchArenas();
+        Destroy(gameObject);
     }
 }

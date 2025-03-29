@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TrackingGun : Weapon
+public class Barehand : Weapon
 {
     public override string Name => "Tracking Gun";
     public override int ClipSize => 32;
