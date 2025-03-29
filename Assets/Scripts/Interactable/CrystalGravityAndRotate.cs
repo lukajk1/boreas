@@ -5,7 +5,7 @@ public class CrystalGravityAndRotate : MonoBehaviour
 {
     private Vector3 rotationSpeed = new Vector3(0, 0, 30f);
     private Rigidbody rb; 
-    private float raycastDistance = 3.5f;
+    private float raycastDistance = 2.5f;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
