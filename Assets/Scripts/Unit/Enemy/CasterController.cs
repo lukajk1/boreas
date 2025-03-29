@@ -1,12 +1,17 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CasterController : UnitController
 {
     [SerializeField] private Unit unitTarget;
+    [SerializeField] private GameObject projectile;
+
     private float movespeed;
     private Game game;
+    private NavMeshAgent agent;
     private bool allowedToMove = false;
-    private float minDistFromPlayer = 16.5f;
+    private float rangeFromPlayer = 15f;
+
     void OnEnable()
     {
         if (unitTarget != null)
@@ -28,22 +33,44 @@ public class CasterController : UnitController
         movespeed = unitTarget.BaseMoveSpeed;
         game = FindAnyObjectByType<Game>();
         allowedToMove = true;
+
+        agent = GetComponent<NavMeshAgent>();
+        agent.speed = movespeed;
+        agent.destination = Game.I.PlayerTransform.position;
+    }
+
+    void Start()
+    {
     }
 
     void Update()
     {
-        if (allowedToMove)
+        if (Vector3.Distance(transform.position, Game.I.PlayerTransform.position) > rangeFromPlayer)
         {
-            Vector3 targetPos = game.PlayerTransform.position;
-            targetPos.y = transform.position.y;
+            agent.isStopped = false;
+            if (allowedToMove) agent.destination = Game.I.PlayerTransform.position;
+        }
+        //else
+        //{
+        //    Ray ray = new Ray(transform.position, Game.I.PlayerTransform.position - transform.position);
+        //    RaycastHit hit;
 
-            if (Vector3.Distance(transform.position, targetPos) > minDistFromPlayer)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, movespeed * Time.deltaTime);
-            }
+        //    if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.name == "Player")
+        //    {
+        //        Debug.Log("Ray hit the Player!");
+        //    }
+        //}
+        else
+        {
+            agent.isStopped = true;
+            Attack();
         }
 
+    }
 
+    private void Attack()
+    {
+        //
     }
 
 }

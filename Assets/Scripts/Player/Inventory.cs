@@ -4,7 +4,7 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory I;
     private Weapon[] equippedWeapons = new Weapon[2];
-    private int activeSlot = 0;
+    public int ActiveSlot {  get; private set; }
     private void Awake()
     {
         if (I != null)
@@ -12,19 +12,22 @@ public class Inventory : MonoBehaviour
             Debug.LogError("multiple singletons in scene");
         }
         I = this;
+        ActiveSlot = 0;
     }
     public void SetActiveSlot(int slot)
     {
-        if (slot != activeSlot && (slot == 0 || slot == 1))
+        if (slot != ActiveSlot && (slot == 0 || slot == 1))
         {
-            activeSlot = slot;
+            ActiveSlot = slot;
             CombatEventBus.BCOnActiveWeaponChanged();
         }
     }
     public void SetWeapon(int slot, Weapon weapon)
     {
-        equippedWeapons[slot] = weapon;
-        if (slot == activeSlot)
+        CombatEventBus.BCOnWeaponDropped(equippedWeapons[slot]); // drop current weapon
+
+        equippedWeapons[slot] = weapon; // equip new weapon
+        if (slot == ActiveSlot)
         {
             CombatEventBus.BCOnActiveWeaponChanged();
         }
@@ -32,7 +35,7 @@ public class Inventory : MonoBehaviour
 
     public void SwapActiveWeapon()
     {
-        SetActiveSlot(1 - activeSlot);
+        SetActiveSlot(1 - ActiveSlot);
     }
 
     public Weapon GetWeapon(int slot) 
@@ -42,6 +45,6 @@ public class Inventory : MonoBehaviour
 
     public Weapon GetActiveWeapon()
     {
-        return equippedWeapons[activeSlot];
+        return equippedWeapons[ActiveSlot];
     }
 }

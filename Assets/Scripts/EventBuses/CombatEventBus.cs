@@ -3,6 +3,9 @@ using UnityEngine;
 
 public static class CombatEventBus
 {
+    public static event Action<Weapon> OnWeaponDropped;
+    public static void BCOnWeaponDropped(Weapon droppedWeapon) => OnWeaponDropped?.Invoke(droppedWeapon);
+
     public static event Action OnActiveWeaponChanged;
 
     public static void BCOnActiveWeaponChanged() => OnActiveWeaponChanged?.Invoke();

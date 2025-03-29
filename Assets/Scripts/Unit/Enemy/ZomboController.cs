@@ -42,13 +42,6 @@ public class ZomboController : UnitController
 
     void Update()
     {
-        //if (allowedToMove)
-        //{
-        //    Vector3 targetPos = game.PlayerTransform.position;
-        //    targetPos.y = transform.position.y;
-
-        //    transform.position = Vector3.MoveTowards(transform.position, targetPos, movespeed * Time.deltaTime);
-        //}
         if (allowedToMove)
         {
             agent.destination = Game.I.PlayerTransform.position;
