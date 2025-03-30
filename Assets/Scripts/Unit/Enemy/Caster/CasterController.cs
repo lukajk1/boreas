@@ -12,10 +12,8 @@ public class CasterController : UnitController
     private Game game;
     private NavMeshAgent agent;
     private bool allowedToMove = false;
-    private float rangeFromPlayer = 15f;
 
     private float bulletMaxDuration = 5f; // seconds
-    private float attackCD = 1.5f;
     private float bulletSpeed = 8.4f;
     private bool canAttack = true;
 
@@ -46,13 +44,14 @@ public class CasterController : UnitController
         agent.destination = Game.I.PlayerTransform.position;
     }
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
     }
 
     void Update()
     {
-        if (Vector3.Distance(transform.position, Game.I.PlayerTransform.position) > rangeFromPlayer)
+        if (Vector3.Distance(transform.position, Game.I.PlayerTransform.position) > enemyUnit.AttackRange)
         {
             agent.isStopped = false;
             if (allowedToMove) agent.destination = Game.I.PlayerTransform.position;
@@ -88,7 +87,7 @@ public class CasterController : UnitController
 
     private IEnumerator AttackCD()
     {
-        yield return new WaitForSeconds(attackCD);
+        yield return new WaitForSeconds(enemyUnit.AttackCDLength);
         canAttack = true;
     }
 

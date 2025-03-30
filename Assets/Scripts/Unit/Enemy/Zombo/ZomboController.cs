@@ -5,14 +5,9 @@ public class ZomboController : UnitController
 {
     [SerializeField] private EnemyUnit enemyUnit;
     private float movespeed;
-    private Game game;
     private NavMeshAgent agent;
-    private Timer timer;
 
     private bool allowedToMove = false;
-    private float attackCD = 2f;
-    private bool attackUp = true;
-    private float attackRange = 1.5f;
     void OnEnable()
     {
         if (enemyUnit != null)
@@ -32,18 +27,16 @@ public class ZomboController : UnitController
     private void Setup()
     {
         movespeed = enemyUnit.BaseMoveSpeed;
-        game = FindAnyObjectByType<Game>();
         allowedToMove = true;
 
         agent = GetComponent<NavMeshAgent>();
         agent.speed = movespeed;
         agent.destination = Game.I.PlayerTransform.position;
-
-        timer = gameObject.AddComponent<Timer>();
     }
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
     }
 
     void Update()
@@ -53,11 +46,11 @@ public class ZomboController : UnitController
             agent.destination = Game.I.PlayerTransform.position;
         }
 
-        if (attackUp && Vector3.Distance(Game.I.PlayerTransform.position, transform.position) < attackRange)
+        if (enemyUnit.AttackReady && Vector3.Distance(Game.I.PlayerTransform.position, transform.position) < enemyUnit.AttackRange)
         {
-            attackUp = false;
+            enemyUnit.AttackReady = false;
             Game.I.PlayerUnitInstance.TakeDamage(false, enemyUnit.BaseDamage);
-            StartCoroutine(timer.TimerCR(attackCD, () => attackUp = true));
+            StartCoroutine(timer.TimerCR(enemyUnit.AttackCDLength, () => enemyUnit.AttackReady = true));
         }
 
     }
