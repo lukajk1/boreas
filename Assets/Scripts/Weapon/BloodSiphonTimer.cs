@@ -25,6 +25,7 @@ public class BloodSiphonTimer : MonoBehaviour
     private IEnumerator Regen(float duration, Action onComplete)
     {
         yield return new WaitForSeconds(duration);
+        if (bloodSiphon.CurrentAmmo < bloodSiphon.ClipSize) bloodSiphon.TotalAmmo--;
         bloodSiphon.SetCurrentAmmo(bloodSiphon.CurrentAmmo + 1);
         onComplete?.Invoke();
     }
