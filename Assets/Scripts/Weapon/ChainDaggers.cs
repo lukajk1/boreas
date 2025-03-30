@@ -26,4 +26,8 @@ public class ChainDaggers : Weapon
     {
         SetCurrentAmmo(CurrentAmmo + 1); // refund ammo on critical hit
     }
+    protected override int DecideInitialTotalAmmo()
+    {
+        return Random.Range(7, 14) * ClipSize;
+    }
 }

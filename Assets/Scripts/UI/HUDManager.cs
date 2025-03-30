@@ -5,7 +5,8 @@ using UnityEngine.UI;
 public class HUDManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI gunName;
-    [SerializeField] private TextMeshProUGUI ammoHUD;
+    [SerializeField] private TextMeshProUGUI ammo;
+    [SerializeField] private TextMeshProUGUI totalAmmo;
     [SerializeField] private TextMeshProUGUI txtHealth;
     [SerializeField] private Slider healthbar;
     [SerializeField] private Slider wallClimbStamina;
@@ -14,7 +15,7 @@ public class HUDManager : MonoBehaviour
     private void OnEnable()
     {
         CombatEventBus.OnActiveWeaponChanged += UpdateActiveWeapon;
-        CombatEventBus.OnCurrentAmmoModified += UpdateAmmoHUD;
+        CombatEventBus.OnAmmoCountsModified += UpdateAmmoHUD;
         CombatEventBus.OnPlayerHit += OnPlayerHit;
         MainEventBus.OnRunStart += Setup;
     }
@@ -23,7 +24,7 @@ public class HUDManager : MonoBehaviour
     {
         MainEventBus.OnRunStart -= Setup;
         CombatEventBus.OnActiveWeaponChanged -= UpdateActiveWeapon;
-        CombatEventBus.OnCurrentAmmoModified -= UpdateAmmoHUD;
+        CombatEventBus.OnAmmoCountsModified -= UpdateAmmoHUD;
         CombatEventBus.OnPlayerHit -= OnPlayerHit;
     }
     private void Setup()
@@ -44,12 +45,13 @@ public class HUDManager : MonoBehaviour
     {
         activeWeapon = Inventory.I.GetActiveWeapon();
         gunName.text = activeWeapon.Name;
-        ammoHUD.text = $"{activeWeapon.CurrentAmmo} / {activeWeapon.ClipSize}";
+        UpdateAmmoHUD();
     }
 
     private void UpdateAmmoHUD()
     {
-        ammoHUD.text = $"{activeWeapon.CurrentAmmo} / {activeWeapon.ClipSize}";
+        ammo.text = $"{activeWeapon.CurrentAmmo} / {activeWeapon.ClipSize}";
+        totalAmmo.text = $"remaining: {activeWeapon.TotalAmmo}";
     }
 
     public void SetWallClimbStamina(float value)

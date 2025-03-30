@@ -14,8 +14,8 @@ public static class CombatEventBus
 
     public static void BCOnWeaponFired() => OnWeaponFired?.Invoke();
 
-    public static event Action OnCurrentAmmoModified;
-    public static void BCOnCurrentAmmoModified() => OnCurrentAmmoModified?.Invoke();
+    public static event Action OnAmmoCountsModified;
+    public static void BCOnAmmoCountsModified() => OnAmmoCountsModified?.Invoke();
 
     public static event Action<int, bool, Vector3> OnEnemyHit;
 

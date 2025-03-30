@@ -19,7 +19,7 @@ public class WeaponPickup : Interactable
                 weapon = new ChainDaggers();
                 break;
             case 3:
-                weapon = new Railgun();
+                weapon = new Spear();
                 break;
             default:
                 weapon = new Barehand();

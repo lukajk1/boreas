@@ -31,7 +31,7 @@ public class SpawnDroppedWeapon : MonoBehaviour
             case ChainDaggers:
                 drop = daggerDrop;
                     break;
-            case Railgun:
+            case Spear:
                 drop = sniperDrop;
                     break;
             default:

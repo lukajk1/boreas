@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class Railgun : Weapon
+public class Spear : Weapon
 {
-    public override string Name => "Railgun";
+    public override string Name => "Spear";
     public override int ClipSize => 7;
     public override int BaseDamage => 75;
     public override float FireRate => 1.75f;
@@ -20,5 +20,10 @@ public class Railgun : Weapon
                 ProcessHit(hit);
             }
         }
+    }
+
+    protected override int DecideInitialTotalAmmo()
+    {
+        return Random.Range(5, 11) * ClipSize;
     }
 }

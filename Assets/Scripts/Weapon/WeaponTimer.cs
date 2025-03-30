@@ -35,11 +35,11 @@ public class WeaponTimer : MonoBehaviour
         else return true;
     }
 
-    public void Reload()
+    public void Reload(int bulletCountToPutIn)
     {
         if (reloadTimer == null)
         {
-            reloadTimer = StartCoroutine(Reload(weapon.ReloadSpeed, () => reloadTimer = null));
+            reloadTimer = StartCoroutine(Reload(bulletCountToPutIn, weapon.ReloadSpeed, () => reloadTimer = null));
         }
     }
 
@@ -49,10 +49,12 @@ public class WeaponTimer : MonoBehaviour
         onComplete?.Invoke();
     }
 
-    private IEnumerator Reload(float duration, Action onComplete) // bad practice probably but also idrc
+    private IEnumerator Reload(int bulletCountToPutIn, float duration, Action onComplete) // bad practice to have a second CR probably but also idrc
     {
         yield return new WaitForSeconds(duration);
         onComplete?.Invoke();
+
         weapon.SetCurrentAmmo(weapon.ClipSize);
+        weapon.TotalAmmo -= bulletCountToPutIn;
     }
 }

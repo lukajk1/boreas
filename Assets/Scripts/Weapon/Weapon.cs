@@ -13,6 +13,7 @@ public abstract class Weapon
             if (value > 0)
             {
                 totalAmmo = value;
+                CombatEventBus.BCOnAmmoCountsModified();
             }
         }
     }
@@ -26,7 +27,7 @@ public abstract class Weapon
             if (value >= 0 && value <= ClipSize)
             {
                 _currentAmmo = value;
-                CombatEventBus.BCOnCurrentAmmoModified();
+                CombatEventBus.BCOnAmmoCountsModified();
             }
         }
     }
@@ -45,10 +46,17 @@ public abstract class Weapon
     public Weapon()
     {
         CurrentAmmo = ClipSize;
+        TotalAmmo = DecideInitialTotalAmmo();
         weaponTimer = new GameObject($"Generic {Name} Timer").AddComponent<WeaponTimer>();
         weaponTimer.Setup(this);
     }
     public abstract void Fire(Vector3 firingOrigin, Vector3 forwardFacingVector);
+
+    protected virtual int DecideInitialTotalAmmo()
+    {
+        return Random.Range(10, 20) * ClipSize;
+    }
+
     protected virtual bool TryFire()
     {
         if (CurrentAmmo <= 0)
@@ -75,8 +83,13 @@ public abstract class Weapon
     }
     public virtual void Reload()
     {
-        weaponTimer.Reload();
+        if (TotalAmmo >= ClipSize) weaponTimer.Reload(ClipSize - CurrentAmmo);
+        else
+        {
+            Break(); // weapon is destroyed when it runs out of ammo
+        }
     }
+    protected virtual void Break() { }
 
     public void SetCurrentAmmo(int amount)
     {
