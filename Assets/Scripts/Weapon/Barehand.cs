@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Barehand : Weapon
 {
-    public override string Name => "Tracking Gun";
+    public override string Name => "Barehand";
     public override int ClipSize => 32;
     public override int BaseDamage => 17;
     public override float FireRate => 0.10f;

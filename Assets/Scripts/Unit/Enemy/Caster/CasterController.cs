@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 public class CasterController : UnitController
 {
-    [SerializeField] private EnemyUnit unitTarget;
+    [SerializeField] private EnemyUnit enemyUnit;
     [SerializeField] private GameObject casterBullet;
     [SerializeField] private Transform bulletOrigin;
 
@@ -21,23 +21,23 @@ public class CasterController : UnitController
 
     void OnEnable()
     {
-        if (unitTarget != null)
+        if (enemyUnit != null)
         {
-            unitTarget.OnUnitReady += Setup;
+            enemyUnit.OnUnitReady += Setup;
         }
     }
 
     void OnDisable()
     {
-        if (unitTarget != null)
+        if (enemyUnit != null)
         {
-            unitTarget.OnUnitReady -= Setup;
+            enemyUnit.OnUnitReady -= Setup;
         }
     }
 
     private void Setup()
     {
-        movespeed = unitTarget.BaseMoveSpeed;
+        movespeed = enemyUnit.BaseMoveSpeed;
         game = FindAnyObjectByType<Game>();
         allowedToMove = true;
 
@@ -79,7 +79,7 @@ public class CasterController : UnitController
             Vector3 dir = Game.I.PlayerTransform.position - transform.position;
 
             GameObject bullet = Instantiate(casterBullet, bulletOrigin.position, Quaternion.identity);
-            bullet.GetComponent<CasterBullet>().Initialize(dir.normalized, bulletMaxDuration, unitTarget.BaseDamage, bulletSpeed);
+            bullet.GetComponent<CasterBullet>().Initialize(dir.normalized, bulletMaxDuration, enemyUnit.BaseDamage, bulletSpeed);
 
             canAttack = false;
             StartCoroutine(AttackCD());

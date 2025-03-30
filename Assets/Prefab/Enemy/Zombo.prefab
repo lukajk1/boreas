@@ -376,7 +376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb25462981d0074eaf4ebc0d89639b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitTarget: {fileID: 4713903850532733979}
+  enemyUnit: {fileID: 4713903850532733979}
   goal: {fileID: 0}
 --- !u!195 &3207719545896505006
 NavMeshAgent:

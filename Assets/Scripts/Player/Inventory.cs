@@ -7,12 +7,17 @@ public class Inventory : MonoBehaviour
     public int ActiveSlot {  get; private set; }
     private void Awake()
     {
-        if (I != null)
-        {
-            Debug.LogError("multiple singletons in scene");
-        }
+        if (I != null) Debug.LogError("multiple singletons in scene");
         I = this;
         ActiveSlot = 0;
+
+        equippedWeapons[0] = new Barehand();
+        equippedWeapons[1] = new Barehand();
+    }
+
+    private void Start()
+    {
+        
     }
     public void SetActiveSlot(int slot)
     {

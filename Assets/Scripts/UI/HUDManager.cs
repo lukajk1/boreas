@@ -13,8 +13,8 @@ public class HUDManager : MonoBehaviour
 
     private void OnEnable()
     {
-        CombatEventBus.OnActiveWeaponChanged += SetActiveWeapon;
-        CombatEventBus.OnWeaponFired += UpdateAmmoHUD;
+        CombatEventBus.OnActiveWeaponChanged += UpdateActiveWeapon;
+        CombatEventBus.OnCurrentAmmoModified += UpdateAmmoHUD;
         CombatEventBus.OnPlayerHit += OnPlayerHit;
         MainEventBus.OnRunStart += Setup;
     }
@@ -22,13 +22,14 @@ public class HUDManager : MonoBehaviour
     private void OnDisable()
     {
         MainEventBus.OnRunStart -= Setup;
-        CombatEventBus.OnActiveWeaponChanged -= SetActiveWeapon;
-        CombatEventBus.OnWeaponFired -= UpdateAmmoHUD;
+        CombatEventBus.OnActiveWeaponChanged -= UpdateActiveWeapon;
+        CombatEventBus.OnCurrentAmmoModified -= UpdateAmmoHUD;
         CombatEventBus.OnPlayerHit -= OnPlayerHit;
     }
     private void Setup()
     {
         UpdateHealth();
+        UpdateActiveWeapon();
     }
     private void OnPlayerHit(int damage, bool isCrit)
     {
@@ -39,7 +40,7 @@ public class HUDManager : MonoBehaviour
         txtHealth.text = $"{Game.I.PlayerUnitInstance.CurrentHealth} / {Game.I.PlayerUnitInstance.CurrentMaxHealth}";
         healthbar.value = (float)Game.I.PlayerUnitInstance.CurrentHealth / Game.I.PlayerUnitInstance.CurrentMaxHealth;
     }
-    private void SetActiveWeapon()
+    private void UpdateActiveWeapon()
     {
         activeWeapon = Inventory.I.GetActiveWeapon();
         gunName.text = activeWeapon.Name;

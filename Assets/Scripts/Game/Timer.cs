@@ -1,0 +1,12 @@
+using System;
+using System.Collections;
+using UnityEngine;
+
+public class Timer : MonoBehaviour
+{
+    public IEnumerator TimerCR(float duration, Action onComplete)
+    {
+        yield return new WaitForSeconds(duration);
+        onComplete?.Invoke();
+    }
+}

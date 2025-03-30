@@ -10,32 +10,21 @@ public class HUDSFXManager : MonoBehaviour
     [SerializeField] private AudioSource normalHit;
     [SerializeField] private AudioSource criticalHit;
     [SerializeField] private AudioSource enemyKill;
+    [SerializeField] private AudioSource playerHurt;
 
     public enum SFX
     {
         ShotFired, 
         NormalHit, 
         CriticalHit, 
-        EnemyKill
+        EnemyKill,
+        PlayerHurt
     }
 
     private Dictionary<SFX, AudioSource> sfxDict;
-
-    private void OnEnable()
-    {
-        CombatEventBus.OnEnemyDeath += OnEnemyDeath;
-    }
-    private void OnDisable()
-    {
-        CombatEventBus.OnEnemyDeath -= OnEnemyDeath;
-    }
-
     private void Awake()
     {
-        if (I != null)
-        {
-            Debug.LogError("multiple singletons in scene");
-        }
+        if (I != null) Debug.LogError("multiple singletons in scene");
         I = this;
 
         sfxDict = new Dictionary<SFX, AudioSource>
@@ -43,8 +32,18 @@ public class HUDSFXManager : MonoBehaviour
             { SFX.ShotFired, shotFired },
             { SFX.NormalHit, normalHit },
             { SFX.CriticalHit, criticalHit },
-            { SFX.EnemyKill, enemyKill }
+            { SFX.EnemyKill, enemyKill },
+            { SFX.PlayerHurt, playerHurt}
         };
+    }
+    private void OnEnable()
+    {
+        CombatEventBus.OnEnemyDeath += OnEnemyDeath;
+        CombatEventBus.OnPlayerHit += OnPlayerHit;
+    }
+    private void OnDisable()
+    {
+        CombatEventBus.OnPlayerHit -= OnPlayerHit;
     }
 
     public void PlaySound(SFX sfx)
@@ -62,6 +61,10 @@ public class HUDSFXManager : MonoBehaviour
     private void OnEnemyDeath()
     {
         PlaySound(SFX.EnemyKill);
+    }
+    private void OnPlayerHit(int a, bool b)
+    {
+        PlaySound(SFX.PlayerHurt);
     }
 
 }

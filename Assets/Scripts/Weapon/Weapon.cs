@@ -17,15 +17,16 @@ public abstract class Weapon
         }
     }
 
-    protected int currentAmmo;
+    protected int _currentAmmo;
     public int CurrentAmmo
     {
-        get => currentAmmo;
+        get => _currentAmmo;
         set
         {
             if (value >= 0 && value <= ClipSize)
             {
-                currentAmmo = value;
+                _currentAmmo = value;
+                CombatEventBus.BCOnCurrentAmmoModified();
             }
         }
     }
@@ -43,24 +44,23 @@ public abstract class Weapon
 
     public Weapon()
     {
-        currentAmmo = ClipSize;
+        CurrentAmmo = ClipSize;
         weaponTimer = new GameObject($"Generic {Name} Timer").AddComponent<WeaponTimer>();
         weaponTimer.Setup(this);
     }
     public abstract void Fire(Vector3 firingOrigin, Vector3 forwardFacingVector);
     protected virtual bool TryFire()
     {
-        if (currentAmmo <= 0)
+        if (CurrentAmmo <= 0)
         {
             return false;
         }
         if (weaponTimer.QueryCanFire())
         {
             HUDSFXManager.I.PlaySound(HUDSFXManager.SFX.ShotFired); // eventually this will be weapon specific and will be moved out of here
-            currentAmmo--;
-            CombatEventBus.BCOnWeaponFired(); // currentAmmo has to decrement before broadcast for ammo count to be accurate
+            CurrentAmmo--;
 
-            if (currentAmmo <= 0)
+            if (_currentAmmo <= 0)
             {
                 if (!weaponTimer.IsReloading())
                 {
@@ -79,11 +79,7 @@ public abstract class Weapon
 
     public void SetCurrentAmmo(int amount)
     {
-        if (CurrentAmmo != amount) // reduce unnecessary broadcasts
-        {
-            CombatEventBus.BCOnWeaponFired(); // hack way of updating ammo count.. change later
-            CurrentAmmo = amount;
-        }
+        CurrentAmmo = amount;
     }
 
     protected void ProcessHit(RaycastHit hit)
