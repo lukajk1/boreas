@@ -7,6 +7,7 @@ public class DiverController : UnitController
     [SerializeField] private EnemyUnit enemyUnit;
     private NavMeshAgent agent;
     private bool isAttacking = false;
+    private PlayerPhysicsBus playerPhysicsBus;
     void OnEnable()
     {
         if (enemyUnit != null)
@@ -29,6 +30,7 @@ public class DiverController : UnitController
         agent.speed = enemyUnit.CurrentMoveSpeed;
         agent.destination = Game.I.PlayerTransform.position;
         enemyUnit.AttackReady = true;
+        playerPhysicsBus = FindFirstObjectByType<PlayerPhysicsBus>();
     }
 
     protected override void Start()
@@ -45,10 +47,11 @@ public class DiverController : UnitController
         }
         else
         {
-            if (enemyUnit.AttackReady) TryAttack();
+            if (enemyUnit.AttackReady && playerPhysicsBus.IsGrounded) TryAttack();
         }
 
-
+        //Debug.Log("attackready" + enemyUnit.AttackReady);
+        //Debug.Log("isgrounded" +playerPhysicsBus.IsGrounded);
     }
 
     private void TryAttack()
@@ -58,13 +61,10 @@ public class DiverController : UnitController
 
         if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.CompareTag("Player"))
         {
-            Debug.Log("attacking");
             StartCoroutine(Jump(10f, 1.4f));
             enemyUnit.AttackReady = false;
             StartCoroutine(timer.TimerCR(enemyUnit.AttackCDLength, () => enemyUnit.AttackReady = true));
         }
-
-
     }
 
     private IEnumerator Jump(float targetHeight, float duration)
@@ -86,24 +86,34 @@ public class DiverController : UnitController
 
         transform.position = new Vector3(transform.position.x, startHeight + targetHeight, transform.position.z);
 
-        //Ray ray = new Ray(transform.position, Game.I.PlayerTransform.position - transform.position); // only attack if LOS on player
-        //RaycastHit hit;
+        float dashDuration = 7.5f;
+        float diveAttackDamageRadius = 3.2f;
+        bool hasDamaged = false;
 
+        Vector3 dashTargetPos = Game.I.PlayerTransform.position;
+        elapsedTime = 0f;
+        while (Vector3.Distance(transform.position, dashTargetPos) >= 0.6f)
+        {
+            elapsedTime += Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, dashTargetPos, elapsedTime / dashDuration);
 
-        //if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.CompareTag("Player"))
-        //{
-            float dashDuration = 7.5f;
-
-            Vector3 dashTargetPos = Game.I.PlayerTransform.position;
-            elapsedTime = 0f;
-            while (Vector3.Distance(transform.position, dashTargetPos) > 0.6f)
+            if (!hasDamaged)
             {
-                elapsedTime += Time.deltaTime;
-                transform.position = Vector3.MoveTowards(transform.position, dashTargetPos, elapsedTime / dashDuration);
+                if (Vector3.Distance(transform.position, Game.I.PlayerTransform.position) <= diveAttackDamageRadius)
+                {
+                    Game.I.PlayerUnitInstance.TakeDamage(false, enemyUnit.BaseDamage);
+                    hasDamaged = true;
 
-                yield return null;
+                    Vector3 xz = transform.position - Game.I.PlayerTransform.position;
+                    xz = xz.normalized * 27f;
+                    Vector3 y = Vector3.up * 3f;
+
+                    playerPhysicsBus.AddForceToPlayer(xz + y, ForceMode.Impulse);
+                }
             }
-        //}
+
+            yield return null;
+        }
 
         isAttacking = false;
         agent.enabled = true;

@@ -1,8 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.HID;
-using UnityEngine.InputSystem.Utilities;
 
 public class PlayerLookAndMove : MonoBehaviour
 {
@@ -130,6 +128,8 @@ public class PlayerLookAndMove : MonoBehaviour
 
         RaycastHit hit;
         IsGrounded = Physics.Raycast(transform.position, Vector3.down, out hit, .35f);
+        //Debug.DrawLine(transform.position, transform.position + Vector3.down * 0.35f, Color.red);
+
 
         //Debug.Log(isGrounded);
 
@@ -137,8 +137,7 @@ public class PlayerLookAndMove : MonoBehaviour
 
         if (IsGrounded)
         {
-
-            if (hit.collider.gameObject.layer == 4)
+            if (hit.collider.gameObject.layer == 4) // water
             {
                 player.transform.position = lastJumpedFrom.position;
             }
@@ -189,7 +188,7 @@ public class PlayerLookAndMove : MonoBehaviour
         isCrouching = false;
 
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z); // Reset vertical velocity
-        rb.AddForce(Vector3.up * _jumpForce, forceMode);
+        rb.AddForce(Vector3.up * JumpForce, forceMode);
 
         //// add force based on vector from movement keys as well
         //Vector2 moveDir = move.ReadValue<Vector2>().normalized * MoveSpeed * currentSpeedMultiplier * (!isGrounded ? airStrafeInfluence : 1f);
@@ -199,7 +198,7 @@ public class PlayerLookAndMove : MonoBehaviour
         //Vector3 right = transform.right * moveDir.x;
         //Vector3 movementVector = forward + right;
 
-        //rb.AddForce(movementVector * _jumpForce * 0.3f, forceMode);
+        //rb.AddForce(movementVector * JumpForce * 0.3f, forceMode);
 
     }
     private void OnCrouchPerformed(InputAction.CallbackContext context)
