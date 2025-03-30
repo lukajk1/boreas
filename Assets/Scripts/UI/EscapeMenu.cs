@@ -35,7 +35,6 @@ public class EscapeMenu : MonoBehaviour
 
         if (value)
         {
-            Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             AudioListener.pause = true;
             Game.MenusOpen++;
@@ -43,7 +42,6 @@ public class EscapeMenu : MonoBehaviour
         else
         {
             AudioListener.pause = false;
-            Cursor.lockState = CursorLockMode.Locked;
             Game.MenusOpen--;
         }
     }

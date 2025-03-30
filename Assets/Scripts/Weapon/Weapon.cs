@@ -59,6 +59,7 @@ public abstract class Weapon
         {
             HUDSFXManager.I.PlaySound(HUDSFXManager.SFX.ShotFired); // eventually this will be weapon specific and will be moved out of here
             CurrentAmmo--;
+            CombatEventBus.BCOnWeaponFired();
 
             if (_currentAmmo <= 0)
             {

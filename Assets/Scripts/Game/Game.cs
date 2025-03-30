@@ -31,24 +31,26 @@ public class Game : MonoBehaviour
     private static bool isInDialogue;
     public static bool IsInDialogue { get; set; }
 
-    private static int menusOpen;
+    private static int _menusOpen;
     public static int MenusOpen
     {
         get
         {
-            return menusOpen;
+            return _menusOpen;
         }
 
         set
         {
-            menusOpen = value;
-            if (menusOpen == 0)
+            _menusOpen = value;
+            if (_menusOpen == 0)
             {
                 IsPaused = false;
+                Cursor.lockState = CursorLockMode.Locked;
             }
             else
             {
                 IsPaused = true;
+                Cursor.lockState = CursorLockMode.None;
             }
         }
     }

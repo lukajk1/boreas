@@ -8,7 +8,7 @@ public class PlayerUnit : Unit
 
     protected override void Die()
     {
-        Debug.Log("died");
+        MainEventBus.BCOnRunEnd();
     }
     public override void TakeDamage(bool isCrit, int damage)
     {

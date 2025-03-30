@@ -8,7 +8,7 @@ public class RunStatsManager : MonoBehaviour
     private float elapsedRunTime;
     private int enemiesKilled;
     private int shotsFired;
-    private int score; // I guess this can tally score as well? Should score be decoupled from the multiplier code?
+    private int score;
     private int damageDealt;
     private int damageTaken;
     private int criticalHits;
@@ -21,6 +21,7 @@ public class RunStatsManager : MonoBehaviour
         CombatEventBus.OnEnemyDeath += OnEnemyDeath;
         CombatEventBus.OnWeaponFired += OnWeaponFired;
         CombatEventBus.OnEnemyHit += OnEnemyHit;
+        CombatEventBus.OnPlayerHit += OnPlayerHit;
     }
 
     private void OnDisable()
@@ -30,16 +31,20 @@ public class RunStatsManager : MonoBehaviour
         CombatEventBus.OnEnemyDeath -= OnEnemyDeath;
         CombatEventBus.OnWeaponFired -= OnWeaponFired;
         CombatEventBus.OnEnemyHit -= OnEnemyHit;
+        CombatEventBus.OnPlayerHit -= OnPlayerHit;
     }
 
     private void Initialize()
     {
         runOngoing = true;
     }
-
     private void EndRun()
     {
         runOngoing = false;
+    }
+    private void OnPlayerHit(int damage, bool isCrit)
+    {
+        damageTaken += damage;
     }
 
     private void OnEnemyDeath()
@@ -74,6 +79,19 @@ public class RunStatsManager : MonoBehaviour
         }
     }
 
+    public RunStats RequestStats()
+    {
+        return new RunStats(
+            elapsedRunTime,
+            score,
+            enemiesKilled,
+            shotsFired,
+            damageDealt,
+            damageTaken,
+            criticalHits,
+            totalHitsLanded
+            );
+    }
     public void PrintStats()
     {
         int minutes = (int)(elapsedRunTime / 60f);
@@ -85,6 +103,5 @@ public class RunStatsManager : MonoBehaviour
         Debug.Log($"critical hit %: {(criticalHits * 100f / totalHitsLanded):0.0}%");
         Debug.Log($"overall accuracy: {(totalHitsLanded * 100f / shotsFired):0.0}%");
         Debug.Log($"total damage dealt: {damageDealt:N0}");
-
     }
 }

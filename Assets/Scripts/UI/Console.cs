@@ -47,6 +47,11 @@ public class Console : MonoBehaviour
             FindFirstObjectByType<RunStatsManager>().PrintStats();
             return true;
         }
+        if (parsed[0] == "die")
+        {
+            Game.I.PlayerUnitInstance.KillViaCommand();
+            return true;
+        }
 
 
         if (parsed[0] == "s" && parsed.Length == 2)
