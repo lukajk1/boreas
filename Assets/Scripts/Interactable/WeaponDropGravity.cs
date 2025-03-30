@@ -21,11 +21,8 @@ public class WeaponDropGravity : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, raycastDistance))
         {
-            if (hit.collider.CompareTag("Player"))
-            {
-                return;
-            }
-            
+            if (hit.collider.CompareTag("Player") || hit.collider.CompareTag("Interact")) return;
+
             if (rb != null)
             {
                 //Debug.Log(hit.collider.gameObject.name);

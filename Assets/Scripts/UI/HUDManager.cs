@@ -6,6 +6,7 @@ public class HUDManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI gunName;
     [SerializeField] private TextMeshProUGUI ammoHUD;
+    [SerializeField] private TextMeshProUGUI txtHealth;
     [SerializeField] private Slider healthbar;
     [SerializeField] private Slider wallClimbStamina;
     private Weapon activeWeapon;
@@ -14,14 +15,30 @@ public class HUDManager : MonoBehaviour
     {
         CombatEventBus.OnActiveWeaponChanged += SetActiveWeapon;
         CombatEventBus.OnWeaponFired += UpdateAmmoHUD;
+        CombatEventBus.OnPlayerHit += OnPlayerHit;
+        MainEventBus.OnRunStart += Setup;
     }
 
     private void OnDisable()
     {
+        MainEventBus.OnRunStart -= Setup;
         CombatEventBus.OnActiveWeaponChanged -= SetActiveWeapon;
         CombatEventBus.OnWeaponFired -= UpdateAmmoHUD;
+        CombatEventBus.OnPlayerHit -= OnPlayerHit;
     }
-
+    private void Setup()
+    {
+        UpdateHealth();
+    }
+    private void OnPlayerHit(int damage, bool isCrit)
+    {
+        UpdateHealth();
+    }
+    private void UpdateHealth()
+    {
+        txtHealth.text = $"{Game.I.PlayerUnitInstance.CurrentHealth} / {Game.I.PlayerUnitInstance.CurrentMaxHealth}";
+        healthbar.value = (float)Game.I.PlayerUnitInstance.CurrentHealth / Game.I.PlayerUnitInstance.CurrentMaxHealth;
+    }
     private void SetActiveWeapon()
     {
         activeWeapon = Inventory.I.GetActiveWeapon();

@@ -88,30 +88,25 @@ public abstract class Weapon
 
     protected void ProcessHit(RaycastHit hit)
     {
-        if (hit.transform.root.TryGetComponent<Unit>(out var unit))
-        {
-            // keep this for now
-        }
-
-        if (hit.collider.TryGetComponent<EnemyBody>(out var enemy))
+        if (hit.collider.TryGetComponent<EnemyBody>(out var body))
         {
             OnNormalHit();
             HUDSFXManager.I.PlaySound(HUDSFXManager.SFX.NormalHit);
 
-            int damageDealt = BaseDamage;
-
-            CombatEventBus.BCOnEnemyHit(damageDealt, false, hit.point);
-            unit.TakeDamage(false, damageDealt);
+            CombatEventBus.BCOnEnemyHit(BaseDamage, false, hit.point);
+            body.transform.parent.GetComponent<EnemyUnit>().TakeDamage(false, BaseDamage);
         }
         else if (hit.collider.TryGetComponent<CriticalEnemy>(out var enemyCritical))
         {
             OnCriticalHit();
             HUDSFXManager.I.PlaySound(HUDSFXManager.SFX.CriticalHit);
 
-            int damageDealt = (int)(BaseDamage * 1.75f);
+            int critAdjustedDamage = (int)(BaseDamage * 1.75f);
 
-            CombatEventBus.BCOnEnemyHit(damageDealt, true, hit.point);
-            unit.TakeDamage(true, damageDealt);
+            CombatEventBus.BCOnEnemyHit(critAdjustedDamage, true, hit.point);
+
+            //Debug.Log(enemyCritical.transform.root.GetComponent<EnemyUnit>());
+            enemyCritical.transform.parent.GetComponent<EnemyUnit>().TakeDamage(true, critAdjustedDamage);
         }
     }
 

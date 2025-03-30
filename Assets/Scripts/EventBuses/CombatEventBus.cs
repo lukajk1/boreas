@@ -18,6 +18,9 @@ public static class CombatEventBus
 
     public static void BCOnEnemyHit(int damage, bool isCrit, Vector3 pos) => OnEnemyHit?.Invoke(damage, isCrit, pos);
 
+    public static event Action<int, bool> OnPlayerHit;
+    public static void BCOnPlayerHit(int damage, bool isCrit) => OnPlayerHit?.Invoke(damage, isCrit);
+
     public static event Action OnEnemyDeath;
 
     public static void BCOnEnemyDeath() => OnEnemyDeath?.Invoke();

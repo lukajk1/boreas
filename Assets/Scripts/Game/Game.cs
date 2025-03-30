@@ -54,6 +54,7 @@ public class Game : MonoBehaviour
     }
     public Transform PlayerTransform;
     public Camera PlayerCamera;
+    public PlayerUnit PlayerUnitInstance;
 
     public static Action<bool> PauseUpdated;
     public static Action InitializeRun;

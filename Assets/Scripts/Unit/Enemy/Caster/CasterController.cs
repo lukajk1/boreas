@@ -1,16 +1,23 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class CasterController : UnitController
 {
-    [SerializeField] private Unit unitTarget;
-    [SerializeField] private GameObject projectile;
+    [SerializeField] private EnemyUnit unitTarget;
+    [SerializeField] private GameObject casterBullet;
+    [SerializeField] private Transform bulletOrigin;
 
     private float movespeed;
     private Game game;
     private NavMeshAgent agent;
     private bool allowedToMove = false;
     private float rangeFromPlayer = 15f;
+
+    private float bulletMaxDuration = 5f; // seconds
+    private float attackCD = 1.5f;
+    private float bulletSpeed = 8.4f;
+    private bool canAttack = true;
 
     void OnEnable()
     {
@@ -50,27 +57,40 @@ public class CasterController : UnitController
             agent.isStopped = false;
             if (allowedToMove) agent.destination = Game.I.PlayerTransform.position;
         }
-        //else
-        //{
-        //    Ray ray = new Ray(transform.position, Game.I.PlayerTransform.position - transform.position);
-        //    RaycastHit hit;
-
-        //    if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.name == "Player")
-        //    {
-        //        Debug.Log("Ray hit the Player!");
-        //    }
-        //}
         else
         {
             agent.isStopped = true;
-            Attack();
+            TryAttack();
         }
 
+
     }
 
-    private void Attack()
+    private void TryAttack()
     {
-        //
+        if (!canAttack ) return;
+
+        //Debug.Log("attempting to attack");
+        Ray ray = new Ray(transform.position, Game.I.PlayerTransform.position - transform.position);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.CompareTag("Player"))
+        {
+            Vector3 dir = Game.I.PlayerTransform.position - transform.position;
+
+            GameObject bullet = Instantiate(casterBullet, bulletOrigin.position, Quaternion.identity);
+            bullet.GetComponent<CasterBullet>().Initialize(dir.normalized, bulletMaxDuration, unitTarget.BaseDamage, bulletSpeed);
+
+            canAttack = false;
+            StartCoroutine(AttackCD());
+        }
     }
+
+    private IEnumerator AttackCD()
+    {
+        yield return new WaitForSeconds(attackCD);
+        canAttack = true;
+    }
+
 
 }

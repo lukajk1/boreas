@@ -4,23 +4,26 @@ using UnityEngine;
 public abstract class Unit : MonoBehaviour
 {
     public abstract string Name { get; }
-    public int CurrentHealth { get; private set; }
+    public int CurrentHealth { get; protected set; }
     public abstract int BaseMaxHealth { get; }
-    public int CurrentMaxHealth { get; private set; }
+    public int CurrentMaxHealth { get; protected set; }
     public abstract float BaseMoveSpeed { get; } // in units per s
-    public float CurrentMoveSpeed { get; private set; }
+    public float CurrentMoveSpeed { get; protected set; }
 
     public event Action<bool, int> OnUnitDamaged;
     public event Action OnUnitReady;
     public event Action OnUnitDeath;
-
+    private void Awake()
+    {
+        CurrentMaxHealth = BaseMaxHealth;
+        CurrentHealth = BaseMaxHealth;
+    }
     private void Start()
     {
-        CurrentHealth = BaseMaxHealth;
         OnUnitReady?.Invoke();
     }
 
-    public void TakeDamage(bool isCrit, int damage)
+    public virtual void TakeDamage(bool isCrit, int damage)
     {
         if (damage > 0)
         {
