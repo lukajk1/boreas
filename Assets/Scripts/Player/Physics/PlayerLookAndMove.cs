@@ -133,7 +133,7 @@ public class PlayerLookAndMove : MonoBehaviour
 
         //Debug.Log(isGrounded);
 
-        rb.AddForce(Vector3.down * extraGravityForce, ForceMode.Force);
+        rb.AddForce(Vector3.down * extraGravityForce, ForceMode.Force); // stick to ground better with a constant downwards force added
 
         if (IsGrounded)
         {

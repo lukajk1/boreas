@@ -106,7 +106,7 @@ public abstract class Weapon
             CombatEventBus.BCOnEnemyHit(BaseDamage, false, hit.point);
             body.transform.parent.GetComponent<EnemyUnit>().TakeDamage(false, BaseDamage);
         }
-        else if (hit.collider.TryGetComponent<CriticalEnemy>(out var enemyCritical))
+        else if (hit.collider.TryGetComponent<EnemyCritical>(out var enemyCritical))
         {
             OnCriticalHit();
             HUDSFXManager.I.PlaySound(HUDSFXManager.SFX.CriticalHit);

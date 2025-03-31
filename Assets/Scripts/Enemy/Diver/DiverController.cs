@@ -5,9 +5,13 @@ using System.Collections;
 public class DiverController : UnitController
 {
     [SerializeField] private EnemyUnit enemyUnit;
+    [SerializeField] private TrailRenderer trailRenderer;
     private NavMeshAgent agent;
     private bool isAttacking = false;
     private PlayerPhysicsBus playerPhysicsBus;
+
+    private float dashDuration = 4.2f;
+    private float diveAttackDamageRadius = 3.2f;
     void OnEnable()
     {
         if (enemyUnit != null)
@@ -31,6 +35,7 @@ public class DiverController : UnitController
         agent.destination = Game.I.PlayerTransform.position;
         enemyUnit.AttackReady = true;
         playerPhysicsBus = FindFirstObjectByType<PlayerPhysicsBus>();
+        trailRenderer.enabled = false;
     }
 
     protected override void Start()
@@ -69,6 +74,7 @@ public class DiverController : UnitController
 
     private IEnumerator Jump(float targetHeight, float duration)
     {
+        trailRenderer.enabled = true; 
         isAttacking = true;
         agent.enabled = false;
 
@@ -85,9 +91,6 @@ public class DiverController : UnitController
         }
 
         transform.position = new Vector3(transform.position.x, startHeight + targetHeight, transform.position.z);
-
-        float dashDuration = 7.5f;
-        float diveAttackDamageRadius = 3.2f;
         bool hasDamaged = false;
 
         Vector3 dashTargetPos = Game.I.PlayerTransform.position;
@@ -116,7 +119,8 @@ public class DiverController : UnitController
         }
 
         isAttacking = false;
-        agent.enabled = true;
+        agent.enabled = true; 
+        trailRenderer.enabled = false;
     }
 
 }

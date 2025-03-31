@@ -14,7 +14,7 @@ public class CasterController : UnitController
     private bool allowedToMove = false;
 
     private float bulletMaxDuration = 5f; // seconds
-    private float bulletSpeed = 8.4f;
+    private float bulletSpeed = 7.4f;
     private bool canAttack = true;
 
     void OnEnable()
