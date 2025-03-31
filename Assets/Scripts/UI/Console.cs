@@ -116,7 +116,7 @@ public class Console : MonoBehaviour
         {
             if (float.TryParse(parsed[1], out float fov))
             {
-                FindAnyObjectByType<FOV>().SetFOV(fov);
+                FindAnyObjectByType<FOVManager>().FOV = fov;
                 return true;
             }
         }

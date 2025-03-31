@@ -46,7 +46,7 @@ public class PlayerLookAndMove : MonoBehaviour
     private float initMoveSpeed;
     private float currentSpeedMultiplier = 1f;
 
-    private float sensitivity = 150f;
+    public float Sensitivity = 150f;
     private float xRotation;
     private float yRotation;
 
@@ -169,7 +169,6 @@ public class PlayerLookAndMove : MonoBehaviour
 
             DetermineCamMovement();
         }
-
     }
     private void OnJumpPerformed(InputAction.CallbackContext context)
     {
@@ -220,8 +219,8 @@ public class PlayerLookAndMove : MonoBehaviour
 
     private void DetermineCamMovement() // I guess this doesn't need to be broken out because where you're looking also determines how movement works?
     {
-        xRotation -= Input.GetAxis("Mouse Y") * Time.deltaTime * sensitivity;
-        yRotation += Input.GetAxis("Mouse X") * Time.deltaTime * sensitivity;
+        xRotation -= Input.GetAxis("Mouse Y") * Time.deltaTime * Sensitivity;
+        yRotation += Input.GetAxis("Mouse X") * Time.deltaTime * Sensitivity;
 
         xRotation = Mathf.Clamp(xRotation, -90f, 90f); // prevent looking above/below 90
 
