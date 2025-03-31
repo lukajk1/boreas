@@ -54,7 +54,7 @@ public class WeaponTimer : MonoBehaviour
         yield return new WaitForSeconds(duration);
         onComplete?.Invoke();
 
-        weapon.SetCurrentAmmo(weapon.ClipSize);
+        weapon.SetCurrentAmmo(weapon.CurrentAmmo + bulletCountToPutIn);
         weapon.TotalAmmo -= bulletCountToPutIn;
     }
 }

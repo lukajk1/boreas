@@ -83,8 +83,15 @@ public abstract class Weapon
     }
     public virtual void Reload()
     {
-        if (TotalAmmo >= ClipSize) weaponTimer.Reload(ClipSize - CurrentAmmo);
-        else
+        if (TotalAmmo >= ClipSize)
+        {
+            weaponTimer.Reload(ClipSize - CurrentAmmo);
+        }
+        else if (TotalAmmo > 0 && TotalAmmo < ClipSize)
+        {
+            weaponTimer.Reload(TotalAmmo);
+        }
+        else if (TotalAmmo == 0 && CurrentAmmo == 0) 
         {
             Break(); // weapon is destroyed when it runs out of ammo
         }
