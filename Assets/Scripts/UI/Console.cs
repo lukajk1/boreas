@@ -56,7 +56,7 @@ public class Console : MonoBehaviour
 
         if (parsed[0] == "s" && parsed.Length == 2)
         {
-            return WaveSpawner.I.SpawnEnemy(parsed[1]);
+            return WaveManager.I.CommandSpawnEnemy(parsed[1]);
         }
 
         if (parsed[0] == "player" || parsed[0] == "p")

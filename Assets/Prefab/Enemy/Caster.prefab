@@ -577,7 +577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17abdd7a3e32ac84093c62065f5bfbae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyUnit: {fileID: 0}
+  enemyUnit: {fileID: 1358453432491300840}
   casterBullet: {fileID: 82148675904440007, guid: 3f8fbb5b8c2cdeb4fb95dab0cc9a111f, type: 3}
   bulletOrigin: {fileID: 4821492520486937961}
 --- !u!195 &2321898721197603821
