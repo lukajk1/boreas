@@ -51,7 +51,7 @@ public class PlayerLookAndMove : MonoBehaviour
     private float xRotation;
     private float yRotation;
 
-    private float coyoteTimeWindow = 0.5f;
+    private float coyoteTimeWindow = 0.3f;
     private float timeSinceGrounded = 0f;
     private bool hasJumped;
 

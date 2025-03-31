@@ -427,6 +427,7 @@ MonoBehaviour:
   pMovement: {fileID: 1416019363}
   playerLookAndMoveTransform: {fileID: 1416019362}
   rb: {fileID: 545182813}
+  IsWallClimbing: 0
 --- !u!114 &174389229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1720,7 +1721,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 218.5, y: -141.04001}
+  m_AnchoredPosition: {x: 218.5, y: -83.020004}
   m_SizeDelta: {x: 437, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &469192979
@@ -2233,7 +2234,7 @@ GameObject:
   - component: {fileID: 541553060}
   - component: {fileID: 541553059}
   m_Layer: 5
-  m_Name: txt u died noob
+  m_Name: txt u died
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2278,7 +2279,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: u died noob
+  m_text: You Died!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 048436e80454f1e48919a31ef30a262c, type: 2}
   m_sharedMaterial: {fileID: 5586534966655269528, guid: 048436e80454f1e48919a31ef30a262c, type: 2}
@@ -4195,6 +4196,7 @@ RectTransform:
   m_Children:
   - {fileID: 1600191816}
   - {fileID: 541553058}
+  - {fileID: 1109854238}
   - {fileID: 1042353268}
   - {fileID: 1822663361}
   - {fileID: 1069874944}
@@ -5161,7 +5163,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 661193983}
-  - {fileID: 1109854238}
   - {fileID: 469192978}
   - {fileID: 2021406142}
   - {fileID: 1582788489}
@@ -5452,7 +5453,7 @@ GameObject:
   - component: {fileID: 1109854240}
   - component: {fileID: 1109854239}
   m_Layer: 5
-  m_Name: txt runtime (1)
+  m_Name: txt score (minecraft reference)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5470,12 +5471,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1042353268}
+  m_Father: {fileID: 774173130}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 218.5, y: -83.020004}
-  m_SizeDelta: {x: 437, y: 50}
+  m_AnchoredPosition: {x: 102.52002, y: 82.00001}
+  m_SizeDelta: {x: 400.1, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1109854239
 MonoBehaviour:
@@ -5531,7 +5532,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -6474,7 +6475,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 218.5, y: -431.13998}
+  m_AnchoredPosition: {x: 218.5, y: -373.12}
   m_SizeDelta: {x: 437, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1283510150
@@ -6822,7 +6823,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 218.5, y: -315.1}
+  m_AnchoredPosition: {x: 218.5, y: -257.08002}
   m_SizeDelta: {x: 437, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1357030841
@@ -8039,7 +8040,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 218.5, y: -373.12}
+  m_AnchoredPosition: {x: 218.5, y: -315.1}
   m_SizeDelta: {x: 437, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1512244572
@@ -8249,7 +8250,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 218.5, y: -257.08002}
+  m_AnchoredPosition: {x: 218.5, y: -199.06}
   m_SizeDelta: {x: 437, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1582788490
@@ -11676,7 +11677,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 218.5, y: -199.06}
+  m_AnchoredPosition: {x: 218.5, y: -141.04001}
   m_SizeDelta: {x: 437, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2021406143
@@ -12562,19 +12563,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6293395661048638779, guid: edac8137b3016f14caedae709940d527, type: 3}
       propertyPath: InitialModule.startColor.maxColor.a
-      value: 0.70980394
-      objectReference: {fileID: 0}
-    - target: {fileID: 6293395661048638779, guid: edac8137b3016f14caedae709940d527, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.b
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6293395661048638779, guid: edac8137b3016f14caedae709940d527, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.7169812
+      objectReference: {fileID: 0}
+    - target: {fileID: 6293395661048638779, guid: edac8137b3016f14caedae709940d527, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.91488475
+      value: 0.6044318
       objectReference: {fileID: 0}
     - target: {fileID: 6293395661048638779, guid: edac8137b3016f14caedae709940d527, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.8632076
+      value: 0.5377359
       objectReference: {fileID: 0}
     - target: {fileID: 6293395661048638779, guid: edac8137b3016f14caedae709940d527, type: 3}
       propertyPath: ExternalForcesModule.influenceFilter
