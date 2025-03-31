@@ -27,6 +27,17 @@ public class EscapeMenu : MonoBehaviour
             SetEscMenu(!isOpen);
         }
     }
+    void OnApplicationFocus(bool hasFocus)
+    {
+        if (!hasFocus)
+        {
+            if (!isOpen) SetEscMenu(isOpen);
+        }
+        else
+        {
+            // regained focus
+        }
+    }
 
     private void SetEscMenu(bool value)
     {

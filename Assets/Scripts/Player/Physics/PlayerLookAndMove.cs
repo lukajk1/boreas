@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -50,6 +51,10 @@ public class PlayerLookAndMove : MonoBehaviour
     private float xRotation;
     private float yRotation;
 
+    private float coyoteTimeWindow = 0.5f;
+    private float timeSinceGrounded = 0f;
+    private bool hasJumped;
+
     private bool _isGrounded;
     public bool IsGrounded
     {
@@ -60,6 +65,12 @@ public class PlayerLookAndMove : MonoBehaviour
             {
                 _isGrounded = value;
                 OnGroundedChanged?.Invoke(_isGrounded);
+
+                if (value) // switching from not grounded to grounded then
+                {
+                    timeSinceGrounded = 0f;
+                    hasJumped = false;
+                }
             }
         }
     }
@@ -82,7 +93,10 @@ public class PlayerLookAndMove : MonoBehaviour
     private InputAction crouchAction;
 
     private Vector3 movementVector;
+    private PlayerWallclimb playerWallClimb;
+    private bool isFalling;
 
+    private Timer timer;
     private void Awake()
     {
         initJumpForce = JumpForce; // these are here for resetting values after changing them with console commands
@@ -118,7 +132,8 @@ public class PlayerLookAndMove : MonoBehaviour
     private void Start()
     {
         game = Game.I;
-
+        playerWallClimb = FindFirstObjectByType<PlayerWallclimb>();
+        timer = new GameObject($"LookAndMove Timer").AddComponent<Timer>();
     }
     private void FixedUpdate()
     {
@@ -130,10 +145,20 @@ public class PlayerLookAndMove : MonoBehaviour
         IsGrounded = Physics.Raycast(transform.position, Vector3.down, out hit, .35f);
         //Debug.DrawLine(transform.position, transform.position + Vector3.down * 0.35f, Color.red);
 
-
-        //Debug.Log(isGrounded);
-
         rb.AddForce(Vector3.down * extraGravityForce, ForceMode.Force); // stick to ground better with a constant downwards force added
+
+        if (rb.linearVelocity.y < -0.1f && !IsGrounded)
+        {
+            isFalling = true;
+        }
+        else isFalling = false;
+
+
+        if (Input.GetKey(KeyCode.Space) && isFalling && !playerWallClimb.IsWallClimbing) // slow fall
+        {
+            rb.AddForce(Vector3.up * 21f, ForceMode.Force);
+            //Debug.Log("should be slow falling");
+        }
 
         if (IsGrounded)
         {
@@ -158,6 +183,7 @@ public class PlayerLookAndMove : MonoBehaviour
         else
         {
             currentSpeedMultiplier = 1.4f;
+            timeSinceGrounded += Time.fixedDeltaTime;
         }
     }
 
@@ -170,10 +196,11 @@ public class PlayerLookAndMove : MonoBehaviour
             DetermineCamMovement();
         }
     }
+
     private void OnJumpPerformed(InputAction.CallbackContext context)
     {
 
-        if (IsGrounded && !Game.IsPaused)
+        if ((IsGrounded || timeSinceGrounded < coyoteTimeWindow) && !Game.IsPaused && !hasJumped)
         {
             Jump();
         }
@@ -181,6 +208,7 @@ public class PlayerLookAndMove : MonoBehaviour
 
     public void Jump()
     {
+        hasJumped = true;
         ForceMode forceMode = ForceMode.Impulse;
 
         player.transform.localScale = playerScale; // removes crouch mode
@@ -229,7 +257,6 @@ public class PlayerLookAndMove : MonoBehaviour
     }
     private Vector3 DetermineMovementVector()
     {
-
         Vector2 moveDir = move.ReadValue<Vector2>().normalized * MoveSpeed * currentSpeedMultiplier * (!IsGrounded ? airStrafeInfluence : 1);
 
         // Get only the horizontal (yaw) rotation of the player, ignoring the pitch (up/down)

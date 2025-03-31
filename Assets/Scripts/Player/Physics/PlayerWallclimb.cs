@@ -15,6 +15,8 @@ public class PlayerWallclimb : MonoBehaviour
     private float wallClimbTimer = 0f;
     private bool canWallClimb = true;
 
+    public bool IsWallClimbing = false;
+
     private void OnEnable()
     {
         pMovement.OnGroundedChanged += HandleGroundedChanged;
@@ -63,6 +65,7 @@ public class PlayerWallclimb : MonoBehaviour
             if (bottomHit || middleHit || topHit)
             {
                 hudManager.SetWallClimbMeter(true);
+                IsWallClimbing = true;
 
                 wallClimbTimer += Time.fixedDeltaTime;
                 if (wallClimbTimer >= wallClimbDuration)
@@ -75,6 +78,10 @@ public class PlayerWallclimb : MonoBehaviour
                 }
 
                 hudManager.SetWallClimbStamina((wallClimbDuration - wallClimbTimer) / wallClimbDuration);
+            }
+            else
+            {
+                IsWallClimbing = false;
             }
         }
     }
