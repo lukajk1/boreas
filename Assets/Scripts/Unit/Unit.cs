@@ -13,10 +13,11 @@ public abstract class Unit : MonoBehaviour
     public event Action<bool, int> OnUnitDamaged;
     public event Action OnUnitReady;
     public event Action OnUnitDeath;
-    private void Awake()
+    protected virtual void Awake()
     {
         CurrentMaxHealth = BaseMaxHealth;
-        CurrentHealth = BaseMaxHealth;
+        CurrentHealth = CurrentMaxHealth;
+        CurrentMoveSpeed = BaseMoveSpeed;
     }
     private void Start()
     {
@@ -29,6 +30,9 @@ public abstract class Unit : MonoBehaviour
         {
             if (damage >= CurrentHealth)
             {
+
+                //Debug.Log("damage "+damage);
+                //Debug.Log("currenthealth "+CurrentHealth);
                 Die();
             }
             else

@@ -8,6 +8,11 @@ public abstract class EnemyUnit : Unit
     public abstract float AttackCDLength { get; }
     public bool AttackReady { get; set; }
     public abstract float AttackRange { get; }
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
     protected override void Die()
     {
         CombatEventBus.BCOnEnemyDeath();

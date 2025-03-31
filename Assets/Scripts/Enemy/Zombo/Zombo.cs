@@ -9,8 +9,9 @@ public class Zombo : EnemyUnit
     public override int BaseDamage => 17;
     public override float AttackCDLength => 1.5f;
     public override float AttackRange => 1.5f;
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         AttackReady = true;
     }
 }

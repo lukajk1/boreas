@@ -28,7 +28,7 @@ public class PlayerWeaponManager : MonoBehaviour
     {
         if (attackAction.IsPressed())
         {
-            weapon.Fire(fpCamera.transform.position, fpCamera.transform.forward);
+            weapon.Fire(fpCamera.transform.position + (fpCamera.transform.forward * 0.3f), fpCamera.transform.forward); // small offset to move out of head hitbox or whatever player hitbox is blocking it
         }
     }
 

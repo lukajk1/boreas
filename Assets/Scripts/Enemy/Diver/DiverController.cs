@@ -97,6 +97,8 @@ public class DiverController : UnitController
         elapsedTime = 0f;
         while (Vector3.Distance(transform.position, dashTargetPos) >= 0.6f)
         {
+            while (Game.IsPaused) yield return null;
+
             elapsedTime += Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, dashTargetPos, elapsedTime / dashDuration);
 

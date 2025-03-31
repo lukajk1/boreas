@@ -10,8 +10,8 @@ public class Bouncy : EnemyUnit
     public override float AttackCDLength => 3.0f;
     public override float AttackRange => 3f;
 
-    private void Awake()
+    protected override void Awake()
     {
-        CurrentMoveSpeed = BaseMoveSpeed;
+        base.Awake();
     }
 }

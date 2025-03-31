@@ -104,7 +104,8 @@ public abstract class Weapon
             HUDSFXManager.I.PlaySound(HUDSFXManager.SFX.NormalHit);
 
             CombatEventBus.BCOnEnemyHit(BaseDamage, false, hit.point);
-            body.transform.parent.GetComponent<EnemyUnit>().TakeDamage(false, BaseDamage);
+
+            body.MyEnemyUnit.TakeDamage(false, BaseDamage);
         }
         else if (hit.collider.TryGetComponent<EnemyCritical>(out var enemyCritical))
         {
@@ -116,7 +117,7 @@ public abstract class Weapon
             CombatEventBus.BCOnEnemyHit(critAdjustedDamage, true, hit.point);
 
             //Debug.Log(enemyCritical.transform.root.GetComponent<EnemyUnit>());
-            enemyCritical.transform.parent.GetComponent<EnemyUnit>().TakeDamage(true, critAdjustedDamage);
+            enemyCritical.MyEnemyUnit.TakeDamage(true, critAdjustedDamage);
         }
     }
 

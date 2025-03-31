@@ -84,10 +84,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7619326315679549420}
+  - component: {fileID: 8221634111186164409}
   - component: {fileID: 1542154091484727012}
   - component: {fileID: 4045696383999680866}
   - component: {fileID: 4503880189183718905}
-  - component: {fileID: 8221634111186164409}
   - component: {fileID: 6627893528924335660}
   m_Layer: 0
   m_Name: EnemyBody
@@ -111,6 +111,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3224694393196601639}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8221634111186164409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417468704346975413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12ddd3580a1032e49af0b3670f3bd00c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MyEnemyUnit: {fileID: 7938916895389207164}
 --- !u!33 &1542154091484727012
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -187,18 +200,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8221634111186164409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 417468704346975413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12ddd3580a1032e49af0b3670f3bd00c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!96 &6627893528924335660
 TrailRenderer:
   serializedVersion: 3
@@ -676,10 +677,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3006026626149561175}
+  - component: {fileID: 7700103177064751605}
   - component: {fileID: 1639905403151564712}
   - component: {fileID: 1828372101479218890}
   - component: {fileID: 4596271539951906355}
-  - component: {fileID: 7700103177064751605}
   m_Layer: 0
   m_Name: EnemyHead
   m_TagString: Untagged
@@ -702,6 +703,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3224694393196601639}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7700103177064751605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5133149173665834969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 963736e8ee2848643866371c6e6d9381, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MyEnemyUnit: {fileID: 7938916895389207164}
 --- !u!33 &1639905403151564712
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -776,18 +790,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7700103177064751605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5133149173665834969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 963736e8ee2848643866371c6e6d9381, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6913290590897355516
 GameObject:
   m_ObjectHideFlags: 0
