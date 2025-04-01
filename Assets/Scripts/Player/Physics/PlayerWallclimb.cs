@@ -11,9 +11,10 @@ public class PlayerWallclimb : MonoBehaviour
     private GameObject player;
     private HUDManager hudManager;
 
-    private float wallClimbDuration = 0.5f;
+    private float wallClimbDuration = 0.15f;
     private float wallClimbTimer = 0f;
-    private bool canWallClimb = true;
+    private bool wallClimbMeterLeft = true;
+    private bool spaceKeyWasDown = false;
 
     public bool IsWallClimbing = false;
 
@@ -41,7 +42,7 @@ public class PlayerWallclimb : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!canWallClimb) return;
+        if (!wallClimbMeterLeft) return;
 
         if (Keyboard.current.spaceKey.isPressed && !pMovement.IsGrounded)
         {
@@ -64,13 +65,15 @@ public class PlayerWallclimb : MonoBehaviour
 
             if (bottomHit || middleHit || topHit)
             {
+                spaceKeyWasDown = true;
+
                 hudManager.SetWallClimbMeter(true);
                 IsWallClimbing = true;
 
                 wallClimbTimer += Time.fixedDeltaTime;
                 if (wallClimbTimer >= wallClimbDuration)
                 {
-                    canWallClimb = false;
+                    wallClimbMeterLeft = false;
                 }
                 else
                 {
@@ -84,6 +87,11 @@ public class PlayerWallclimb : MonoBehaviour
                 IsWallClimbing = false;
             }
         }
+
+        if (!Keyboard.current.spaceKey.isPressed && spaceKeyWasDown)
+        {
+            wallClimbMeterLeft = false;
+        }
     }
 
     private void HandleGroundedChanged(bool grounded)
@@ -91,7 +99,8 @@ public class PlayerWallclimb : MonoBehaviour
         if (grounded)
         {
             wallClimbTimer = 0f;
-            canWallClimb = true;
+            wallClimbMeterLeft = true;
+            spaceKeyWasDown = false;
             hudManager.SetWallClimbMeter(false);
         }
     }

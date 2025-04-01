@@ -56,10 +56,10 @@ public class HUDManager : MonoBehaviour
 
     public void SetWallClimbStamina(float value)
     {
-        wallClimbStamina.value = value;
+        //wallClimbStamina.value = value;
     }
     public void SetWallClimbMeter(bool value)
     {
-        wallClimbStamina.gameObject.SetActive(value);
+        //wallClimbStamina.gameObject.SetActive(value);
     }
 }
