@@ -15,7 +15,7 @@ public class BouncyController : UnitController
     private bool isGrounded;
 
     private float extraGravityForce = 8f;
-    private float jumpForce = 10f;
+    private float jumpForce = 8f;
 
     //private float bulletMaxDuration = 5f; // seconds
     //private float bulletSpeed = 7.4f;

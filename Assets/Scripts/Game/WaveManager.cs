@@ -24,6 +24,9 @@ public class WaveManager : MonoBehaviour
     private int remainingEnemiesInWave = 0;
     private bool isSpawning = true;
 
+    private int lastWaveSize = 7;
+    private float minRangeFromPlayerForSpawning = 16f;
+
     private void Awake()
     {
         if (I != null) Debug.LogError("multiple wavespawners");
@@ -31,11 +34,11 @@ public class WaveManager : MonoBehaviour
 
         arena1WavePool = new List<WaveData>
         {
-            new WaveData(5, 10, new List<GameObject> { zomboPrefab, casterPrefab } ),
-            new WaveData(7, 10, new List<GameObject> { zomboPrefab, casterPrefab } ),
-            new WaveData(9, 12, new List<GameObject> { zomboPrefab, casterPrefab, bouncyPrefab } ),
+            new WaveData(5, 8, new List<GameObject> { zomboPrefab, casterPrefab } ),
+            new WaveData(5, 8, new List<GameObject> { zomboPrefab, casterPrefab } ),
+            new WaveData(9, 11, new List<GameObject> { zomboPrefab, casterPrefab, bouncyPrefab } ),
             new WaveData(10, 13, new List<GameObject> { zomboPrefab, casterPrefab, bouncyPrefab, diverPrefab } ),
-            new WaveData(12, 16, new List<GameObject> { zomboPrefab, casterPrefab, bouncyPrefab, diverPrefab } )
+            new WaveData(10, 13, new List<GameObject> { zomboPrefab, casterPrefab, bouncyPrefab, diverPrefab } )
         };
 
         foreach (Transform t in arena1SpawnpointsParent.transform)
@@ -64,13 +67,25 @@ public class WaveManager : MonoBehaviour
         if (wave < arena1WavePool.Count)
         {
             wave++;
-            WaveData nextWave = arena1WavePool[wave - 1]; 
-            
+            WaveData nextWave = arena1WavePool[wave - 1];
+
+            lastWaveSize = currentWaveSize; // set last wave size before updating currentwave to the new wave size 
             currentWaveSize = Random.Range(nextWave.minEnemies, nextWave.maxEnemies + 1);
+
             remainingEnemiesInWave = currentWaveSize;
 
             for (int i = 0; i < currentWaveSize; i++)
             {
+                Vector3 prospectiveSpawnpoint;
+                int attempts = 0;
+                do
+                {
+                    prospectiveSpawnpoint = arena1Spawnpoints[Random.Range(0, arena1Spawnpoints.Count)];
+                    if (attempts > 100) break; // better to have some safety..
+                }
+                while (Vector3.Distance(prospectiveSpawnpoint, Game.I.PlayerTransform.position) < minRangeFromPlayerForSpawning);
+                
+
                 // instantiate random enemytype at random spawnpoint
                 Instantiate(
                     nextWave.enemyTypes[Random.Range(0, nextWave.enemyTypes.Count)],
@@ -90,7 +105,7 @@ public class WaveManager : MonoBehaviour
 
     private void Update()
     {
-        if (remainingEnemiesInWave == 0 && isSpawning) SpawnNextWave();    
+        if (remainingEnemiesInWave <= lastWaveSize / 2 && isSpawning) SpawnNextWave();    
     }
 
     void OnEnemyDeath()

@@ -55,6 +55,11 @@ public class PlayerLookAndMove : MonoBehaviour
     private float timeSinceGrounded = 0f;
     private bool hasJumped;
 
+    private float slideDecayDuration = 2.2f;
+    private float slideTimeElapsed = 0;
+    private bool _isSliding;
+    private float slideSpeedMultiplier = 1f;
+
     private bool _isGrounded;
     public bool IsGrounded
     {
@@ -91,6 +96,12 @@ public class PlayerLookAndMove : MonoBehaviour
                 if (value && IsGrounded)
                 {
                     SFXManager.I.PlaySFXClip(PlayerSFXList.I.slide, transform.position);
+                }
+                
+                if (!value) // switching from false to true
+                {
+                    slideTimeElapsed = 0f;
+                    slideSpeedMultiplier = 1f;
                 }
             }
         }
@@ -222,6 +233,13 @@ public class PlayerLookAndMove : MonoBehaviour
             currentSpeedMultiplier = 1.4f;
             timeSinceGrounded += Time.fixedDeltaTime;
         }
+
+        if (IsCrouching)
+        {
+            slideSpeedMultiplier = Mathf.Lerp(1.4f, 0.1f, slideTimeElapsed / slideDecayDuration);
+            slideTimeElapsed += Time.fixedDeltaTime;
+        }
+        //Debug.Log(slideSpeedMultiplier);
     }
 
     private void Update()
@@ -284,7 +302,7 @@ public class PlayerLookAndMove : MonoBehaviour
     }
     private Vector3 DetermineMovementVector()
     {
-        Vector2 moveDir = move.ReadValue<Vector2>().normalized * MoveSpeed * currentSpeedMultiplier * (!IsGrounded ? airStrafeInfluence : 1);
+        Vector2 moveDir = move.ReadValue<Vector2>().normalized * MoveSpeed * currentSpeedMultiplier * (!IsGrounded ? airStrafeInfluence : 1) * slideSpeedMultiplier;
 
         // Get only the horizontal (yaw) rotation of the player, ignoring the pitch (up/down)
         float yRotation = transform.eulerAngles.y;
