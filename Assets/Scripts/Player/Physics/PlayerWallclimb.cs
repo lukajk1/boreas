@@ -16,7 +16,23 @@ public class PlayerWallclimb : MonoBehaviour
     private bool wallClimbMeterLeft = true;
     private bool spaceKeyWasDown = false;
 
-    public bool IsWallClimbing = false;
+    private bool _isWallClimbing = false;
+    public bool IsWallClimbing
+    {
+        get => _isWallClimbing;
+        set
+        {
+            if (_isWallClimbing != value)
+            {
+                _isWallClimbing = value;
+
+                if (value)
+                {
+                    SFXManager.I.PlaySFXClip(PlayerSFXList.I.walljump, transform.position);
+                }
+            }
+        }
+    }
 
     private void OnEnable()
     {

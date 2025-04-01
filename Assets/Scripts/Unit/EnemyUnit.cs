@@ -13,9 +13,12 @@ public abstract class EnemyUnit : Unit
     {
         base.Awake();
     }
+
     protected override void Die()
     {
         CombatEventBus.BCOnEnemyDeath();
+        SFXManager.I.PlaySFXClip(UISFXList.I.enemyDeath, Game.I.PlayerTransform.position);
+
         base.Die();
     }
 }

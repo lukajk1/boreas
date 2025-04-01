@@ -70,6 +70,7 @@ public class PlayerLookAndMove : MonoBehaviour
                 {
                     timeSinceGrounded = 0f;
                     hasJumped = false;
+                    SFXManager.I.PlaySFXClip(PlayerSFXList.I.jumpLanding, transform.position);
                 }
             }
         }
@@ -77,7 +78,40 @@ public class PlayerLookAndMove : MonoBehaviour
 
     public event Action<bool> OnGroundedChanged;
 
-    private bool isCrouching;
+    private bool _isCrouching;
+    private bool IsCrouching
+    {
+        get => _isCrouching;
+        set
+        {
+            if (_isCrouching != value)
+            {
+                _isCrouching = value;
+
+                if (value && IsGrounded)
+                {
+                    SFXManager.I.PlaySFXClip(PlayerSFXList.I.slide, transform.position);
+                }
+            }
+        }
+    }
+    private bool _isSlowfall;
+    private bool IsSlowfall
+    {
+        get => _isSlowfall;
+        set
+        {
+            if (_isSlowfall != value)
+            {
+                _isSlowfall = value;
+
+                if (value)
+                {
+                    SFXManager.I.PlaySFXClip(PlayerSFXList.I.slowfall, transform.position);
+                }
+            }
+        }
+    }
 
     private Game game;
     [SerializeField] private PlayerUnit playerUnit;
@@ -156,9 +190,12 @@ public class PlayerLookAndMove : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space) && isFalling && !playerWallClimb.IsWallClimbing) // slow fall
         {
-            rb.AddForce(Vector3.up * 21f, ForceMode.Force);
+            IsSlowfall = true;
+            rb.AddForce(Vector3.up * 28f, ForceMode.Force);
             //Debug.Log("should be slow falling");
         }
+
+        if (IsSlowfall && !Input.GetKey(KeyCode.Space)) IsSlowfall = false;
 
         if (IsGrounded)
         {
@@ -175,7 +212,7 @@ public class PlayerLookAndMove : MonoBehaviour
                 }
             }
 
-            if (!isCrouching)
+            if (!IsCrouching)
             {
                 currentSpeedMultiplier = 1f;
             }
@@ -212,28 +249,18 @@ public class PlayerLookAndMove : MonoBehaviour
         ForceMode forceMode = ForceMode.Impulse;
 
         player.transform.localScale = playerScale; // removes crouch mode
-        isCrouching = false;
+        IsCrouching = false;
 
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z); // Reset vertical velocity
         rb.AddForce(Vector3.up * JumpForce, forceMode);
-
-        //// add force based on vector from movement keys as well
-        //Vector2 moveDir = move.ReadValue<Vector2>().normalized * MoveSpeed * currentSpeedMultiplier * (!isGrounded ? airStrafeInfluence : 1f);
-
-        //float yRotation = transform.eulerAngles.y;
-        //Vector3 forward = new Vector3(Mathf.Sin(yRotation * Mathf.Deg2Rad), 0, Mathf.Cos(yRotation * Mathf.Deg2Rad)) * moveDir.y;
-        //Vector3 right = transform.right * moveDir.x;
-        //Vector3 movementVector = forward + right;
-
-        //rb.AddForce(movementVector * JumpForce * 0.3f, forceMode);
-
+        SFXManager.I.PlaySFXClip(PlayerSFXList.I.jumpTakeoff, transform.position);
     }
     private void OnCrouchPerformed(InputAction.CallbackContext context)
     {
         if (!Game.IsPaused) 
         {
             player.transform.localScale = crouchScale;
-            isCrouching = true;
+            IsCrouching = true;
         }
     }
     private void OnCrouchReleased(InputAction.CallbackContext context)
@@ -241,7 +268,7 @@ public class PlayerLookAndMove : MonoBehaviour
         if (!Game.IsPaused) 
         {
             player.transform.localScale = playerScale;
-            isCrouching = false;
+            IsCrouching = false;
         }
     }
 

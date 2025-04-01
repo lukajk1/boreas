@@ -56,5 +56,7 @@ public class WeaponTimer : MonoBehaviour
 
         weapon.SetCurrentAmmo(weapon.CurrentAmmo + bulletCountToPutIn);
         weapon.TotalAmmo -= bulletCountToPutIn;
+
+        SFXManager.I.PlaySFXClip(UISFXList.I.reloadFinished, Game.I.PlayerTransform.position);
     }
 }

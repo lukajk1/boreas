@@ -22,6 +22,8 @@ public class PlayerUnit : Unit
             {
                 CurrentHealth -= damage;
                 CombatEventBus.BCOnPlayerHit(damage, isCrit);
+
+                SFXManager.I.PlaySFXClip(PlayerSFXList.I.hurt, Game.I.PlayerTransform.position, false);
             }
         }
     }
