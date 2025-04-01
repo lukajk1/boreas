@@ -51,9 +51,9 @@ public class PlayerWallclimb : MonoBehaviour
             Vector3 forward = transform.forward;
             float rayLength = 1f;
 
-            Vector3 bottom = origin + up * -0.4f;
+            Vector3 bottom = origin + up * -0.55f;
             Vector3 middle = origin;
-            Vector3 top = origin + up * 0.4f;
+            Vector3 top = origin + up * 0.55f;
 
             bool bottomHit = Physics.Raycast(bottom, forward, rayLength);
             bool middleHit = Physics.Raycast(middle, forward, rayLength);

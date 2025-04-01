@@ -41,8 +41,8 @@ public class PlayerLookAndMove : MonoBehaviour
         }
     }
 
-    private float extraGravityForce = 15f;
-    private float airStrafeInfluence = 0.7f; // modify currentSpeedMultiplier in the air instead?
+    private float extraGravityForce = 19f;
+    private float airStrafeInfluence = 0.75f; // modify currentSpeedMultiplier in the air instead?
     private float initJumpForce;
     private float initMoveSpeed;
     private float currentSpeedMultiplier = 1f;
