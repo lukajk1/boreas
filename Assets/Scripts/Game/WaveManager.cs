@@ -14,7 +14,7 @@ public class WaveManager : MonoBehaviour
     private List<WaveData> arena1WavePool;
     private List<WaveData> arena2WavePool;
 
-    private Vector3 a1CrystalSpawnPos = new Vector3(39.5200005f, 51.2200012f, -26.7399998f);
+    private Vector3 a1CrystalSpawnPos = new Vector3(21.2000008f, 51.2200012f, -8.5f);
 
     [SerializeField] private GameObject arena1SpawnpointsParent;
     private List<Vector3> arena1Spawnpoints = new List<Vector3>();
@@ -31,11 +31,11 @@ public class WaveManager : MonoBehaviour
 
         arena1WavePool = new List<WaveData>
         {
-            new WaveData(3, 5, new List<GameObject> { zomboPrefab, casterPrefab } ),
-            new WaveData(4, 6, new List<GameObject> { zomboPrefab, casterPrefab } ),
-            new WaveData(7, 8, new List<GameObject> { zomboPrefab, casterPrefab, bouncyPrefab } ),
-            new WaveData(7, 8, new List<GameObject> { zomboPrefab, casterPrefab, bouncyPrefab, diverPrefab } ),
-            new WaveData(8, 9, new List<GameObject> { zomboPrefab, casterPrefab, bouncyPrefab, diverPrefab } )
+            new WaveData(5, 10, new List<GameObject> { zomboPrefab, casterPrefab } ),
+            new WaveData(7, 10, new List<GameObject> { zomboPrefab, casterPrefab } ),
+            new WaveData(9, 12, new List<GameObject> { zomboPrefab, casterPrefab, bouncyPrefab } ),
+            new WaveData(10, 13, new List<GameObject> { zomboPrefab, casterPrefab, bouncyPrefab, diverPrefab } ),
+            new WaveData(12, 16, new List<GameObject> { zomboPrefab, casterPrefab, bouncyPrefab, diverPrefab } )
         };
 
         foreach (Transform t in arena1SpawnpointsParent.transform)

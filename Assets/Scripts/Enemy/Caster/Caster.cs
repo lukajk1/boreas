@@ -8,7 +8,7 @@ public class Caster : EnemyUnit
     public override int ScoreWeight => 115;
     public override int BaseDamage => 35;
     public override float AttackCDLength => 1.5f;
-    public override float AttackRange => 15f;
+    public override float AttackRange => 150f;
 
     protected override void Awake()
     {
