@@ -4,13 +4,12 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine.Rendering;
-using UnityEngine.Rendering.PostProcessing;
-using System.Runtime.CompilerServices;
+using UnityEngine.Rendering.Universal;
 
 
 public class DeathScreen : MonoBehaviour
 {
-    [SerializeField] private PostProcessVolume volume;
+    [SerializeField] private Volume volume;
     private ChromaticAberration chromaticAberration;
 
     [SerializeField] private GameObject deathScreen;
@@ -39,7 +38,7 @@ public class DeathScreen : MonoBehaviour
     }
     private void Start()
     {
-        volume.profile.TryGetSettings(out chromaticAberration);
+        volume.profile.TryGet(out chromaticAberration);
         deathScreen.SetActive(false);
 
         goAgain.onClick.AddListener(() => ReloadScene());
@@ -66,7 +65,7 @@ public class DeathScreen : MonoBehaviour
         //Game.MenusOpen++;
         
         StartCoroutine(WindDownTime());
-        chromaticAberration.intensity.value = 0.42f;
+        chromaticAberration.intensity.value = 0.5f;
 
         FindFirstObjectByType<AudioListener>().enabled = false;
     } 
