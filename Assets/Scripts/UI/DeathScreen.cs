@@ -6,6 +6,7 @@ using System.Collections;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.InputSystem;
+using System;
 
 
 public class DeathScreen : MonoBehaviour
@@ -25,6 +26,7 @@ public class DeathScreen : MonoBehaviour
     [SerializeField] private TextMeshProUGUI totalHitsLanded;
 
     [SerializeField] private Button goAgain;
+    [SerializeField] private Button mainMenu;
     [SerializeField] private Button quit;
 
     private float windDownTimeLength = 2.5f;
@@ -45,6 +47,7 @@ public class DeathScreen : MonoBehaviour
         deathScreen.SetActive(false);
 
         goAgain.onClick.AddListener(() => ReloadScene());
+        mainMenu.onClick.AddListener(() => GoToMainMenu());
         quit.onClick.AddListener(() => Application.Quit());
         
         playerInput = FindFirstObjectByType<PlayerInput>();
@@ -89,22 +92,37 @@ public class DeathScreen : MonoBehaviour
             elapsed += Time.unscaledDeltaTime;
 
             float t = Mathf.Clamp01(elapsed / windDownTimeLength);
-            Game.TimeScale = Mathf.Lerp(0.15f, 0.03f, t);
+            Game.TimeScale = Mathf.Lerp(0.15f, 0.05f, t);
 
             yield return null;
         }
-        Game.TimeScale = 0.03f;
+        Game.TimeScale = 0.05f;
 
+    }
+
+    private void GoToMainMenu()
+    {
+        Reset();
+        StartCoroutine(DelayOneFrame(() => SceneManager.LoadScene(Game.mainMenuSceneName)));
     }
 
     private void ReloadScene()
     {
+        Reset();
+        StartCoroutine(DelayOneFrame(() => SceneManager.LoadScene(Game.mainGameSceneName)));
+    }
+    private void Reset()
+    {
         StopCoroutine(timeSlowCR);
+        FindFirstObjectByType<ScreenFlashOnDamage>().SetFlashValue(0f);
         Game.AudioListenerPaused = false;
         Game.TimeScale = 1f;
-        chromaticAberration.intensity.value = 0f;
+        chromaticAberration.intensity.value = 0f; // i guess strictly chromatic aberration should be globally controlled as well... probably would want to break that into its own static handler. Although it also needs an instance specific reference to a volume so I guess it would be a singleton
+    }
 
-        Scene currentScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(currentScene.name);
+    private IEnumerator DelayOneFrame(Action onComplete) // ffs those calls just don't seem like they want to go off before the scene is loaded
+    {
+        yield return null; // wait one frame
+        onComplete?.Invoke();
     }
 }

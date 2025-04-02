@@ -13,7 +13,7 @@ public class PlayerLookAndMove : MonoBehaviour
     [SerializeField] private Rigidbody rb; 
     [SerializeField] private LayerMask groundLayer;
 
-    [SerializeField] private Transform lastJumpedFrom;
+    private Transform lastJumpedFrom;
 
     private float _moveSpeed;
     public float MoveSpeed
@@ -179,6 +179,7 @@ public class PlayerLookAndMove : MonoBehaviour
         game = Game.I;
         playerWallClimb = FindFirstObjectByType<PlayerWallclimb>();
         timer = new GameObject($"LookAndMove Timer").AddComponent<Timer>();
+        lastJumpedFrom = new GameObject("lastJumpedFrom").transform;
     }
     private void FixedUpdate()
     {

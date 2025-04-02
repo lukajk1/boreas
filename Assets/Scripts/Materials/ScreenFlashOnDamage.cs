@@ -51,4 +51,8 @@ public class ScreenFlashOnDamage : MonoBehaviour
         screenFlashMat.SetFloat("_VignetteIntensity", minInterval); // ensure final value
     }
 
+    public void SetFlashValue(float value)
+    {
+        screenFlashMat.SetFloat("_VignetteIntensity", value);
+    }
 }

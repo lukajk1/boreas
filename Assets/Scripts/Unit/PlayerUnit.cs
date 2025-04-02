@@ -10,10 +10,13 @@ public class PlayerUnit : Unit
 
     protected override void Die()
     {
+        IsDead = true;
         MainEventBus.BCOnRunEnd();
     }
     public override void TakeDamage(bool isCrit, int damage)
     {
+        if (IsDead) return;
+
         if (damage > 0)
         {
             CurrentHealth -= damage * DebugDamageModifier;

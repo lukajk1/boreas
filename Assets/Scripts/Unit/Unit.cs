@@ -24,6 +24,7 @@ public abstract class Unit : MonoBehaviour
     public int CurrentMaxHealth { get; protected set; }
     public abstract float BaseMoveSpeed { get; } // in units per s
     public float CurrentMoveSpeed { get; protected set; }
+    public bool IsDead { get; protected set; }
 
     public event Action<bool, int> OnUnitDamaged;
     public event Action OnUnitReady;
@@ -64,6 +65,7 @@ public abstract class Unit : MonoBehaviour
     }
     protected virtual void Die()
     {
+        IsDead = true;
         OnUnitDeath?.Invoke(); // for "local" processes that need to know about the unit dying
         Destroy(gameObject);
     }

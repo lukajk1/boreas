@@ -105,6 +105,10 @@ public class Game : MonoBehaviour
     public static Action InitializeRun;
     public static Game I { get; private set; }
 
+    public static string mainMenuSceneName = "MainMenu";
+    public static string mainGameSceneName = "Game";
+    public static string tutorialSceneName = "Tutorial";
+
     private void Awake()
     {
         if (I != null) Debug.LogError($"More than one instance of {I} in scene");
@@ -115,5 +119,7 @@ public class Game : MonoBehaviour
     {
         InitializeRun?.Invoke();
         CursorLocked = true;
+        PlayerUnitInstance = FindFirstObjectByType<PlayerUnit>();
+        PlayerTransform = GameObject.Find("Player").transform;
     }
 }
