@@ -5,6 +5,7 @@ public class WaveManager : MonoBehaviour
 {
     public static WaveManager I;
     [SerializeField] private GameObject crystal;
+    [SerializeField] private GameObject spawnIndicator;
     [Header("enemy prefabs")]
     [SerializeField] private GameObject zomboPrefab;
     [SerializeField] private GameObject casterPrefab;
@@ -25,7 +26,8 @@ public class WaveManager : MonoBehaviour
     private bool isSpawning = true;
 
     private int lastWaveSize = 7;
-    private float minRangeFromPlayerForSpawning = 16f;
+    private float minRangeFromPlayerForSpawning = 12f;
+    private float spawnDelay = 1.5f;
 
     private void Awake()
     {
@@ -86,11 +88,18 @@ public class WaveManager : MonoBehaviour
                 while (Vector3.Distance(prospectiveSpawnpoint, Game.I.PlayerTransform.position) < minRangeFromPlayerForSpawning);
                 
 
-                // instantiate random enemytype at random spawnpoint
-                Instantiate(
-                    nextWave.enemyTypes[Random.Range(0, nextWave.enemyTypes.Count)],
-                    arena1Spawnpoints[Random.Range(0, arena1Spawnpoints.Count)] + new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized, // add random xz vector of mag 1 to prevent enemies from spawning inside each other, dunno if it matters but no reason to invite extra jank 
-                    Quaternion.identity);
+                //// instantiate random enemytype at random spawnpoint
+                //Instantiate(
+                //    nextWave.enemyTypes[Random.Range(0, nextWave.enemyTypes.Count)],
+                //    arena1Spawnpoints[Random.Range(0, arena1Spawnpoints.Count)] + new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized, // add random xz vector of mag 1 to prevent enemies from spawning inside each other, dunno if it matters but no reason to invite extra jank 
+                //    Quaternion.identity);
+
+                GameObject spawnIndicatorInstance = Instantiate(spawnIndicator, prospectiveSpawnpoint + new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized, Quaternion.identity);
+
+                GameObject prefab = nextWave.enemyTypes[Random.Range(0, nextWave.enemyTypes.Count)];
+                //Debug.Log(prefab);
+                spawnIndicatorInstance.GetComponent<SpawnIndicator>().Setup(spawnDelay, prefab);
+
             }
         }
         else
