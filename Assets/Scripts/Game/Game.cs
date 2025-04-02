@@ -67,6 +67,36 @@ public class Game : MonoBehaviour
         }
     }
 
+    private static bool _audioListenerPaused = false;
+    public static bool AudioListenerPaused
+    {
+        get => _audioListenerPaused;
+        set
+        {
+            if (_audioListenerPaused != value)
+            {
+                _audioListenerPaused = value;
+            }
+
+            if (_audioListenerPaused) AudioListener.pause = true;
+            else AudioListener.pause = false;
+        }
+    }
+
+    private static float _timeScale = 1f;
+    public static float TimeScale
+    {
+        get => _timeScale;
+        set
+        {
+            if (_timeScale != value)
+            {
+                // updating only when the value changes prevents repeatededly invoking events if I hook on up here later
+                _timeScale = value;
+                Time.timeScale = _timeScale;
+            }
+        }
+    }
     public Transform PlayerTransform;
     public Camera PlayerCamera;
     public PlayerUnit PlayerUnitInstance;

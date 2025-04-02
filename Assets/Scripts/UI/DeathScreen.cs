@@ -29,6 +29,7 @@ public class DeathScreen : MonoBehaviour
 
     private float windDownTimeLength = 2.5f;
     private PlayerInput playerInput;
+    private Coroutine timeSlowCR;
 
     private void OnEnable()
     {
@@ -70,11 +71,11 @@ public class DeathScreen : MonoBehaviour
 
         deathScreen.SetActive(true);
         //Game.MenusOpen++;
-        
-        StartCoroutine(WindDownTime());
+
+        timeSlowCR = StartCoroutine(WindDownTime());
         chromaticAberration.intensity.value = 0.5f;
 
-        AudioListener.pause = true;
+        Game.AudioListenerPaused = true;
         playerInput.actions.FindActionMap("Player").Disable(); // disable player action map to prevent new inputs
 
         Game.CursorLocked = false;
@@ -88,17 +89,21 @@ public class DeathScreen : MonoBehaviour
             elapsed += Time.unscaledDeltaTime;
 
             float t = Mathf.Clamp01(elapsed / windDownTimeLength);
-            Time.timeScale = Mathf.Lerp(0.15f, 0.03f, t);
+            Game.TimeScale = Mathf.Lerp(0.15f, 0.03f, t);
 
             yield return null;
         }
-        Time.timeScale = 0.03f;
+        Game.TimeScale = 0.03f;
 
     }
 
     private void ReloadScene()
     {
-        Debug.Log("reload scene clicked");
+        StopCoroutine(timeSlowCR);
+        Game.AudioListenerPaused = false;
+        Game.TimeScale = 1f;
+        chromaticAberration.intensity.value = 0f;
+
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
     }

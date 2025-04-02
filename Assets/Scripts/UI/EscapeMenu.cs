@@ -44,13 +44,13 @@ public class EscapeMenu : MonoBehaviour
 
         if (value)
         {
-            Cursor.visible = true;
-            AudioListener.pause = true;
+            //Cursor.visible = true;
+            Game.AudioListenerPaused = true;
             Game.MenusOpen++;
         }
         else
         {
-            AudioListener.pause = false;
+            Game.AudioListenerPaused = false;
             Game.MenusOpen--;
         }
     }

@@ -4460,12 +4460,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 774173130}
-  m_Father: {fileID: 949356131}
+  - {fileID: 1624603870}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 89.974976}
+  m_AnchoredPosition: {x: 960, y: 629.975}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &650087991
@@ -4481,7 +4481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volume: {fileID: 536205849}
-  deathScreen: {fileID: 774173129}
+  deathScreen: {fileID: 1624603865}
   runTime: {fileID: 661193984}
   score: {fileID: 1109854239}
   enemiesKilled: {fileID: 469192979}
@@ -5492,11 +5492,11 @@ RectTransform:
   - {fileID: 1600191816}
   - {fileID: 541553058}
   - {fileID: 1042353268}
-  m_Father: {fileID: 650087990}
+  m_Father: {fileID: 1624603870}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.000022888184}
+  m_AnchoredPosition: {x: 0, y: 89.975}
   m_SizeDelta: {x: 194.34, y: 179.95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &814408467
@@ -6152,7 +6152,6 @@ RectTransform:
   - {fileID: 284004323}
   - {fileID: 1229569015}
   - {fileID: 1264471921}
-  - {fileID: 650087990}
   - {fileID: 500321982}
   - {fileID: 2098948991}
   - {fileID: 1808563815}
@@ -10520,6 +10519,133 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.0015504, y: 2.0000005, z: 3.751082}
   m_Center: {x: -0.00000023841858, y: 0.0000001192093, z: 0.37476557}
+--- !u!1 &1624603865
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1624603870}
+  - component: {fileID: 1624603869}
+  - component: {fileID: 1624603868}
+  - component: {fileID: 1624603867}
+  - component: {fileID: 1624603866}
+  m_Layer: 5
+  m_Name: Death Screen Canvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1624603866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624603865}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5f8f14078f39f142b028faa2ccf8766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volume: {fileID: 536205849}
+  deathScreen: {fileID: 774173129}
+  runTime: {fileID: 661193984}
+  score: {fileID: 1109854239}
+  enemiesKilled: {fileID: 469192979}
+  shotsFired: {fileID: 2021406143}
+  damageDealt: {fileID: 1582788490}
+  damageTaken: {fileID: 1357030841}
+  criticalHits: {fileID: 1512244572}
+  totalHitsLanded: {fileID: 1283510150}
+  goAgain: {fileID: 1155554798}
+  quit: {fileID: 551561170}
+--- !u!114 &1624603867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624603865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &1624603868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624603865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!223 &1624603869
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624603865}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!224 &1624603870
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624603865}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 774173130}
+  m_Father: {fileID: 650087990}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &1634058232
 GameObject:
   m_ObjectHideFlags: 0
@@ -13815,3 +13941,4 @@ SceneRoots:
   - {fileID: 3527660}
   - {fileID: 599190219}
   - {fileID: 2123631021}
+  - {fileID: 650087990}
