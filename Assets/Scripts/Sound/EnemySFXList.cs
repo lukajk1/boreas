@@ -9,4 +9,5 @@ public class EnemySFXList : MonoBehaviour
         I = this;
     }
     [SerializeField] public AudioClip enemySpawn;
+    [SerializeField] public AudioClip casterAttack;
 }

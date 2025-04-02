@@ -4,7 +4,22 @@ using UnityEngine;
 public abstract class Unit : MonoBehaviour
 {
     public abstract string Name { get; }
-    public int CurrentHealth { get; protected set; }
+    private int _currentHealth;
+    public int CurrentHealth
+    {
+        get => _currentHealth;
+        set
+        {
+            if (value < 0)
+            {
+                _currentHealth = 0;
+            }
+            else
+            {
+                _currentHealth = value;
+            }
+        }
+    }
     public abstract int BaseMaxHealth { get; }
     public int CurrentMaxHealth { get; protected set; }
     public abstract float BaseMoveSpeed { get; } // in units per s

@@ -14,17 +14,12 @@ public class PlayerUnit : Unit
     {
         if (damage > 0)
         {
-            if (damage >= CurrentHealth)
-            {
-                Die();
-            }
-            else
-            {
-                CurrentHealth -= damage;
-                CombatEventBus.BCOnPlayerHit(damage, isCrit);
+            CurrentHealth -= damage;
+            CombatEventBus.BCOnPlayerHit(damage, isCrit);
 
-                SFXManager.I.PlaySFXClip(PlayerSFXList.I.hurt, Game.I.PlayerTransform.position, false);
-            }
+            SFXManager.I.PlaySFXClip(PlayerSFXList.I.hurt, Game.I.PlayerTransform.position, false); 
+            if (damage >= CurrentHealth) Die();
+
         }
     }
 }

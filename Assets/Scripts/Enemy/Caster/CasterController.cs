@@ -61,8 +61,6 @@ public class CasterController : UnitController
             agent.isStopped = true;
             TryAttack();
         }
-
-
     }
 
     private void TryAttack()
@@ -79,6 +77,8 @@ public class CasterController : UnitController
 
             GameObject bullet = Instantiate(casterBullet, bulletOrigin.position, Quaternion.identity);
             bullet.GetComponent<CasterBullet>().Initialize(dir.normalized, bulletMaxDuration, enemyUnit.BaseDamage, bulletSpeed);
+
+            SFXManager.I.PlaySFXClip(SFXManager.SoundType._3D, EnemySFXList.I.casterAttack, transform.position);
 
             canAttack = false;
             StartCoroutine(AttackCD());
