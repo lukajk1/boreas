@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.InputSystem;
 
 
 public class DeathScreen : MonoBehaviour
@@ -27,6 +28,7 @@ public class DeathScreen : MonoBehaviour
     [SerializeField] private Button quit;
 
     private float windDownTimeLength = 2.5f;
+    private PlayerInput playerInput;
 
     private void OnEnable()
     {
@@ -43,8 +45,13 @@ public class DeathScreen : MonoBehaviour
 
         goAgain.onClick.AddListener(() => ReloadScene());
         quit.onClick.AddListener(() => Application.Quit());
-    }
+        
+        playerInput = FindFirstObjectByType<PlayerInput>();
 
+    }
+    private void Update()
+    {
+    }
     private void OnRunEnd()
     {
         RunStats stats = FindFirstObjectByType<RunStatsManager>().RequestStats();
@@ -67,7 +74,10 @@ public class DeathScreen : MonoBehaviour
         StartCoroutine(WindDownTime());
         chromaticAberration.intensity.value = 0.5f;
 
-        FindFirstObjectByType<AudioListener>().enabled = false;
+        AudioListener.pause = true;
+        playerInput.actions.FindActionMap("Player").Disable(); // disable player action map to prevent new inputs
+
+        Game.CursorLocked = false;
     } 
 
     private IEnumerator WindDownTime()
@@ -88,6 +98,7 @@ public class DeathScreen : MonoBehaviour
 
     private void ReloadScene()
     {
+        Debug.Log("reload scene clicked");
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
     }

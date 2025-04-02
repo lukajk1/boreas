@@ -10,7 +10,7 @@ public abstract class Weapon
         get => totalAmmo;
         set
         {
-            if (value > 0)
+            if (value >= 0)
             {
                 totalAmmo = value;
                 CombatEventBus.BCOnAmmoCountsModified();
@@ -54,7 +54,7 @@ public abstract class Weapon
 
     protected virtual int DecideInitialTotalAmmo()
     {
-        return Random.Range(10, 20) * ClipSize;
+        return Random.Range(8, 16) * ClipSize;
     }
 
     protected virtual bool TryFire()
@@ -91,10 +91,12 @@ public abstract class Weapon
         else if (TotalAmmo > 0 && TotalAmmo < ClipSize)
         {
             weaponTimer.Reload(TotalAmmo);
+            TotalAmmo = 0;
         }
         else if (TotalAmmo == 0 && CurrentAmmo == 0) 
         {
             Break(); // weapon is destroyed when it runs out of ammo
+            Debug.Log("broken");
         }
     }
     protected virtual void Break() { }

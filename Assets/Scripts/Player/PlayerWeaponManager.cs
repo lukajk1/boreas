@@ -9,6 +9,7 @@ public class PlayerWeaponManager : MonoBehaviour
     private InputAction attackAction;
     private void OnEnable()
     {
+        MainEventBus.OnRunStart += Setup;
         CombatEventBus.OnActiveWeaponChanged += UpdateActiveWeapon;
         playerInput.actions["Reload"].performed += OnReloadPressed;
         attackAction = playerInput.actions["Attack"];
@@ -16,6 +17,7 @@ public class PlayerWeaponManager : MonoBehaviour
     }
     private void OnDisable()
     {
+        MainEventBus.OnRunStart -= Setup;
         CombatEventBus.OnActiveWeaponChanged -= UpdateActiveWeapon;
         playerInput.actions["Reload"].performed -= OnReloadPressed;
         attackAction.Disable();

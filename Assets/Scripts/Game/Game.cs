@@ -20,10 +20,12 @@ public class Game : MonoBehaviour
                 if (value)
                 {
                     Time.timeScale = 0;
+                    CursorLocked = false;
                 }
                 else
                 {
                     Time.timeScale = 1;
+                    CursorLocked = true;
                 }
             }
         }
@@ -34,26 +36,37 @@ public class Game : MonoBehaviour
     private static int _menusOpen;
     public static int MenusOpen
     {
-        get
-        {
-            return _menusOpen;
-        }
-
+        get => _menusOpen;
         set
         {
             _menusOpen = value;
             if (_menusOpen == 0)
             {
                 IsPaused = false;
-                Cursor.lockState = CursorLockMode.Locked;
             }
             else
             {
                 IsPaused = true;
-                Cursor.lockState = CursorLockMode.None;
             }
         }
     }
+
+    private static bool _cursorLocked = false;
+    public static bool CursorLocked
+    {
+        get => _cursorLocked;
+        set
+        {
+            if (_cursorLocked != value)
+            {
+                _cursorLocked = value;
+            }
+
+            if (_cursorLocked) Cursor.lockState = CursorLockMode.Locked;
+            else Cursor.lockState = CursorLockMode.None;
+        }
+    }
+
     public Transform PlayerTransform;
     public Camera PlayerCamera;
     public PlayerUnit PlayerUnitInstance;
@@ -64,16 +77,13 @@ public class Game : MonoBehaviour
 
     private void Awake()
     {
-        if (I != null) 
-        {
-            Debug.LogError($"More than one instance of {I} in scene");
-        }
-
+        if (I != null) Debug.LogError($"More than one instance of {I} in scene");
         I = this;
     }
 
     private void Start()
     {
         InitializeRun?.Invoke();
+        CursorLocked = true;
     }
 }

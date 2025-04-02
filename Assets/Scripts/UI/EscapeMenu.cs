@@ -15,8 +15,6 @@ public class EscapeMenu : MonoBehaviour
         backToGame.onClick.AddListener(() => SetEscMenu(false));
         quit.onClick.AddListener(() => Application.Quit());
         escPage.SetActive(false);
-
-        Cursor.lockState = CursorLockMode.Locked; // this needs to be moved somewhere more central eventually 
     }
 
     private void Update()
