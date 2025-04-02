@@ -6,6 +6,6 @@ public class DummySystem : MonoBehaviour
     {
         MainEventBus.BCOnRunStart();
         FindFirstObjectByType<PlayerUnit>().DebugDamageModifier = 999;
-        //Game.TimeScale = 1f;
+        Debug.Log(Game.TimeScale);
     }
 }

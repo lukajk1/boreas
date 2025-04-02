@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class EscapeMenu : MonoBehaviour
@@ -6,6 +7,7 @@ public class EscapeMenu : MonoBehaviour
 
     [SerializeField] private GameObject escPage;
     [SerializeField] private Button backToGame;
+    [SerializeField] private Button mainMenu;
     [SerializeField] private Button quit;
 
     private bool isOpen;
@@ -13,6 +15,7 @@ public class EscapeMenu : MonoBehaviour
     private void Start()
     {
         backToGame.onClick.AddListener(() => SetEscMenu(false));
+        mainMenu.onClick.AddListener(() => ToMainMenu());
         quit.onClick.AddListener(() => Application.Quit());
         escPage.SetActive(false);
     }
@@ -36,6 +39,12 @@ public class EscapeMenu : MonoBehaviour
             // regained focus
         }
     }
+    void ToMainMenu()
+    {
+        SetEscMenu(false);
+        Game.CursorLocked = false;
+        SceneManager.LoadScene(Game.mainMenuSceneName);
+    }
 
     private void SetEscMenu(bool value)
     {
@@ -44,7 +53,6 @@ public class EscapeMenu : MonoBehaviour
 
         if (value)
         {
-            //Cursor.visible = true;
             Game.AudioListenerPaused = true;
             Game.MenusOpen++;
         }
