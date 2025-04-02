@@ -14,4 +14,5 @@ public class PlayerSFXList : MonoBehaviour
     [SerializeField] public AudioClip jumpLanding;
     [SerializeField] public AudioClip slide;
     [SerializeField] public AudioClip hurt;
+    [SerializeField] public AudioClip footstep;
 }

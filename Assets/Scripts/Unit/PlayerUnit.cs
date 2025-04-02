@@ -17,7 +17,7 @@ public class PlayerUnit : Unit
             CurrentHealth -= damage;
             CombatEventBus.BCOnPlayerHit(damage, isCrit);
 
-            SFXManager.I.PlaySFXClip(PlayerSFXList.I.hurt, Game.I.PlayerTransform.position, false); 
+            SFXManager.I.PlaySFXClip(UISFXList.I.enemyBodyHit, Game.I.PlayerTransform.position, false); 
             if (damage >= CurrentHealth) Die();
 
         }

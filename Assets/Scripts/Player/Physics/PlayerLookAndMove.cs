@@ -55,7 +55,7 @@ public class PlayerLookAndMove : MonoBehaviour
     private float timeSinceGrounded = 0f;
     private bool hasJumped;
 
-    private float slideDecayDuration = 2.2f;
+    private float slideDecayDuration = 1.75f;
     private float slideTimeElapsed = 0;
     private bool _isSliding;
     private float slideSpeedMultiplier = 1f;
@@ -84,7 +84,7 @@ public class PlayerLookAndMove : MonoBehaviour
     public event Action<bool> OnGroundedChanged;
 
     private bool _isCrouching;
-    private bool IsCrouching
+    public bool IsCrouching
     {
         get => _isCrouching;
         set
