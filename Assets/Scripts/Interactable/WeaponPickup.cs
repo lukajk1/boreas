@@ -40,7 +40,7 @@ public class WeaponPickup : Interactable
             }
         }
 
-        Inventory.I.SetWeapon(Inventory.I.ActiveSlot, weapon);
+        Inventory.I.AddWeapon(weapon);
         Destroy(transform.root.gameObject);
     }
 }

@@ -117,7 +117,7 @@ public class WaveManager : MonoBehaviour
         if (remainingEnemiesInWave <= lastWaveSize / 2 && isSpawning) SpawnNextWave();    
     }
 
-    void OnEnemyDeath()
+    void OnEnemyDeath(EnemyUnit enemyUnit, Vector3 pos)
     {
         remainingEnemiesInWave--;
     }

@@ -6,9 +6,9 @@ public static class CombatEventBus
     public static event Action<Weapon> OnWeaponDropped;
     public static void BCOnWeaponDropped(Weapon droppedWeapon) => OnWeaponDropped?.Invoke(droppedWeapon);
 
-    public static event Action OnActiveWeaponChanged;
+    public static event Action OnInventoryUpdated;
 
-    public static void BCOnActiveWeaponChanged() => OnActiveWeaponChanged?.Invoke();
+    public static void BCOnInventoryUpdated() => OnInventoryUpdated?.Invoke();
 
     public static event Action OnWeaponFired;
 
@@ -24,7 +24,10 @@ public static class CombatEventBus
     public static event Action<int, bool> OnPlayerHit;
     public static void BCOnPlayerHit(int damage, bool isCrit) => OnPlayerHit?.Invoke(damage, isCrit);
 
-    public static event Action OnEnemyDeath;
-    public static void BCOnEnemyDeath() => OnEnemyDeath?.Invoke();
+    public static event Action<EnemyUnit, Vector3> OnEnemyDeath;
+    public static void BCOnEnemyDeath(EnemyUnit enemyType, Vector3 pos) => OnEnemyDeath?.Invoke(enemyType, pos);
+
+    public static event Action OnWeaponBreak;
+    public static void BCOnWeaponBreak() => OnWeaponBreak?.Invoke();   
 
 }

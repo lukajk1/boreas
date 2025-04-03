@@ -47,7 +47,7 @@ public class RunStatsManager : MonoBehaviour
         damageTaken += damage;
     }
 
-    private void OnEnemyDeath()
+    private void OnEnemyDeath(EnemyUnit enemyUnit, Vector3 pos)
     {
         enemiesKilled++;
     }

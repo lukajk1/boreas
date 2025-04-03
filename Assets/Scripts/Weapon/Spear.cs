@@ -28,6 +28,7 @@ public class Spear : Weapon
 
     protected override int DecideInitialTotalAmmo()
     {
-        return Random.Range(2, 4) * ClipSize;
+        //return Random.Range(2, 4) * ClipSize;
+        return Random.Range(0, 1) * ClipSize;
     }
 }

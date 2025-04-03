@@ -16,7 +16,7 @@ public abstract class EnemyUnit : Unit
 
     protected override void Die()
     {
-        CombatEventBus.BCOnEnemyDeath();
+        CombatEventBus.BCOnEnemyDeath(this, transform.position);
         SFXManager.I.PlaySFXClip(UISFXList.I.enemyDeath, transform.position);
 
         base.Die();

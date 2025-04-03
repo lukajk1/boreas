@@ -10,7 +10,7 @@ public class PlayerWeaponManager : MonoBehaviour
     private void OnEnable()
     {
         MainEventBus.OnRunStart += Setup;
-        CombatEventBus.OnActiveWeaponChanged += UpdateActiveWeapon;
+        CombatEventBus.OnInventoryUpdated += UpdateActiveWeapon;
         playerInput.actions["Reload"].performed += OnReloadPressed;
         attackAction = playerInput.actions["Attack"];
         attackAction.Enable();
@@ -18,7 +18,7 @@ public class PlayerWeaponManager : MonoBehaviour
     private void OnDisable()
     {
         MainEventBus.OnRunStart -= Setup;
-        CombatEventBus.OnActiveWeaponChanged -= UpdateActiveWeapon;
+        CombatEventBus.OnInventoryUpdated -= UpdateActiveWeapon;
         playerInput.actions["Reload"].performed -= OnReloadPressed;
         attackAction.Disable();
     }
@@ -28,7 +28,7 @@ public class PlayerWeaponManager : MonoBehaviour
     }
     private void Update()
     {
-        if (attackAction.IsPressed())
+        if (attackAction.IsPressed() && weapon != null)
         {
             weapon.Fire(fpCamera.transform.position + (fpCamera.transform.forward * 0.3f), fpCamera.transform.forward); // small offset to move out of head hitbox or whatever player hitbox is blocking it
         }

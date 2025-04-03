@@ -18,11 +18,11 @@ public class WeaponModelManager : MonoBehaviour
     }
     private void OnEnable()
     {
-        CombatEventBus.OnActiveWeaponChanged += SwitchModel;
+        CombatEventBus.OnInventoryUpdated += SwitchModel;
     }
     private void OnDisable()
     {
-        CombatEventBus.OnActiveWeaponChanged -= SwitchModel;
+        CombatEventBus.OnInventoryUpdated -= SwitchModel;
     }
     void SwitchModel()
     {

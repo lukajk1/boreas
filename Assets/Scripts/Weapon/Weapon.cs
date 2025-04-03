@@ -38,6 +38,7 @@ public abstract class Weapon
     public abstract float ReadySpeed { get; } // how fast a gun can be fired after being switched to
     public abstract float LifestealRatio { get; }
     public abstract float Range { get; }
+    public bool IsBroken { get; protected set; }
 
     public float[,] DamageFalloffTable;
     protected WeaponTimer weaponTimer;
@@ -96,10 +97,13 @@ public abstract class Weapon
         else if (TotalAmmo == 0 && CurrentAmmo == 0) 
         {
             Break(); // weapon is destroyed when it runs out of ammo
-            Debug.Log("broken");
         }
     }
-    protected virtual void Break() { }
+    protected virtual void Break() 
+    {
+        IsBroken = true;
+        CombatEventBus.BCOnWeaponBreak();
+    }
 
     public void SetCurrentAmmo(int amount)
     {

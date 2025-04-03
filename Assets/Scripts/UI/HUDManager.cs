@@ -15,7 +15,7 @@ public class HUDManager : MonoBehaviour
 
     private void OnEnable()
     {
-        CombatEventBus.OnActiveWeaponChanged += UpdateActiveWeapon;
+        CombatEventBus.OnInventoryUpdated += OnInventoryUpdated;
         CombatEventBus.OnAmmoCountsModified += UpdateAmmoHUD;
         CombatEventBus.OnPlayerHit += OnPlayerHit;
         MainEventBus.OnRunStart += Setup;
@@ -24,14 +24,14 @@ public class HUDManager : MonoBehaviour
     private void OnDisable()
     {
         MainEventBus.OnRunStart -= Setup;
-        CombatEventBus.OnActiveWeaponChanged -= UpdateActiveWeapon;
+        CombatEventBus.OnInventoryUpdated -= OnInventoryUpdated;
         CombatEventBus.OnAmmoCountsModified -= UpdateAmmoHUD;
         CombatEventBus.OnPlayerHit -= OnPlayerHit;
     }
     private void Setup()
     {
         UpdateHealth();
-        UpdateActiveWeapon();
+        OnInventoryUpdated();
     }
     private void OnPlayerHit(int damage, bool isCrit)
     {
@@ -42,12 +42,24 @@ public class HUDManager : MonoBehaviour
         txtHealth.text = $"{Game.I.PlayerUnitInstance.CurrentHealth} / {Game.I.PlayerUnitInstance.CurrentMaxHealth}";
         healthbar.value = (float)Game.I.PlayerUnitInstance.CurrentHealth / Game.I.PlayerUnitInstance.CurrentMaxHealth;
     }
-    private void UpdateActiveWeapon()
+    private void OnInventoryUpdated()
     {
         activeWeapon = Inventory.I.GetActiveWeapon();
-        
-        slot0Gun.text = Inventory.I.GetWeapon(0).Name;
-        slot1Gun.text = Inventory.I.GetWeapon(1).Name;
+
+        slot0Gun.text = Inventory.I.GetWeapon(0).Name; // don't need to check if this is null because there will always be a base weapon equipped
+
+        Weapon one = Inventory.I.GetWeapon(1);
+
+        if (one != null)
+        {
+            slot1Gun.text = one.Name;
+        }
+        else
+        {
+            {
+                slot1Gun.text = "";
+            }
+        }
 
         Color grayedOut = new Color(1, 1, 1, 0.2f);
         Color active = new Color(1, 1, 1, 0.6f);
@@ -68,8 +80,12 @@ public class HUDManager : MonoBehaviour
 
     private void UpdateAmmoHUD()
     {
-        ammo.text = $"{activeWeapon.CurrentAmmo} / {activeWeapon.ClipSize}";
-        totalAmmo.text = $"remaining: {activeWeapon.TotalAmmo}";
+        //Debug.Log(activeWeapon);
+        if (activeWeapon != null)
+        {
+            ammo.text = $"{activeWeapon.CurrentAmmo} / {activeWeapon.ClipSize}";
+            totalAmmo.text = $"remaining: {activeWeapon.TotalAmmo}";
+        }
     }
 
     public void SetWallClimbStamina(float value)
