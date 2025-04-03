@@ -17,7 +17,7 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        
+        CombatEventBus.BCOnActiveWeaponChanged(); // just to push an update so all relevant systems know what's the starting weapon
     }
     public void SetActiveSlot(int slot)
     {
@@ -51,5 +51,10 @@ public class Inventory : MonoBehaviour
     public Weapon GetActiveWeapon()
     {
         return equippedWeapons[ActiveSlot];
+    }
+
+    public int GetActiveSlot()
+    {
+        return ActiveSlot;
     }
 }

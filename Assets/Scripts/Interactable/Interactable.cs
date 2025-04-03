@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
-    private void Awake()
+    protected virtual void Awake()
     {
         gameObject.tag = "Interact";
     }

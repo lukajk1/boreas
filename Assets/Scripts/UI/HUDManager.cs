@@ -4,7 +4,8 @@ using UnityEngine.UI;
 
 public class HUDManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI gunName;
+    [SerializeField] private TextMeshProUGUI slot0Gun;
+    [SerializeField] private TextMeshProUGUI slot1Gun;
     [SerializeField] private TextMeshProUGUI ammo;
     [SerializeField] private TextMeshProUGUI totalAmmo;
     [SerializeField] private TextMeshProUGUI txtHealth;
@@ -44,7 +45,24 @@ public class HUDManager : MonoBehaviour
     private void UpdateActiveWeapon()
     {
         activeWeapon = Inventory.I.GetActiveWeapon();
-        gunName.text = activeWeapon.Name;
+        
+        slot0Gun.text = Inventory.I.GetWeapon(0).Name;
+        slot1Gun.text = Inventory.I.GetWeapon(1).Name;
+
+        Color grayedOut = new Color(1, 1, 1, 0.2f);
+        Color active = new Color(1, 1, 1, 0.6f);
+
+        if (Inventory.I.GetActiveSlot() == 0)
+        {
+            slot0Gun.color = active;
+            slot1Gun.color = grayedOut;
+        }
+        else
+        {
+            slot0Gun.color = grayedOut;
+            slot1Gun.color = active;
+        }
+
         UpdateAmmoHUD();
     }
 
