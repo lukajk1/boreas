@@ -65,10 +65,10 @@ public class DeathScreen : MonoBehaviour
 
         runTime.text = $"run length: {minutes:00}:{seconds:00}";
         score.text = $"score: {stats.score}";
-        //shotsFired.text = $"shots fired: {stats.shotsFired:N0}";
+        //shotsFired.text = $"shots fired: {stats.shotsFired:N0}"; // I don't think anyone really cares about these stats and it clutters up the screen
         enemiesKilled.text = $"enemies slain: {stats.enemiesKilled:N0}";
         damageDealt.text = $"damage dealt: {stats.damageDealt:N0}";
-        damageTaken.text = $"damage taken: {stats.damageTaken:N0}";
+        //damageTaken.text = $"damage taken: {stats.damageTaken:N0}";
         criticalHits.text = $"critical hit %: {(stats.criticalHits * 100f / stats.totalHitsLanded):0.0}%";
         totalHitsLanded.text = $"overall accuracy: {(stats.totalHitsLanded * 100f / stats.shotsFired):0.0}%";
 
