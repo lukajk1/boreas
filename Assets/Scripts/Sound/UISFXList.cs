@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class UISFXList : MonoBehaviour
 {
-    public static UISFXList I;
+    public static UISFXList i;
     private void Awake()
     {
-        if (I != null) Debug.LogError("too many instances");
-        I = this;
+        if (i != null) Debug.LogError("too many instances");
+        i = this;
     }
     [SerializeField] public AudioClip reloadFinished;
     [SerializeField] public AudioClip outOfBullets;

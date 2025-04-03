@@ -32,7 +32,7 @@ public class DiverController : UnitController
     {
         agent = GetComponent<NavMeshAgent>();
         agent.speed = enemyUnit.CurrentMoveSpeed;
-        agent.destination = Game.I.PlayerTransform.position;
+        agent.destination = Game.i.PlayerTransform.position;
         enemyUnit.AttackReady = true;
         playerPhysicsBus = FindFirstObjectByType<PlayerPhysicsBus>();
         trailRenderer.enabled = false;
@@ -45,10 +45,10 @@ public class DiverController : UnitController
 
     void Update()
     {
-        if (Vector3.Distance(transform.position, Game.I.PlayerTransform.position) > enemyUnit.AttackRange && !isAttacking)
+        if (Vector3.Distance(transform.position, Game.i.PlayerTransform.position) > enemyUnit.AttackRange && !isAttacking)
         {
             agent.isStopped = false;
-            agent.destination = Game.I.PlayerTransform.position;
+            agent.destination = Game.i.PlayerTransform.position;
         }
         else
         {
@@ -61,7 +61,7 @@ public class DiverController : UnitController
 
     private void TryAttack()
     {
-        Ray ray = new Ray(transform.position, Game.I.PlayerTransform.position - transform.position); // only attack if LOS on player
+        Ray ray = new Ray(transform.position, Game.i.PlayerTransform.position - transform.position); // only attack if LOS on player
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.CompareTag("Player"))
@@ -93,7 +93,7 @@ public class DiverController : UnitController
         transform.position = new Vector3(transform.position.x, startHeight + targetHeight, transform.position.z);
         bool hasDamaged = false;
 
-        Vector3 dashTargetPos = Game.I.PlayerTransform.position;
+        Vector3 dashTargetPos = Game.i.PlayerTransform.position;
         elapsedTime = 0f;
         while (Vector3.Distance(transform.position, dashTargetPos) >= 0.6f)
         {
@@ -104,12 +104,12 @@ public class DiverController : UnitController
 
             if (!hasDamaged)
             {
-                if (Vector3.Distance(transform.position, Game.I.PlayerTransform.position) <= diveAttackDamageRadius)
+                if (Vector3.Distance(transform.position, Game.i.PlayerTransform.position) <= diveAttackDamageRadius)
                 {
-                    Game.I.PlayerUnitInstance.TakeDamage(false, enemyUnit.BaseDamage);
+                    Game.i.PlayerUnitInstance.TakeDamage(false, enemyUnit.BaseDamage);
                     hasDamaged = true;
 
-                    Vector3 xz = transform.position - Game.I.PlayerTransform.position;
+                    Vector3 xz = transform.position - Game.i.PlayerTransform.position;
                     xz = xz.normalized * 27f;
                     Vector3 y = Vector3.up * 3f;
 

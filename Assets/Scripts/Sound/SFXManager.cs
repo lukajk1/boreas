@@ -3,12 +3,12 @@ using UnityEngine;
 public class SFXManager : MonoBehaviour
 {
     [SerializeField] private AudioSource soundFXObject;
-    public static SFXManager I;
+    public static SFXManager i;
 
     private void Awake()
     {
-        if (I != null) Debug.LogError("too many instances");
-        I = this;
+        if (i != null) Debug.LogError("too many instances");
+        i = this;
     }
 
     public enum SoundType

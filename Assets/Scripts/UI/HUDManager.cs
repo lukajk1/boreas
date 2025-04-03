@@ -39,8 +39,8 @@ public class HUDManager : MonoBehaviour
     }
     private void UpdateHealth()
     {
-        txtHealth.text = $"{Game.I.PlayerUnitInstance.CurrentHealth} / {Game.I.PlayerUnitInstance.CurrentMaxHealth}";
-        healthbar.value = (float)Game.I.PlayerUnitInstance.CurrentHealth / Game.I.PlayerUnitInstance.CurrentMaxHealth;
+        txtHealth.text = $"{Game.i.PlayerUnitInstance.CurrentHealth} / {Game.i.PlayerUnitInstance.CurrentMaxHealth}";
+        healthbar.value = (float)Game.i.PlayerUnitInstance.CurrentHealth / Game.i.PlayerUnitInstance.CurrentMaxHealth;
     }
     private void OnInventoryUpdated()
     {

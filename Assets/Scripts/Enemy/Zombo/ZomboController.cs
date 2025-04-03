@@ -31,7 +31,7 @@ public class ZomboController : UnitController
 
         agent = GetComponent<NavMeshAgent>();
         agent.speed = movespeed;
-        agent.destination = Game.I.PlayerTransform.position;
+        agent.destination = Game.i.PlayerTransform.position;
     }
 
     protected override void Start()
@@ -43,13 +43,13 @@ public class ZomboController : UnitController
     {
         if (allowedToMove)
         {
-            agent.destination = Game.I.PlayerTransform.position;
+            agent.destination = Game.i.PlayerTransform.position;
         }
 
-        if (enemyUnit.AttackReady && Vector3.Distance(Game.I.PlayerTransform.position, transform.position) < enemyUnit.AttackRange)
+        if (enemyUnit.AttackReady && Vector3.Distance(Game.i.PlayerTransform.position, transform.position) < enemyUnit.AttackRange)
         {
             enemyUnit.AttackReady = false;
-            Game.I.PlayerUnitInstance.TakeDamage(false, enemyUnit.BaseDamage);
+            Game.i.PlayerUnitInstance.TakeDamage(false, enemyUnit.BaseDamage);
             StartCoroutine(timer.TimerCR(enemyUnit.AttackCDLength, () => enemyUnit.AttackReady = true));
         }
 

@@ -66,7 +66,7 @@ public abstract class Weapon
         }
         if (weaponTimer.QueryCanFire())
         {
-            SFXManager.I.PlaySFXClip(UISFXList.I.weaponFire, Game.I.PlayerTransform.position); // eventually this will be weapon specific and will be moved out of here
+            SFXManager.i.PlaySFXClip(UISFXList.i.weaponFire, Game.i.PlayerTransform.position); // eventually this will be weapon specific and will be moved out of here
             CurrentAmmo--;
             CombatEventBus.BCOnWeaponFired();
 
@@ -75,7 +75,7 @@ public abstract class Weapon
                 if (!weaponTimer.IsReloading())
                 {
                     Reload();
-                    SFXManager.I.PlaySFXClip(UISFXList.I.outOfBullets, Game.I.PlayerTransform.position);
+                    SFXManager.i.PlaySFXClip(UISFXList.i.outOfBullets, Game.i.PlayerTransform.position);
                 }
             }
 
@@ -103,6 +103,7 @@ public abstract class Weapon
     {
         IsBroken = true;
         CombatEventBus.BCOnWeaponBreak();
+        SFXManager.i.PlaySFXClip(PlayerSFXList.i.weaponBreak, Game.i.PlayerTransform.position);
     }
 
     public void SetCurrentAmmo(int amount)
@@ -115,7 +116,7 @@ public abstract class Weapon
         if (hit.collider.TryGetComponent<EnemyBody>(out var body))
         {
             OnNormalHit(); 
-            SFXManager.I.PlaySFXClip(UISFXList.I.enemyBodyHit, Game.I.PlayerTransform.position);
+            SFXManager.i.PlaySFXClip(UISFXList.i.enemyBodyHit, Game.i.PlayerTransform.position);
 
             CombatEventBus.BCOnEnemyHit(BaseDamage, false, hit.point);
 
@@ -124,7 +125,7 @@ public abstract class Weapon
         else if (hit.collider.TryGetComponent<EnemyCritical>(out var enemyCritical))
         {
             OnCriticalHit(); 
-            SFXManager.I.PlaySFXClip(UISFXList.I.enemyCritHit, Game.I.PlayerTransform.position);
+            SFXManager.i.PlaySFXClip(UISFXList.i.enemyCritHit, Game.i.PlayerTransform.position);
 
             int critAdjustedDamage = (int)(BaseDamage * 1.75f);
 

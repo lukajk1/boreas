@@ -103,7 +103,7 @@ public class Game : MonoBehaviour
 
     public static Action<bool> PauseUpdated;
     public static Action InitializeRun;
-    public static Game I { get; private set; }
+    public static Game i { get; private set; }
 
     public static string mainMenuSceneName = "MainMenu";
     public static string mainGameSceneName = "Game";
@@ -111,8 +111,8 @@ public class Game : MonoBehaviour
 
     private void Awake()
     {
-        if (I != null) Debug.LogError($"More than one instance of {I} in scene");
-        I = this;
+        if (i != null) Debug.LogError($"More than one instance of {i} in scene");
+        i = this;
     }
 
     private void Start()

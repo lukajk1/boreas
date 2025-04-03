@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class EnemySFXList : MonoBehaviour
 {
-    public static EnemySFXList I;
-    private void Awake()
-    {
-        if (I != null) Debug.LogError("too many instances");
-        I = this;
-    }
+    public static EnemySFXList i;
     [SerializeField] public AudioClip enemySpawn;
     [SerializeField] public AudioClip casterAttack;
+    [SerializeField] public AudioClip enemyDrop;
+    private void Awake()
+    {
+        if (i != null) Debug.LogError("too many instances");
+        i = this;
+    }
 }

@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class PlayerSFXList : MonoBehaviour
 {
-    public static PlayerSFXList I;
+    public static PlayerSFXList i;
     private void Awake()
     {
-        if (I != null) Debug.LogError("too many instances");
-        I = this;
+        if (i != null) Debug.LogError("too many instances");
+        i = this;
     }
     [SerializeField] public AudioClip walljump;
     [SerializeField] public AudioClip slowfall;
@@ -15,4 +15,5 @@ public class PlayerSFXList : MonoBehaviour
     [SerializeField] public AudioClip slide;
     [SerializeField] public AudioClip hurt;
     [SerializeField] public AudioClip footstep;
+    [SerializeField] public AudioClip weaponBreak;
 }

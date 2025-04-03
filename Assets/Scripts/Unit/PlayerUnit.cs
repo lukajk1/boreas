@@ -22,7 +22,7 @@ public class PlayerUnit : Unit
             CurrentHealth -= damage * DebugDamageModifier;
             CombatEventBus.BCOnPlayerHit(damage, isCrit);
 
-            SFXManager.I.PlaySFXClip(UISFXList.I.enemyBodyHit, Game.I.PlayerTransform.position, false); 
+            SFXManager.i.PlaySFXClip(UISFXList.i.enemyBodyHit, Game.i.PlayerTransform.position, false); 
             if (damage >= CurrentHealth) Die();
 
         }

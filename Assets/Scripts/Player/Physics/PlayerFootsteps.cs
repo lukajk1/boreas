@@ -29,7 +29,7 @@ public class PlayerFootsteps : MonoBehaviour
             distanceMoved += Vector3.Distance(transform.position, lastFootstepPos);
             if (distanceMoved >= stepDistance)
             {
-                SFXManager.I.PlaySFXClip(PlayerSFXList.I.footstep, transform.position);
+                SFXManager.i.PlaySFXClip(PlayerSFXList.i.footstep, transform.position);
 
                 lastFootstepPos = transform.position;
                 distanceMoved = 0;

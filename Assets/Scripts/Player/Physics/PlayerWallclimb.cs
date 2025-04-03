@@ -28,7 +28,7 @@ public class PlayerWallclimb : MonoBehaviour
 
                 if (value)
                 {
-                    SFXManager.I.PlaySFXClip(PlayerSFXList.I.walljump, transform.position);
+                    SFXManager.i.PlaySFXClip(PlayerSFXList.i.walljump, transform.position);
                 }
             }
         }

@@ -42,7 +42,7 @@ public class WeaponDropGravity : MonoBehaviour
         float randomZ = Random.Range(-1f, 1f);
 
         //Vector3 randomDirection = new Vector3(randomX, 0f, randomZ).normalized;
-        Vector3 randomDirection = Game.I.PlayerCamera.transform.forward;
+        Vector3 randomDirection = Game.i.PlayerCamera.transform.forward;
 
         Vector3 force = randomDirection * 1.6f + Vector3.up * 3f;
 

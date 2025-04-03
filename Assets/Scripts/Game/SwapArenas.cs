@@ -62,7 +62,7 @@ public class SwapArenas : MonoBehaviour
     {
         arenas[currentArena].Item2.SetActive(false);
         arenas[newArena].Item2.SetActive(true);
-        Game.I.PlayerTransform.position = arenas[newArena].Item1.position;
+        Game.i.PlayerTransform.position = arenas[newArena].Item1.position;
 
         currentArena = newArena;
     }

@@ -17,8 +17,8 @@ public class InteractableIndicator : MonoBehaviour
             canvas.enabled = false;
         }
 
-        playerTransform = Game.I.PlayerTransform;
-        playerCamera = Game.I.PlayerCamera;
+        playerTransform = Game.i.PlayerTransform;
+        playerCamera = Game.i.PlayerCamera;
     }
 
     private void Update()

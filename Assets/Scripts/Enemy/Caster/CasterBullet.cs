@@ -30,7 +30,7 @@ public class CasterBullet : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Game.I.PlayerUnitInstance.TakeDamage(false, damage);
+            Game.i.PlayerUnitInstance.TakeDamage(false, damage);
         }
 
         Destroy(gameObject);

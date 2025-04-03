@@ -74,7 +74,7 @@ public class PlayerLookAndMove : MonoBehaviour
                 {
                     timeSinceGrounded = 0f;
                     hasJumped = false;
-                    SFXManager.I.PlaySFXClip(PlayerSFXList.I.jumpLanding, transform.position);
+                    SFXManager.i.PlaySFXClip(PlayerSFXList.i.jumpLanding, transform.position);
                 }
             }
         }
@@ -94,7 +94,7 @@ public class PlayerLookAndMove : MonoBehaviour
 
                 if (value && IsGrounded)
                 {
-                    SFXManager.I.PlaySFXClip(PlayerSFXList.I.slide, transform.position);
+                    SFXManager.i.PlaySFXClip(PlayerSFXList.i.slide, transform.position);
                 }
                 
                 if (!value) // switching from false to true
@@ -117,7 +117,7 @@ public class PlayerLookAndMove : MonoBehaviour
 
                 if (value)
                 {
-                    SFXManager.I.PlaySFXClip(PlayerSFXList.I.slowfall, transform.position);
+                    SFXManager.i.PlaySFXClip(PlayerSFXList.i.slowfall, transform.position);
                 }
             }
         }
@@ -175,7 +175,7 @@ public class PlayerLookAndMove : MonoBehaviour
     }
     private void Start()
     {
-        game = Game.I;
+        game = Game.i;
         playerWallClimb = FindFirstObjectByType<PlayerWallclimb>();
         timer = new GameObject($"LookAndMove Timer").AddComponent<Timer>();
         lastJumpedFrom = new GameObject("lastJumpedFrom").transform;
@@ -271,7 +271,7 @@ public class PlayerLookAndMove : MonoBehaviour
 
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z); // Reset vertical velocity
         rb.AddForce(Vector3.up * JumpForce, forceMode);
-        SFXManager.I.PlaySFXClip(PlayerSFXList.I.jumpTakeoff, transform.position);
+        SFXManager.i.PlaySFXClip(PlayerSFXList.i.jumpTakeoff, transform.position);
     }
     private void OnCrouchPerformed(InputAction.CallbackContext context)
     {

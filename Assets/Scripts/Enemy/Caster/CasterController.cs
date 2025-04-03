@@ -41,7 +41,7 @@ public class CasterController : UnitController
 
         agent = GetComponent<NavMeshAgent>();
         agent.speed = movespeed;
-        agent.destination = Game.I.PlayerTransform.position;
+        agent.destination = Game.i.PlayerTransform.position;
     }
 
     protected override void Start()
@@ -51,10 +51,10 @@ public class CasterController : UnitController
 
     void Update()
     {
-        if (Vector3.Distance(transform.position, Game.I.PlayerTransform.position) > enemyUnit.AttackRange)
+        if (Vector3.Distance(transform.position, Game.i.PlayerTransform.position) > enemyUnit.AttackRange)
         {
             agent.isStopped = false;
-            if (allowedToMove) agent.destination = Game.I.PlayerTransform.position;
+            if (allowedToMove) agent.destination = Game.i.PlayerTransform.position;
         }
         else
         {
@@ -68,17 +68,17 @@ public class CasterController : UnitController
         if (!canAttack ) return;
 
         //Debug.Log("attempting to attack");
-        Ray ray = new Ray(transform.position, Game.I.PlayerTransform.position - transform.position);
+        Ray ray = new Ray(transform.position, Game.i.PlayerTransform.position - transform.position);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.CompareTag("Player"))
         {
-            Vector3 dir = Game.I.PlayerTransform.position - transform.position;
+            Vector3 dir = Game.i.PlayerTransform.position - transform.position;
 
             GameObject bullet = Instantiate(casterBullet, bulletOrigin.position, Quaternion.identity);
             bullet.GetComponent<CasterBullet>().Initialize(dir.normalized, bulletMaxDuration, enemyUnit.BaseDamage, bulletSpeed);
 
-            SFXManager.I.PlaySFXClip(SFXManager.SoundType._3D, EnemySFXList.I.casterAttack, transform.position);
+            SFXManager.i.PlaySFXClip(SFXManager.SoundType._3D, EnemySFXList.i.casterAttack, transform.position);
 
             canAttack = false;
             StartCoroutine(AttackCD());

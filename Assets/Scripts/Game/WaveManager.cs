@@ -85,7 +85,7 @@ public class WaveManager : MonoBehaviour
                     prospectiveSpawnpoint = arena1Spawnpoints[Random.Range(0, arena1Spawnpoints.Count)];
                     if (attempts > 100) break; // better to have some safety..
                 }
-                while (Vector3.Distance(prospectiveSpawnpoint, Game.I.PlayerTransform.position) < minRangeFromPlayerForSpawning);
+                while (Vector3.Distance(prospectiveSpawnpoint, Game.i.PlayerTransform.position) < minRangeFromPlayerForSpawning);
                 
 
                 //// instantiate random enemytype at random spawnpoint

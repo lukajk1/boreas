@@ -23,7 +23,7 @@ public class SpawnDroppedWeapon : MonoBehaviour
 
         GameObject drop = DecodeWeapon(droppedWeapon);
 
-        GameObject weaponDrop = Instantiate(drop, Game.I.PlayerTransform.position + new Vector3(0, 1.5f, 0) + Game.I.PlayerCamera.transform.forward * 1.5f, Quaternion.identity);
+        GameObject weaponDrop = Instantiate(drop, Game.i.PlayerTransform.position + new Vector3(0, 1.5f, 0) + Game.i.PlayerCamera.transform.forward * 1.5f, Quaternion.identity);
         weaponDrop.GetComponentInChildren<WeaponPickup>().SetWeapon(droppedWeapon);
 
         //Debug.Log($"instantiated at {Game.I.PlayerTransform.position + new Vector3(0, 2f, 0)}");

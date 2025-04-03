@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class EscapeMenu : MonoBehaviour
+public class PauseMenu : MonoBehaviour
 {
 
     [SerializeField] private GameObject escPage;

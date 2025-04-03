@@ -49,7 +49,7 @@ public class Console : MonoBehaviour
         }
         if (parsed[0] == "die")
         {
-            Game.I.PlayerUnitInstance.KillViaCommand();
+            Game.i.PlayerUnitInstance.KillViaCommand();
             return true;
         }
 

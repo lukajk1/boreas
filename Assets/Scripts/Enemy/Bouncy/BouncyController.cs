@@ -59,7 +59,7 @@ public class BouncyController : UnitController
             Bounce();
         }
 
-        Vector3 direction = Game.I.PlayerTransform.position - transform.position;
+        Vector3 direction = Game.i.PlayerTransform.position - transform.position;
         direction.y = 0;
         direction = Quaternion.Euler(0, 20f, 0) * direction; // adjust by 30 deg
         direction = Vector3.MoveTowards(Vector3.zero, direction, 1f).normalized;
@@ -70,7 +70,7 @@ public class BouncyController : UnitController
     }
     void Update()
     {
-        if (Vector3.Distance(transform.position, Game.I.PlayerTransform.position) <= enemyUnit.AttackRange)
+        if (Vector3.Distance(transform.position, Game.i.PlayerTransform.position) <= enemyUnit.AttackRange)
         {
             if (attackUp) Attack();
         }
@@ -97,7 +97,7 @@ public class BouncyController : UnitController
         //    StartCoroutine(timer.TimerCR(enemyUnit.AttackCDLength, () => attackUp = true));
         //}
 
-        Game.I.PlayerUnitInstance.TakeDamage(false, enemyUnit.BaseDamage);
+        Game.i.PlayerUnitInstance.TakeDamage(false, enemyUnit.BaseDamage);
         KnockbackPlayer();
         attackUp = false;
         StartCoroutine(timer.TimerCR(enemyUnit.AttackCDLength, () => attackUp = true));
@@ -106,7 +106,7 @@ public class BouncyController : UnitController
 
     private void KnockbackPlayer()
     {
-        Vector3 xz = transform.position - Game.I.PlayerTransform.position;
+        Vector3 xz = transform.position - Game.i.PlayerTransform.position;
         xz = xz.normalized * 22f;
         Vector3 y = Vector3.up * 3f;
 

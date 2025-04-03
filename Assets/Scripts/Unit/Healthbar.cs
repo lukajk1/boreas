@@ -47,8 +47,8 @@ public class Healthbar : MonoBehaviour
             canvas.enabled = false;
         }
 
-        playerTransform = Game.I.PlayerTransform;
-        playerCamera = Game.I.PlayerCamera;
+        playerTransform = Game.i.PlayerTransform;
+        playerCamera = Game.i.PlayerCamera;
 
         currentHealth = unitTarget.BaseMaxHealth;
     }
