@@ -6,7 +6,6 @@ using System.Collections;
 
 public class DamageNumbers : MonoBehaviour
 {
-    //[SerializeField] private Unit unitTarget;
     [SerializeField] private TextMeshProUGUI damageTxt;
 
     private Color startingColor;
@@ -20,24 +19,9 @@ public class DamageNumbers : MonoBehaviour
     private float activationDistance = 99f;
     private Canvas canvas;
     private bool isVisible = false;
-    //void OnEnable()
-    //{
-    //    if (unitTarget != null)
-    //    {
-    //        unitTarget.OnUnitDamaged += Activate;
-    //        unitTarget.OnUnitReady += Setup;
-    //    }
-    //}
 
-    //void OnDisable()
-    //{
-    //    if (unitTarget != null)
-    //    {
-    //        unitTarget.OnUnitDamaged -= Activate;
-    //        unitTarget.OnUnitReady -= Setup;
-    //    }
-
-    //}
+    private Color critColor = new Color(1f, 0.3f, 0.3f);
+    private Color normalColor = Color.white;
 
     private void Setup()
     {
@@ -83,8 +67,8 @@ public class DamageNumbers : MonoBehaviour
         Setup();
         damageTxt.text = damage.ToString();
 
-        if (isCrit) damageTxt.color = Color.red;
-        else damageTxt.color = Color.white;
+        if (isCrit) damageTxt.color = critColor;
+        else damageTxt.color = normalColor;
         startingColor = damageTxt.color;
         StartCoroutine(DamageTextBounceAndFadeOut());
     }
@@ -98,9 +82,6 @@ public class DamageNumbers : MonoBehaviour
 
         while (elapsedTime < fadeDuration)
         {
-            //while (Game.Instance.MenusOpen > 0) yield return null;
-
-
             elapsedTime += Time.deltaTime;
             float alpha = Mathf.Lerp(1, 0, elapsedTime / fadeDuration);
             damageTxt.color = new Color(startingColor.r, startingColor.g, startingColor.b, alpha);

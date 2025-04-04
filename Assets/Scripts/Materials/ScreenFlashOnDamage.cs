@@ -6,7 +6,7 @@ public class ScreenFlashOnDamage : MonoBehaviour
     [SerializeField] private Material screenFlashMat;
     private float duration = 0.75f;
     float minInterval = 0.5f;
-    float maxInterval = 1.75f;
+    float maxInterval = 1.88f; // was 1.75 before - a little too subtle
     private void Start()
     {
         screenFlashMat.SetFloat("_VignetteIntensity", minInterval);

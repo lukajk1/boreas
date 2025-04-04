@@ -10,6 +10,9 @@
 [Bb]uild*/
 /_dev/
 
+# large assets
+*.hdr
+
 # ignore 3d assets
 *.blend
 *.blend1

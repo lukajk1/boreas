@@ -6,6 +6,8 @@ public class HUDManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI slot0Gun;
     [SerializeField] private TextMeshProUGUI slot1Gun;
+    [SerializeField] private TextMeshProUGUI slot0Number;
+    [SerializeField] private TextMeshProUGUI slot1Number;
     [SerializeField] private TextMeshProUGUI ammo;
     [SerializeField] private TextMeshProUGUI totalAmmo;
     [SerializeField] private TextMeshProUGUI txtHealth;
@@ -67,12 +69,16 @@ public class HUDManager : MonoBehaviour
         if (Inventory.I.GetActiveSlot() == 0)
         {
             slot0Gun.color = active;
+            slot0Number.color = active;
             slot1Gun.color = grayedOut;
+            slot1Number.color = grayedOut;
         }
         else
         {
             slot0Gun.color = grayedOut;
+            slot0Number.color = grayedOut;
             slot1Gun.color = active;
+            slot1Number.color = active;
         }
 
         UpdateAmmoHUD();
@@ -84,7 +90,7 @@ public class HUDManager : MonoBehaviour
         if (activeWeapon != null)
         {
             ammo.text = $"{activeWeapon.CurrentAmmo} / {activeWeapon.ClipSize}";
-            totalAmmo.text = $"remaining: {activeWeapon.TotalAmmo}";
+            totalAmmo.text = $"reserve: {activeWeapon.TotalAmmo}";
         }
     }
 
