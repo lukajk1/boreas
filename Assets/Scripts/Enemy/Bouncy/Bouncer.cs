@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class Bouncy : EnemyUnit
+public class Bouncer : EnemyUnit
 {
-    public override string Name => "Bouncy";
+    public override string Name => "Bouncer";
     public override int BaseMaxHealth => 300;
     public override float BaseMoveSpeed => 5f;
     public override int ScoreWeight => 100;

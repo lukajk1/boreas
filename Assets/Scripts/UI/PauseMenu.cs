@@ -32,12 +32,13 @@ public class PauseMenu : MonoBehaviour
     {
         if (!hasFocus)
         {
-            if (!isOpen) SetEscMenu(isOpen);
+            if (!isOpen) SetEscMenu(true);
         }
         else
         {
             // regained focus
         }
+
     }
     void ToMainMenu()
     {

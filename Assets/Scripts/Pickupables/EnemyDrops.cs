@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyDrops : MonoBehaviour
 {
-    private float chanceOfDropping = 0.05f;
+    private float chanceOfDropping = 1f / 20f;
     private void OnEnable()
     {
         CombatEventBus.OnEnemyDeath += OnEnemyDeath;

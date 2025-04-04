@@ -3,7 +3,7 @@ using UnityEngine.AI;
 using System.Collections;
 using UnityEngine.InputSystem.HID;
 
-public class BouncyController : UnitController
+public class BouncerController : UnitController
 {
     [SerializeField] private EnemyUnit enemyUnit;
     [SerializeField] private Rigidbody rb;

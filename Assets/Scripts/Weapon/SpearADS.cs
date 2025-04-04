@@ -9,7 +9,7 @@ public class SpearADS : MonoBehaviour
     private float originalSens;
 
     private float scopedSensRatio = 0.48f;
-    private float scopedFOV = 45f;
+    private float scopedFOV = 52f;
 
     private float adsSpeed = 0.08f;
     private bool rightClickDown = false;

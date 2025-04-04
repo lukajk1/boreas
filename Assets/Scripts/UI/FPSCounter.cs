@@ -4,7 +4,7 @@ using UnityEngine;
 public class FPSCounter : MonoBehaviour
 {
     private TextMeshProUGUI fpsCounter;
-    private float[] fpsBuffer = new float[15];
+    private float[] fpsBuffer = new float[20];
     private int fpsBufferIndex = 0;
     private int bufferCount = 0;
 
