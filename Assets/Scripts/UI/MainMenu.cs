@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
     {
         mainGame.onClick.AddListener(() => SceneManager.LoadScene(Game.mainGameSceneName));
         tutorial.onClick.AddListener(() => SceneManager.LoadScene(Game.tutorialSceneName));
+        settings.onClick.AddListener(() => FindAnyObjectByType<SettingsManager>().Open());
         quit.onClick.AddListener(() => Application.Quit());
         
     }

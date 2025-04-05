@@ -7,6 +7,7 @@ public class PauseMenu : MonoBehaviour
 
     [SerializeField] private GameObject escPage;
     [SerializeField] private Button backToGame;
+    [SerializeField] private Button settings;
     [SerializeField] private Button mainMenu;
     [SerializeField] private Button quit;
 
@@ -15,6 +16,7 @@ public class PauseMenu : MonoBehaviour
     private void Start()
     {
         backToGame.onClick.AddListener(() => SetEscMenu(false));
+        settings.onClick.AddListener(() => SettingsManager.i.Open());
         mainMenu.onClick.AddListener(() => ToMainMenu());
         quit.onClick.AddListener(() => Application.Quit());
         escPage.SetActive(false);

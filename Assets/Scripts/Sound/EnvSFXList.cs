@@ -2,11 +2,10 @@ using UnityEngine;
 
 public class EnvSFXList : MonoBehaviour
 {
-    public static EnvSFXList I;
+    public static EnvSFXList i;
     private void Awake()
     {
-        if (I != null) Debug.LogError("too many instances");
-        I = this;
+        if (i == null) i = this;
     }
     [SerializeField] public AudioClip crystalSpawn;
 }

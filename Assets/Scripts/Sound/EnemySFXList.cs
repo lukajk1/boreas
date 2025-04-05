@@ -8,7 +8,6 @@ public class EnemySFXList : MonoBehaviour
     [SerializeField] public AudioClip enemyDrop;
     private void Awake()
     {
-        if (i != null) Debug.LogError("too many instances");
-        i = this;
+        if (i == null) i = this;
     }
 }

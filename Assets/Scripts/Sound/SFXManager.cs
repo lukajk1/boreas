@@ -7,8 +7,15 @@ public class SFXManager : MonoBehaviour
 
     private void Awake()
     {
-        if (i != null) Debug.LogError("too many instances");
-        i = this;
+        if (i == null)
+        {
+            i = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public enum SoundType

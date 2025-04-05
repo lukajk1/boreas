@@ -5,8 +5,7 @@ public class PlayerSFXList : MonoBehaviour
     public static PlayerSFXList i;
     private void Awake()
     {
-        if (i != null) Debug.LogError("too many instances");
-        i = this;
+        if (i == null) i = this;
     }
     [SerializeField] public AudioClip walljump;
     [SerializeField] public AudioClip slowfall;

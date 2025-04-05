@@ -24,7 +24,7 @@ public class EnemyDrops : MonoBehaviour
             index = Mathf.Clamp(index, 0, weapons.Length - 1); // safety
 
             FindFirstObjectByType<SpawnDroppedWeapon>().CreateDrop(weapons[index], deathPos);
-            SFXManager.i.PlaySFXClip(EnemySFXList.i.enemyDrop, deathPos);
+            SFXManager.i.PlaySFXClip(EnemySFXList.i.enemyDrop, Game.i.PlayerTransform.position);
         }
     }
 }
