@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.Rendering.DebugUI;
 
 public class GhoulController : UnitController
 {
@@ -13,8 +12,9 @@ public class GhoulController : UnitController
 
     private Material dissolveMaterial;
     private Rigidbody rb;
+    private MeshCollider mesh;
 
-    private float dissolveTime = 3.0f;
+    private float dissolveTime = 2.2f;
     private float cutoffHeightMax = 3.0f;
     private float cutoffHeightMin = -2.0f;
     
@@ -49,8 +49,14 @@ public class GhoulController : UnitController
     protected override void Start()
     {
         base.Start();
+
         dissolveMaterial = GetComponent<MeshRenderer>().material;
+        dissolveMaterial.SetFloat("_CutoffHeight", cutoffHeightMax);
+
         rb = GetComponent<Rigidbody>();
+        mesh = GetComponent<MeshCollider>();
+        Physics.IgnoreCollision(mesh, Game.i.PlayerBodyCollider, true);
+        Physics.IgnoreCollision(mesh, Game.i.PlayerHeadCollider, true);
     }
     private void OnDeath()
     {
@@ -58,7 +64,7 @@ public class GhoulController : UnitController
         rb.useGravity = true;
         
         Vector3 direction = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized;
-        rb.AddForce(direction * 5.5f, ForceMode.Impulse);
+        rb.AddForce(direction * 4.0f, ForceMode.Impulse);
         StartCoroutine(Dissolve());
 
     }

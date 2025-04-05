@@ -100,6 +100,8 @@ public class Game : MonoBehaviour
     public Transform PlayerTransform;
     public Camera PlayerCamera;
     public PlayerUnit PlayerUnitInstance;
+    public CapsuleCollider PlayerBodyCollider;
+    public SphereCollider PlayerHeadCollider;
 
     public static Action<bool> PauseUpdated;
     public static Action InitializeRun;

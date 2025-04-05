@@ -42,12 +42,6 @@ public class WaveManager : MonoBehaviour
             new WaveData(10, 13, new List<GameObject> { zomboPrefab, casterPrefab, bouncyPrefab, diverPrefab } ),
             new WaveData(10, 13, new List<GameObject> { zomboPrefab, casterPrefab, bouncyPrefab, diverPrefab } )
         };
-
-        foreach (Transform t in arena1SpawnpointsParent.transform)
-        {
-            arena1Spawnpoints.Add(t.position);
-            t.gameObject.SetActive(false);
-        }
     }
     private void OnEnable()
     {
@@ -59,9 +53,19 @@ public class WaveManager : MonoBehaviour
         MainEventBus.OnRunStart -= OnRunStart;
         CombatEventBus.OnEnemyDeath -= OnEnemyDeath;
     }
+
+    private void Start()
+    {
+        foreach (Transform t in arena1SpawnpointsParent.transform)
+        {
+            arena1Spawnpoints.Add(t.position);
+            t.gameObject.SetActive(false);
+        }
+    }
+
     void OnRunStart()
     {
-        SpawnNextWave();
+        if (FindAnyObjectByType<DummySystem>().EnemiesEnabled) SpawnNextWave();
     }
     void SpawnNextWave()
     {

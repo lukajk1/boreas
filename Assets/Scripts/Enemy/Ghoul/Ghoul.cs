@@ -21,6 +21,5 @@ public class Ghoul : EnemyUnit
         LocalizedOnDeathEvent();
         CombatEventBus.BCOnEnemyDeath(this, transform.position);
         SFXManager.i.PlaySFXClip(UISFXList.i.enemyDeath, transform.position);
-
     }
 }
