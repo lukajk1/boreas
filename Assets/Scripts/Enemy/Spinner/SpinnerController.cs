@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SerafimController : UnitController
+public class SpinnerController : UnitController
 {
     [SerializeField] private EnemyUnit enemyUnit;
     //[SerializeField] private GameObject criticalHitbox;
@@ -20,7 +20,7 @@ public class SerafimController : UnitController
     private List<MeshCollider> meshes;
     private List<MeshRenderer> renderers;
 
-    private float dissolveTime = 3.0f;
+    private float dissolveTime = 1.5f;
     private float cutoffHeightMax = 3.0f;
     private float cutoffHeightMin = -2.0f;
 
@@ -42,8 +42,8 @@ public class SerafimController : UnitController
         meshes = new List<MeshCollider> { meshInner, meshOuter };
         renderers = new List<MeshRenderer> { innerRenderer, outerRenderer, eyeRenderer };
 
-        innerRingRot = new Vector3(rotSpeed, rotSpeed, rotSpeed);
-        outerRingRot = new Vector3(-rotSpeed, -rotSpeed, -rotSpeed);
+        innerRingRot = new Vector3(rotSpeed, rotSpeed, rotSpeed * 1f);
+        outerRingRot = new Vector3(-rotSpeed, -rotSpeed, -rotSpeed * 1f);
     }
 
     void OnEnable()

@@ -17,6 +17,7 @@ public class CasterController : UnitController
     private float bulletSpeed = 7.4f;
     private bool canAttack = true;
 
+    [SerializeField] private Bobbing bobbing;
     void OnEnable()
     {
         if (enemyUnit != null)
@@ -47,6 +48,7 @@ public class CasterController : UnitController
     protected override void Start()
     {
         base.Start();
+        bobbing.StartBobbing();
     }
 
     void Update()

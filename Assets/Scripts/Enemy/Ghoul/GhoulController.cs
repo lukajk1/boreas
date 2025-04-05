@@ -6,25 +6,20 @@ using UnityEngine.AI;
 public class GhoulController : UnitController
 {
     [SerializeField] private EnemyUnit enemyUnit;
-    [SerializeField] private GameObject casterBullet;
-    [SerializeField] private Transform bulletOrigin;
     [SerializeField] private GameObject criticalHitbox;
+    [SerializeField] private Bobbing bobbing;
 
     private Material dissolveMaterial;
     private Rigidbody rb;
     private MeshCollider mesh;
 
-    private float dissolveTime = 2.2f;
+    private float dissolveTime = 1.5f;
     private float cutoffHeightMax = 3.0f;
     private float cutoffHeightMin = -2.0f;
+
+    private float maxXRotationForLookAt = 28f;
     
     private float movespeed;
-
-    //private NavMeshAgent agent;
-    //private bool allowedToMove = false;
-
-    private float bulletMaxDuration = 5f; // seconds
-    private float bulletSpeed = 7.4f;
     private bool canAttack = true;
 
     void OnEnable()
@@ -57,67 +52,43 @@ public class GhoulController : UnitController
         mesh = GetComponent<MeshCollider>();
         Physics.IgnoreCollision(mesh, Game.i.PlayerBodyCollider, true);
         Physics.IgnoreCollision(mesh, Game.i.PlayerHeadCollider, true);
-    }
-    private void OnDeath()
-    {
-        rb.constraints = RigidbodyConstraints.None;
-        rb.useGravity = true;
-        
-        Vector3 direction = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized;
-        rb.AddForce(direction * 4.0f, ForceMode.Impulse);
-        StartCoroutine(Dissolve());
 
+        bobbing.StartBobbing();
     }
 
     private void Setup()
     {
         movespeed = enemyUnit.BaseMoveSpeed;
-        //allowedToMove = true;
+    }
+    private void OnDeath()
+    {
+        bobbing.Stop();
 
-        //agent = GetComponent<NavMeshAgent>();
-        //agent.speed = movespeed;
-        //agent.destination = Game.i.PlayerTransform.position;
+        rb.constraints = RigidbodyConstraints.None;
+        rb.useGravity = true;
+        
+        Vector3 direction = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized;
+        rb.AddForce(direction * 4.0f, ForceMode.Impulse);
+        rb.AddForce(Vector3.up * 2.2f, ForceMode.Impulse);
+        StartCoroutine(Dissolve());
+
     }
 
     void Update()
     {
-        //if (!enemyUnit.IsDead) transform.LookAt(Game.i.PlayerTransform.position);
+        transform.LookAt(Game.i.PlayerTransform.position);
 
-
-        //if (Vector3.Distance(transform.position, Game.i.PlayerTransform.position) > enemyUnit.AttackRange)
-        //{
-        //    agent.isStopped = false;
-        //    if (allowedToMove) agent.destination = Game.i.PlayerTransform.position;
-        //}
-        //else
-        //{
-        //    agent.isStopped = true;
-        //    TryAttack();
-        //}
+        Vector3 euler = transform.eulerAngles;
+        euler.x = ClampAngle(euler.x, -maxXRotationForLookAt, maxXRotationForLookAt); // prevent x-axis rotation from getting too high
+        transform.rotation = Quaternion.Euler(euler);
 
     }
-
-    private void TryAttack()
+    float ClampAngle(float angle, float min, float max)
     {
-        if (!canAttack) return;
-
-        //Debug.Log("attempting to attack");
-        Ray ray = new Ray(transform.position, Game.i.PlayerTransform.position - transform.position);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.CompareTag("Player"))
-        {
-            Vector3 dir = Game.i.PlayerTransform.position - transform.position;
-
-            GameObject bullet = Instantiate(casterBullet, bulletOrigin.position, Quaternion.identity);
-            bullet.GetComponent<CasterBullet>().Initialize(dir.normalized, bulletMaxDuration, enemyUnit.BaseDamage, bulletSpeed);
-
-            SFXManager.i.PlaySFXClip(SFXManager.SoundType._3D, EnemySFXList.i.casterAttack, transform.position);
-
-            canAttack = false;
-            StartCoroutine(AttackCD());
-        }
+        angle = (angle > 180) ? angle - 360 : angle; // convert to [-180, 180]
+        return Mathf.Clamp(angle, min, max);
     }
+
 
     private IEnumerator AttackCD()
     {

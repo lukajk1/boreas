@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Serafim : EnemyUnit
+public class Spinner : EnemyUnit
 {
     public override string Name => "Serafim";
     public override int BaseMaxHealth => 50;
