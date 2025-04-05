@@ -18,6 +18,7 @@ public abstract class EnemyUnit : Unit
     {
         CombatEventBus.BCOnEnemyDeath(this, transform.position);
         SFXManager.i.PlaySFXClip(UISFXList.i.enemyDeath, transform.position);
+        Destroy(gameObject);
 
         base.Die();
     }

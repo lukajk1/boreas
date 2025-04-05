@@ -23,14 +23,7 @@ public class SettingsManager : MonoBehaviour
 
     public static SettingsManager i;
 
-    private int defaultFOV = 95;
-    private int defaultVolMaster = 100;
-    private int defaultVolSFX = 100;
-    private int defaultVolMusic = 100;
-    private float defaultSensitivity = 45f;
-    private int defaultVSync = 1;
-
-    public SettingsStruct currentSettings;
+    public SettingsData currentSettings;
 
     private bool suppressCallback = false; 
     public enum InputType
@@ -49,8 +42,6 @@ public class SettingsManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        currentSettings = LoadFromPlayerPrefs();
     }
 
     private void Start()
@@ -76,7 +67,9 @@ public class SettingsManager : MonoBehaviour
 
         toggleVSync.onValueChanged.AddListener(isOn => currentSettings.VSync = isOn ? 1 : 0);
 
-        SetUIFromStruct(currentSettings);
+        currentSettings = new SettingsData();
+        currentSettings.PopulateDataFromPlayerPrefs();
+        SetUIFromData(currentSettings);
         ApplySettingsToGame(currentSettings);
     }
 
@@ -98,55 +91,34 @@ public class SettingsManager : MonoBehaviour
             }
 
         }
-        SetToStructFromUI();
+        SetToDataFromUI();
         suppressCallback = false;
     }
-
-    // whatever it's so negligible in terms of performance I'll just do it this way. If I need something more extensible then I can do that later
-    private void SetToStructFromUI()
+    private void Update()
+    {
+    }
+    private void SetUIFromData(SettingsData settings)
+    {
+        sliderFOV.value = settings.FOV;
+        sliderVolMaster.value = settings.VolMaster;
+        //Debug.Log("setting slider to " + settings.VolMaster);
+        sliderVolSFX.value = settings.VolSFX;
+        sliderVolMusic.value = settings.VolMusic;
+        sliderSensitivity.value = settings.MouseSensitivity;
+        toggleVSync.isOn = settings.VSync == 1;
+    }
+    private void SetToDataFromUI()
     {
         currentSettings.FOV = (int)sliderFOV.value;
         currentSettings.VolMaster = (int)sliderVolMaster.value;
         currentSettings.VolSFX = (int)sliderVolSFX.value;
         currentSettings.VolMusic = (int)sliderVolMusic.value;
-        currentSettings.MouseSensitivity = sliderSensitivity.value;
-    }
-    private void SetUIFromStruct(SettingsStruct settings)
-    {
-        sliderFOV.value = settings.FOV;
-        sliderVolMaster.value = settings.VolMaster;
-        sliderVolSFX.value = settings.VolSFX;
-        sliderVolMusic.value = settings.VolMusic;
-        sliderSensitivity.value = settings.MouseSensitivity;
+        currentSettings.MouseSensitivity = sliderSensitivity.value; 
+        currentSettings.VSync = toggleVSync.isOn ? 1 : 0;
+
     }
 
-    private SettingsStruct LoadFromPlayerPrefs()
-    {
-        int fov, volMaster, volSFX, volMusic, vsync;
-        float mouseSensitivity;
-
-        if (PlayerPrefs.HasKey("FOV")) { fov = PlayerPrefs.GetInt("FOV"); }
-        else { fov = defaultFOV; }
-
-        if (PlayerPrefs.HasKey("VolMaster")) { volMaster = PlayerPrefs.GetInt("VolMaster"); }
-        else {  volMaster = defaultVolMaster; }
-
-        if (PlayerPrefs.HasKey("VolSFX")) { volSFX = PlayerPrefs.GetInt("VolSFX"); }
-        else { volSFX = defaultVolSFX; }
-
-        if (PlayerPrefs.HasKey("VolMusic")) { volMusic = PlayerPrefs.GetInt("VolMusic"); }
-        else { volMusic = defaultVolMusic; }
-
-        if (PlayerPrefs.HasKey("MouseSensitivity")) { mouseSensitivity = PlayerPrefs.GetFloat("MouseSensitivity"); }
-        else { mouseSensitivity = defaultSensitivity; }
-
-        if (PlayerPrefs.HasKey("VSync")) { vsync = PlayerPrefs.GetInt("VSync"); }
-        else { vsync = defaultVSync; }
-
-        return new SettingsStruct(fov, volMaster, volSFX, volMusic, mouseSensitivity, vsync);
-    }
-
-    private void ApplySettingsToGame(SettingsStruct settings)
+    private void ApplySettingsToGame(SettingsData settings)
     {
         SoundMixerManager manager = FindAnyObjectByType<SoundMixerManager>();
         manager.SetMasterVolume(settings.VolMaster / 100f);

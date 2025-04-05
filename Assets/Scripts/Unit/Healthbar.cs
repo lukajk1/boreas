@@ -20,6 +20,7 @@ public class Healthbar : MonoBehaviour
         {
             unitTarget.OnUnitDamaged += UpdateBar;
             unitTarget.OnUnitReady += Setup;
+            unitTarget.OnUnitDeath += OnDeath;
         }
     }
 
@@ -29,8 +30,14 @@ public class Healthbar : MonoBehaviour
         {
             unitTarget.OnUnitDamaged -= UpdateBar;
             unitTarget.OnUnitReady -= Setup;
+            unitTarget.OnUnitDeath -= OnDeath;
         }
 
+    }
+
+    private void OnDeath()
+    {
+        gameObject.SetActive(false);
     }
 
     private void UpdateBar(bool isCrit, int damage)

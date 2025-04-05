@@ -10,9 +10,9 @@ public static class CombatEventBus
 
     public static void BCOnInventoryUpdated() => OnInventoryUpdated?.Invoke();
 
-    public static event Action OnWeaponFired;
+    public static event Action<Weapon> OnWeaponFired;
 
-    public static void BCOnWeaponFired() => OnWeaponFired?.Invoke();
+    public static void BCOnWeaponFired(Weapon weapon) => OnWeaponFired?.Invoke(weapon);
 
     public static event Action OnAmmoCountsModified;
     public static void BCOnAmmoCountsModified() => OnAmmoCountsModified?.Invoke();

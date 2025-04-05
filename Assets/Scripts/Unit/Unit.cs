@@ -42,6 +42,8 @@ public abstract class Unit : MonoBehaviour
 
     public virtual void TakeDamage(bool isCrit, int damage)
     {
+        if (IsDead) return;
+
         if (damage > 0)
         {
             if (damage >= CurrentHealth)
@@ -66,7 +68,11 @@ public abstract class Unit : MonoBehaviour
     protected virtual void Die()
     {
         IsDead = true;
+    }
+
+    protected void LocalizedOnDeathEvent()
+    {
+
         OnUnitDeath?.Invoke(); // for "local" processes that need to know about the unit dying
-        Destroy(gameObject);
     }
 }

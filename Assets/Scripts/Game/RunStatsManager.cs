@@ -50,9 +50,10 @@ public class RunStatsManager : MonoBehaviour
     private void OnEnemyDeath(EnemyUnit enemyUnit, Vector3 pos)
     {
         enemiesKilled++;
+        score += enemyUnit.ScoreWeight;
     }
 
-    private void OnWeaponFired()
+    private void OnWeaponFired(Weapon weapon)
     {
         shotsFired++;
     }

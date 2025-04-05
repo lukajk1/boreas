@@ -68,7 +68,7 @@ public abstract class Weapon
         {
             SFXManager.i.PlaySFXClip(UISFXList.i.weaponFire, Game.i.PlayerTransform.position); // eventually this will be weapon specific and will be moved out of here
             CurrentAmmo--;
-            CombatEventBus.BCOnWeaponFired();
+            CombatEventBus.BCOnWeaponFired(this);
 
             if (_currentAmmo <= 0)
             {

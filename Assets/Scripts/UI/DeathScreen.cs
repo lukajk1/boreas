@@ -19,9 +19,9 @@ public class DeathScreen : MonoBehaviour
     [SerializeField] private TextMeshProUGUI runTime;
     [SerializeField] private TextMeshProUGUI score;
     [SerializeField] private TextMeshProUGUI enemiesKilled;
-    [SerializeField] private TextMeshProUGUI shotsFired;
+    //[SerializeField] private TextMeshProUGUI shotsFired;
     [SerializeField] private TextMeshProUGUI damageDealt;
-    [SerializeField] private TextMeshProUGUI damageTaken;
+    //[SerializeField] private TextMeshProUGUI damageTaken;
     [SerializeField] private TextMeshProUGUI criticalHits;
     [SerializeField] private TextMeshProUGUI totalHitsLanded;
 
