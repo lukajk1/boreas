@@ -21,7 +21,7 @@ public class PlayerSwapWeapons : MonoBehaviour
         Vector2 scroll = Mouse.current.scroll.ReadValue();
         float scrollY = scroll.y;
 
-        if (scrollY != 0 && scrollSwapCDCount <= 0f)
+        if (scrollY != 0 && scrollSwapCDCount <= 0f || Input.GetKeyDown(KeyCode.Q))
         {
             inventory.SwapActiveWeapon();
             scrollSwapCDCount = scrollSwapCD;

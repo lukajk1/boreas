@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security;
 using UnityEngine;
 
 public class SpinnerController : UnitController
@@ -127,6 +128,15 @@ public class SpinnerController : UnitController
         {
             elapsed += Time.deltaTime;
             renderer.material.SetFloat("_CutoffHeight", Mathf.Lerp(cutoffHeightMax, cutoffHeightMin, elapsed / dissolveTime));
+            if ((elapsed / dissolveTime) >= 0.5f)
+            {
+                EnemyCritical[] criticals = GetComponentsInChildren<EnemyCritical>();
+                foreach (EnemyCritical critical in criticals)
+                {
+                    critical.gameObject.SetActive(false);
+                }
+
+            }
             yield return null;
         }
         Destroy(gameObject);

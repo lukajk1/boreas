@@ -50,7 +50,7 @@ public class RunStatsManager : MonoBehaviour
     private void OnEnemyDeath(EnemyUnit enemyUnit, Vector3 pos)
     {
         enemiesKilled++;
-        score += enemyUnit.ScoreWeight;
+        Game.Score += enemyUnit.ScoreWeight;
     }
 
     private void OnWeaponFired(Weapon weapon)
@@ -84,7 +84,7 @@ public class RunStatsManager : MonoBehaviour
     {
         return new RunStats(
             elapsedRunTime,
-            score,
+            Game.Score,
             enemiesKilled,
             shotsFired,
             damageDealt,

@@ -3,7 +3,7 @@ using UnityEngine;
 public class Caster : EnemyUnit
 {
     public override string Name => "Caster";
-    public override int BaseMaxHealth => 250;
+    public override int BaseMaxHealth => 225;
     public override float BaseMoveSpeed => 5f;
     public override int ScoreWeight => 115;
     public override int BaseDamage => 35;
@@ -13,5 +13,12 @@ public class Caster : EnemyUnit
     protected override void Awake()
     {
         base.Awake();
+    }
+    protected override void Die()
+    {
+        IsDead = true;
+        LocalizedOnDeathEvent();
+        CombatEventBus.BCOnEnemyDeath(this, transform.position);
+        SFXManager.i.PlaySFXClip(UISFXList.i.enemyDeath, transform.position);
     }
 }

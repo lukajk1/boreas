@@ -97,6 +97,18 @@ public class Game : MonoBehaviour
             }
         }
     }
+
+    public static int _score = 0;
+    public static int Score
+    {
+        get => _score;
+        set
+        {
+            _score = value;
+            ScoreUpdated?.Invoke();
+        }
+    }
+
     public Transform PlayerTransform;
     public Camera PlayerCamera;
     public PlayerUnit PlayerUnitInstance;
@@ -104,6 +116,7 @@ public class Game : MonoBehaviour
     public SphereCollider PlayerHeadCollider;
 
     public static Action<bool> PauseUpdated;
+    public static Action ScoreUpdated;
     public static Action InitializeRun;
     public static Game i { get; private set; }
 

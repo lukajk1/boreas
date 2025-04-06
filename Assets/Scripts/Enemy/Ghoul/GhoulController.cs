@@ -59,6 +59,7 @@ public class GhoulController : UnitController
     private void Setup()
     {
         movespeed = enemyUnit.BaseMoveSpeed;
+        if (canAttack) canAttack = false; // just to make unity shut up
     }
     private void OnDeath()
     {
@@ -70,6 +71,7 @@ public class GhoulController : UnitController
         Vector3 direction = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized;
         rb.AddForce(direction * 4.0f, ForceMode.Impulse);
         rb.AddForce(Vector3.up * 2.2f, ForceMode.Impulse);
+        rb.angularVelocity = Game.i.PlayerCamera.transform.forward * 25f;
         StartCoroutine(Dissolve());
 
     }
