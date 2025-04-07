@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class WaveManager : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class WaveManager : MonoBehaviour
     private int lastWaveSize = 7;
     private float minRangeFromPlayerForSpawning = 12f;
     private float spawnDelay = 1.5f;
+    private bool initialSpawn;
 
     private void Awake()
     {
@@ -56,16 +58,43 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
+        RepositionSpawnpoint[] points = GetComponentsInChildren<RepositionSpawnpoint>();
+        foreach (var point in points)
+        {
+            point.Reposition();
+        }
+
+        StartCoroutine(WaitOneFrame());
+    }
+
+    private void Update()
+    {
+        if (remainingEnemiesInWave <= lastWaveSize / 2 && isSpawning && !initialSpawn)
+        {
+            SpawnNextWave();
+        }
+        if (FindAnyObjectByType<DummySystem>().SpawningEnabled && initialSpawn)
+        {
+            initialSpawn = false;
+            SpawnNextWave();
+        }
+    }
+
+    private IEnumerator WaitOneFrame()
+    {
+        yield return null;
         foreach (Transform t in arena1SpawnpointsParent.transform)
         {
             arena1Spawnpoints.Add(t.position);
             t.gameObject.SetActive(false);
         }
+        initialSpawn = true;
+        Debug.Log(arena1Spawnpoints.Count);
     }
 
     void OnRunStart()
     {
-        if (FindAnyObjectByType<DummySystem>().EnemiesEnabled) SpawnNextWave();
+
     }
     void SpawnNextWave()
     {
@@ -86,7 +115,15 @@ public class WaveManager : MonoBehaviour
                 int attempts = 0;
                 do
                 {
-                    prospectiveSpawnpoint = arena1Spawnpoints[Random.Range(0, arena1Spawnpoints.Count)];
+                    if (arena1Spawnpoints.Count > 1)
+                    {
+                        prospectiveSpawnpoint = arena1Spawnpoints[Random.Range(0, arena1Spawnpoints.Count)];
+                    }
+                    else
+                    {
+                        Debug.Log(arena1Spawnpoints.Count);
+                        prospectiveSpawnpoint = arena1Spawnpoints[0];
+                    }
                     if (attempts > 100) break; // better to have some safety..
                 }
                 while (Vector3.Distance(prospectiveSpawnpoint, Game.i.PlayerTransform.position) < minRangeFromPlayerForSpawning);
@@ -116,10 +153,6 @@ public class WaveManager : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        if (remainingEnemiesInWave <= lastWaveSize / 2 && isSpawning) SpawnNextWave();    
-    }
 
     void OnEnemyDeath(EnemyUnit enemyUnit, Vector3 pos)
     {

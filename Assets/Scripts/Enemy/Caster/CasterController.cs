@@ -12,14 +12,13 @@ public class CasterController : UnitController
     [SerializeField] private DissolveEffect dissolve;
 
     private float movespeed;
-    private Game game;
     private NavMeshAgent agent;
     private bool allowedToMove = false;
 
     private float bulletMaxDuration = 5f;
     private float bulletSpeed = 7.4f;
     private bool canAttack = true;
-    private float windupLength = 0.9f;
+    private float windupLength = 1.9f;
 
     private float damping = 6f;
 
@@ -45,7 +44,6 @@ public class CasterController : UnitController
     private void Setup()
     {
         movespeed = enemyUnit.BaseMoveSpeed;
-        game = FindAnyObjectByType<Game>();
         allowedToMove = true;
 
         agent = GetComponent<NavMeshAgent>();
@@ -56,12 +54,17 @@ public class CasterController : UnitController
     protected override void Start()
     {
         base.Start();
-        bobbing.StartBobbing();
+        bobbing.StartBobbing(); 
+        
+        if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 2f, NavMesh.AllAreas))
+        {
+            agent.transform.position = hit.position;
+        }
     }
 
     void Update()
     {
-        if (Vector3.Distance(transform.position, Game.i.PlayerTransform.position) > enemyUnit.AttackRange)
+        if (Vector3.Distance(bulletOrigin.position, Game.i.PlayerTransform.position) > enemyUnit.AttackRange)
         {
             agent.isStopped = false;
             if (allowedToMove) agent.destination = Game.i.PlayerTransform.position;
@@ -71,6 +74,8 @@ public class CasterController : UnitController
             agent.isStopped = true;
             TryAttack();
         }
+
+        // look at player w/ smoothing
         Vector3 dir = Game.i.PlayerTransform.position - transform.position;
         dir.y = 0;
         Quaternion targetRot = Quaternion.LookRotation(dir);
@@ -98,15 +103,17 @@ public class CasterController : UnitController
     }
     private IEnumerator AttackWindup()
     {
-        animator.SetTrigger("Cast");
         canAttack = false;
+        animator.SetTrigger("Cast");
 
         float elapsed = 0f;
-        while (elapsed <= windupLength)
+        while (elapsed < windupLength)
         {
             elapsed += Time.deltaTime;
             if (enemyUnit.IsDead) yield break;
         }
+        Debug.Log("casting now");
+
         Vector3 dir = Game.i.PlayerTransform.position - transform.position;
 
         GameObject bullet = Instantiate(casterBullet, bulletOrigin.position, Quaternion.identity);

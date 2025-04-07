@@ -2,14 +2,13 @@ using UnityEngine;
 
 public class RepositionSpawnpoint : MonoBehaviour
 {
-    private float distance;
-    private void Start()
+    public void Reposition()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit))
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit))
         {
-            distance = hit.distance;
+            Vector3 pos = transform.position;
+            pos.y = hit.point.y;
+            transform.position = pos;
         }
-
     }
 }

@@ -7,7 +7,7 @@ public class DissolveEffect : MonoBehaviour
     private Material dissolveMaterial;
     [SerializeField] GameObject rootObject;
 
-    private float dissolveTime = 1.1f;
+    private float dissolveTime = 0.85f;
     private float cutoffHeightMax = 3.4f;
     private float cutoffHeightMin = -2.0f;
 

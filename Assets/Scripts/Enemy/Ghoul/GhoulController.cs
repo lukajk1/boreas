@@ -13,7 +13,7 @@ public class GhoulController : UnitController
     private Rigidbody rb;
     private MeshCollider mesh;
 
-    private float dissolveTime = 1.5f;
+    private float dissolveTime = 1.05f;
     private float cutoffHeightMax = 3.0f;
     private float cutoffHeightMin = -2.0f;
 

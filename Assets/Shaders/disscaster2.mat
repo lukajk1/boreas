@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: dissCaster
-  m_Shader: {fileID: -6465566751694194690, guid: 4987a626a09ae5b48858475bc72ea1b2, type: 3}
+  m_Name: disscaster2
+  m_Shader: {fileID: -6465566751694194690, guid: 2f38f4fbd9a0d254c821ac301899bdbe, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -42,17 +42,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CutoffHeight: 5.46
+    - _CutoffHeight: 3
     - _EdgeWidth: 0.05
+    - _Emissive: 23.33
     - _NoiseScale: 26.6
     - _NoiseStrength: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _EdgeColor: {r: 1.8490566, g: 1.1600214, b: 1.1600214, a: 0}
+    - _EdgeColor: {r: 2.0156407, g: 0.19966252, b: 0.19966252, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &1941274727947150680
+--- !u!114 &1112268057043943410
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

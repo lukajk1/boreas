@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_Dissolve Y up
-  m_Shader: {fileID: -6465566751694194690, guid: 4987a626a09ae5b48858475bc72ea1b2, type: 3}
+  m_Name: dissskull2
+  m_Shader: {fileID: -6465566751694194690, guid: e98ccef446f47c4459703789d472584b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -42,17 +42,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CutoffHeight: 2.02
+    - _CutoffHeight: 0.76
     - _EdgeWidth: 0.05
-    - _NoiseScale: 47.4
+    - _Emissive: 23.33
+    - _NoiseScale: 26.6
     - _NoiseStrength: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _EdgeColor: {r: 1.4654773, g: 0.20046628, b: 0.20046628, a: 1}
+    - _EdgeColor: {r: 1.840215, g: 0.21700644, b: 0.21700644, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &3209138758565747783
+--- !u!114 &1112268057043943410
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
