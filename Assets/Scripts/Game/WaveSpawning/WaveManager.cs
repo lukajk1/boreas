@@ -4,45 +4,67 @@ using System.Collections;
 
 public class WaveManager : MonoBehaviour
 {
-    public static WaveManager I;
-    [SerializeField] private GameObject crystal;
+    public static WaveManager i;
     [SerializeField] private GameObject spawnIndicator;
+
     [Header("enemy prefabs")]
     [SerializeField] private GameObject zomboPrefab;
     [SerializeField] private GameObject casterPrefab;
     [SerializeField] private GameObject diverPrefab;
-    [SerializeField] private GameObject bouncyPrefab;
-
-    private List<WaveData> arena1WavePool;
-    private List<WaveData> arena2WavePool;
-
-    private Vector3 a1CrystalSpawnPos = new Vector3(21.2000008f, 51.2200012f, -8.5f);
+    [SerializeField] private GameObject bouncerPrefab;
+    [SerializeField] private GameObject ghoulPrefab;
+    [SerializeField] private GameObject spinnerPrefab;
 
     [SerializeField] private GameObject arena1SpawnpointsParent;
     private List<Vector3> arena1Spawnpoints = new List<Vector3>();
 
-    private int wave = 0;
-    private int currentWaveSize = 0;
-    private int remainingEnemiesInWave = 0;
-    private bool isSpawning = true;
-
-    private int lastWaveSize = 7;
     private float minRangeFromPlayerForSpawning = 12f;
     private float spawnDelay = 1.5f;
-    private bool initialSpawn;
 
+    public int EnemyWeightCap = 50; // throwaway value, just here to avoid nullref
+    private int killCount = 0;
+
+    private Dictionary<string, int> enemyWeightDict;
+    private Dictionary<string, int> killCountReqDict;
+
+    private bool cycleReady = false;
+    private int currentTotalWeightOfEnemies = 0;
     private void Awake()
     {
-        if (I != null) Debug.LogError("multiple wavespawners");
-        I = this;
+        if (i != null) Debug.LogError("multiple wavespawners");
+        i = this;
 
-        arena1WavePool = new List<WaveData>
+        // look away please
+        //Zombo zombo = new Zombo(); Caster caster = new Caster(); Bouncer bouncer = new Bouncer(); Ghoul ghoul = new Ghoul(); Spinner spinner = new Spinner(); Diver diver = new Diver();
+
+        //enemyWeightDict = new Dictionary<string, int>()
+        //{
+        //    {"Zombo", zombo.WaveWeight },
+        //    {"Caster", caster.WaveWeight },
+        //    {"Bouncer", bouncer.WaveWeight },
+        //    {"Ghoul", ghoul.WaveWeight },
+        //    {"Spinner", spinner.WaveWeight },
+        //    {"Diver", diver.WaveWeight },
+        //}; 
+        
+        enemyWeightDict = new Dictionary<string, int>()
         {
-            new WaveData(5, 8, new List<GameObject> { zomboPrefab, casterPrefab } ),
-            new WaveData(5, 8, new List<GameObject> { zomboPrefab, casterPrefab } ),
-            new WaveData(9, 11, new List<GameObject> { zomboPrefab, casterPrefab, bouncyPrefab } ),
-            new WaveData(10, 13, new List<GameObject> { zomboPrefab, casterPrefab, bouncyPrefab, diverPrefab } ),
-            new WaveData(10, 13, new List<GameObject> { zomboPrefab, casterPrefab, bouncyPrefab, diverPrefab } )
+            {"Zombo", 10 },
+            {"Caster", 15 },
+            {"Bouncer", 17 },
+            {"Ghoul", 22 },
+            {"Spinner", 27 },
+            {"Diver", 18 },
+        };
+
+        killCountReqDict = new Dictionary<string, int>()
+        {
+            {"Zombo", 0 },
+            {"Caster", 0 },
+            {"Bouncer", 15 },
+            {"Diver", 20 },
+            {"Ghoul", 30 },
+            {"Spinner", 40 },
         };
     }
     private void OnEnable()
@@ -55,7 +77,6 @@ public class WaveManager : MonoBehaviour
         MainEventBus.OnRunStart -= OnRunStart;
         CombatEventBus.OnEnemyDeath -= OnEnemyDeath;
     }
-
     private void Start()
     {
         RepositionSpawnpoint[] points = GetComponentsInChildren<RepositionSpawnpoint>();
@@ -66,20 +87,6 @@ public class WaveManager : MonoBehaviour
 
         StartCoroutine(WaitOneFrame());
     }
-
-    private void Update()
-    {
-        if (remainingEnemiesInWave <= lastWaveSize / 2 && isSpawning && !initialSpawn)
-        {
-            SpawnNextWave();
-        }
-        if (FindAnyObjectByType<DummySystem>().SpawningEnabled && initialSpawn)
-        {
-            initialSpawn = false;
-            SpawnNextWave();
-        }
-    }
-
     private IEnumerator WaitOneFrame()
     {
         yield return null;
@@ -88,75 +95,136 @@ public class WaveManager : MonoBehaviour
             arena1Spawnpoints.Add(t.position);
             t.gameObject.SetActive(false);
         }
-        initialSpawn = true;
-        Debug.Log(arena1Spawnpoints.Count);
+        cycleReady = true;
+        //Debug.Log(arena1Spawnpoints.Count);
     }
-
-    void OnRunStart()
+    private void Update()
     {
-
+        if (cycleReady) Cycle();
     }
-    void SpawnNextWave()
+    private void Cycle()
     {
+        EnemyWeightCap++;
+        cycleReady = false;
+        List<string> enemyBatch = GetEnemyBatch();
+        SpawnBatch(enemyBatch);
 
-        if (wave < arena1WavePool.Count)
+        float randomIntervalBeforeNextCycle = Random.Range(5f, 15f);
+        StartCoroutine(CycleTimer(randomIntervalBeforeNextCycle));
+    }
+    
+    private IEnumerator CycleTimer(float duration) 
+    {
+        yield return new WaitForSeconds(duration);
+        cycleReady = true;
+    }
+    private GameObject DecodeEnemyType(string enemyType)
+    {
+        switch (enemyType)
         {
-            wave++;
-            WaveData nextWave = arena1WavePool[wave - 1];
+            case "Zombo":
+                return zomboPrefab;
+            case "Caster":
+                return casterPrefab;
+            case "Bouncer":
+                return bouncerPrefab;
+            case "Diver":
+                return diverPrefab;
+            case "Ghoul":
+                return ghoulPrefab;
+            case "Spinner":
+                return spinnerPrefab;
+            default:
+                return null;
+        }
+    }
 
-            lastWaveSize = currentWaveSize; // set last wave size before updating currentwave to the new wave size 
-            currentWaveSize = Random.Range(nextWave.minEnemies, nextWave.maxEnemies + 1);
+    private List<string> GetEnemyBatch()
+    {
+        List<string> availablePool = new List<string>();
 
-            remainingEnemiesInWave = currentWaveSize;
-
-            for (int i = 0; i < currentWaveSize; i++)
+        foreach (var kvp in killCountReqDict) // get the pool of enemies that can be picked based on the killcount requirements
+        {
+            if (kvp.Value <= killCount)
             {
-                Vector3 prospectiveSpawnpoint;
-                int attempts = 0;
-                do
-                {
-                    if (arena1Spawnpoints.Count > 1)
-                    {
-                        prospectiveSpawnpoint = arena1Spawnpoints[Random.Range(0, arena1Spawnpoints.Count)];
-                    }
-                    else
-                    {
-                        Debug.Log(arena1Spawnpoints.Count);
-                        prospectiveSpawnpoint = arena1Spawnpoints[0];
-                    }
-                    if (attempts > 100) break; // better to have some safety..
-                }
-                while (Vector3.Distance(prospectiveSpawnpoint, Game.i.PlayerTransform.position) < minRangeFromPlayerForSpawning);
-                
-
-                //// instantiate random enemytype at random spawnpoint
-                //Instantiate(
-                //    nextWave.enemyTypes[Random.Range(0, nextWave.enemyTypes.Count)],
-                //    arena1Spawnpoints[Random.Range(0, arena1Spawnpoints.Count)] + new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized, // add random xz vector of mag 1 to prevent enemies from spawning inside each other, dunno if it matters but no reason to invite extra jank 
-                //    Quaternion.identity);
-
-                GameObject spawnIndicatorInstance = Instantiate(spawnIndicator, prospectiveSpawnpoint + new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized, Quaternion.identity);
-
-                GameObject prefab = nextWave.enemyTypes[Random.Range(0, nextWave.enemyTypes.Count)];
-                //Debug.Log(prefab);
-                spawnIndicatorInstance.GetComponent<SpawnIndicator>().Setup(spawnDelay, prefab);
-
+                availablePool.Add(kvp.Key);
             }
         }
-        else
+
+        int lowestWeightInPool = 999;
+        string lowestEnemy = "";
+        foreach (var enemy in availablePool)
         {
-            Instantiate(crystal, a1CrystalSpawnPos, Quaternion.identity);
-            isSpawning = false;
+            if (enemyWeightDict[enemy] < lowestWeightInPool)
+            {
+                lowestWeightInPool = enemyWeightDict[enemy];
+                lowestEnemy = enemy;
+            }
         }
 
+        List<string> enemyBatch = new List<string>();
+        int i = 0;
+        int remainingWeight = EnemyWeightCap - currentTotalWeightOfEnemies;
+        while (remainingWeight > lowestWeightInPool) // randomly add to the batch from the pool of available enemies until remainingweight is less than the lowest cost unit in the pool
+        {
+            string randomEnemy = availablePool[Random.Range(0, availablePool.Count)];
+            if (enemyWeightDict[randomEnemy] < remainingWeight)
+            {
+                enemyBatch.Add(randomEnemy);
+                remainingWeight -= enemyWeightDict[randomEnemy];
+            }
+            else
+            {
+                availablePool.Remove(randomEnemy); // remove if enemy weight exceeds the remainingweight
+            }
+            i++;
+            if (i > 333) break; // safety..
+        }
 
-
+        return enemyBatch;
     }
 
+    private void SpawnBatch(List<string> batch)
+    {
+        for (int i = 0; i < batch.Count; i++)
+        {
+            Vector3 prospectiveSpawnpoint;
+            int attempts = 0;
+            do
+            {
+                if (arena1Spawnpoints.Count > 1)
+                {
+                    prospectiveSpawnpoint = arena1Spawnpoints[Random.Range(0, arena1Spawnpoints.Count)];
+                }
+                else
+                {
+                    //Debug.Log(arena1Spawnpoints.Count);
+                    prospectiveSpawnpoint = arena1Spawnpoints[0];
+                }
+                if (attempts > 100) break;
+            }
+            while (Vector3.Distance(prospectiveSpawnpoint, Game.i.PlayerTransform.position) < minRangeFromPlayerForSpawning);
+
+
+            GameObject spawnIndicatorInstance = Instantiate(spawnIndicator, prospectiveSpawnpoint + new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized, Quaternion.identity);
+
+            string enemyType = batch[Random.Range(0, batch.Count)];
+            GameObject prefab = DecodeEnemyType(enemyType);
+
+            if (prefab != null)
+            {
+                spawnIndicatorInstance.GetComponent<SpawnIndicator>().Setup(spawnDelay, prefab);
+                currentTotalWeightOfEnemies += prefab.GetComponentInChildren<EnemyUnit>().WaveWeight;
+            }
+            else Debug.LogError("invalid enemy in wavemanager");
+        }
+    }
+    void OnRunStart() { }
 
     void OnEnemyDeath(EnemyUnit enemyUnit, Vector3 pos)
     {
-        remainingEnemiesInWave--;
+        currentTotalWeightOfEnemies -= enemyUnit.WaveWeight;
+        killCount++;
     }
 
     public bool CommandSpawnEnemy(string name)

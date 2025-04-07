@@ -9,7 +9,7 @@ public class Ghoul : EnemyUnit
     public override int BaseDamage => 60;
     public override float AttackCDLength => 5f;
     public override float AttackRange => 15f;
-
+    public override int WaveWeight => 22;
     protected override void Awake()
     {
         base.Awake();

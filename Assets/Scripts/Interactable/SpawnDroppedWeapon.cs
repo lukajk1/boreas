@@ -17,6 +17,7 @@ public class SpawnDroppedWeapon : MonoBehaviour
 
     public void CreateDrop(Weapon droppedWeapon)
     {
+        return; // let's just check if it's actually this that's causing the freeze
         //Debug.Log(droppedWeapon is Barehand);
         //Debug.Log(droppedWeapon);
         if (droppedWeapon is Barehand || droppedWeapon == null) return;
@@ -32,6 +33,7 @@ public class SpawnDroppedWeapon : MonoBehaviour
     
     public void CreateDrop(Weapon droppedWeapon, Vector3 pos)
     {
+        return; // let's just check if it's actually this that's causing the freeze
         if (droppedWeapon is Barehand || droppedWeapon == null) return;
 
         GameObject drop = DecodeWeapon(droppedWeapon);

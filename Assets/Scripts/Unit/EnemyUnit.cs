@@ -8,6 +8,7 @@ public abstract class EnemyUnit : Unit
     public abstract float AttackCDLength { get; }
     public bool AttackReady { get; set; }
     public abstract float AttackRange { get; }
+    public abstract int WaveWeight { get; }
 
     protected override void Awake()
     {

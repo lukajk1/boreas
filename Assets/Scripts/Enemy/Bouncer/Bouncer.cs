@@ -9,6 +9,7 @@ public class Bouncer : EnemyUnit
     public override int BaseDamage => 45;
     public override float AttackCDLength => 3.0f;
     public override float AttackRange => 3f;
+    public override int WaveWeight => 17;
 
     protected override void Awake()
     {

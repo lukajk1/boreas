@@ -9,6 +9,7 @@ public class Spinner : EnemyUnit
     public override int BaseDamage => 45;
     public override float AttackCDLength => 4f;
     public override float AttackRange => 17f;
+    public override int WaveWeight => 27;
 
     protected override void Awake()
     {

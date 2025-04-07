@@ -293,7 +293,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3041387879535629379}
   - {fileID: 3452442514236190726}
   - {fileID: 7723820583813770941}
   - {fileID: 3126946058440867364}
@@ -399,7 +398,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -637,6 +636,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: eee8f2e1794a30f499d5531c85557f1f, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 3041387879535629379}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: eee8f2e1794a30f499d5531c85557f1f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4821492520486937961}
     - targetCorrespondingSourceObject: {fileID: -5622340545357684151, guid: eee8f2e1794a30f499d5531c85557f1f, type: 3}
@@ -712,7 +714,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -751,7 +753,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1028,7 +1030,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 4008739070943330578}
+    m_TransformParent: {fileID: 3452442514236190726}
     m_Modifications:
     - target: {fileID: 5892997339969878435, guid: fe19115e1268a92419434a7c13bf6dc6, type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -1071,6 +1073,14 @@ PrefabInstance:
       value: 900
       objectReference: {fileID: 0}
     - target: {fileID: 7806887650384939548, guid: fe19115e1268a92419434a7c13bf6dc6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.0012000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 7806887650384939548, guid: fe19115e1268a92419434a7c13bf6dc6, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.0012000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 7806887650384939548, guid: fe19115e1268a92419434a7c13bf6dc6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1104,7 +1114,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7806887650384939548, guid: fe19115e1268a92419434a7c13bf6dc6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 5.09
+      value: 3.8200002
       objectReference: {fileID: 0}
     - target: {fileID: 7806887650384939548, guid: fe19115e1268a92419434a7c13bf6dc6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
