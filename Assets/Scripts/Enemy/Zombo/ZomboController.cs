@@ -26,7 +26,7 @@ public class ZomboController : UnitController
 
     private void Setup()
     {
-        movespeed = enemyUnit.BaseMoveSpeed;
+        movespeed = enemyUnit.CurrentMoveSpeed;
         allowedToMove = true;
 
         agent = GetComponent<NavMeshAgent>();

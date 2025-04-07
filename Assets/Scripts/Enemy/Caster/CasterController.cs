@@ -107,7 +107,7 @@ public class CasterController : UnitController
         animator.SetTrigger("Cast");
 
 
-        Debug.Log("starting");
+        //Debug.Log("starting");
         float elapsed = 0f;
         while (elapsed < windupLength)
         {
@@ -115,7 +115,7 @@ public class CasterController : UnitController
             if (enemyUnit.IsDead) yield break;
             yield return null;
         }
-        Debug.Log("casting now");
+        //Debug.Log("casting now");
 
         Vector3 dir = Game.i.PlayerTransform.position - transform.position;
 
