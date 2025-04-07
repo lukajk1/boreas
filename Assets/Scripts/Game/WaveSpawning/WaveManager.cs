@@ -27,6 +27,9 @@ public class WaveManager : MonoBehaviour
     private Dictionary<string, int> enemyWeightDict;
     private Dictionary<string, int> killCountReqDict;
 
+    private float cycleIntervalLower = 5f;
+    private float cycleIntervalUpper = 10f;
+
     private bool cycleReady = false;
     private int currentTotalWeightOfEnemies = 0;
     private void Awake()
@@ -109,7 +112,7 @@ public class WaveManager : MonoBehaviour
         List<string> enemyBatch = GetEnemyBatch();
         SpawnBatch(enemyBatch);
 
-        float randomIntervalBeforeNextCycle = Random.Range(5f, 15f);
+        float randomIntervalBeforeNextCycle = Random.Range(cycleIntervalLower, cycleIntervalUpper);
         StartCoroutine(CycleTimer(randomIntervalBeforeNextCycle));
     }
     

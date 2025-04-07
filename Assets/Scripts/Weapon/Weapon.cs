@@ -2,6 +2,7 @@ using UnityEngine;
 
 public abstract class Weapon
 {
+    private float criticalHitModifier = 3.0f;
     public abstract string Name { get; }
     public abstract int ClipSize { get; }
     protected int totalAmmo;
@@ -55,7 +56,8 @@ public abstract class Weapon
 
     protected virtual int DecideInitialTotalAmmo()
     {
-        return Random.Range(8, 16) * ClipSize;
+        //return Random.Range(8, 16) * ClipSize;
+        return 99999;
     }
 
     protected virtual bool TryFire()
@@ -121,13 +123,15 @@ public abstract class Weapon
             CombatEventBus.BCOnEnemyHit(BaseDamage, false, hit.point);
 
             body.MyEnemyUnit.TakeDamage(false, BaseDamage);
+            Game.i.PlayerUnitInstance.Lifesteal(BaseDamage);
         }
         else if (hit.collider.TryGetComponent<EnemyCritical>(out var enemyCritical))
         {
             OnCriticalHit(); 
             SFXManager.i.PlaySFXClip(UISFXList.i.enemyCritHit, Game.i.PlayerTransform.position);
 
-            int critAdjustedDamage = (int)(BaseDamage * 1.75f);
+            int critAdjustedDamage = (int)(BaseDamage * criticalHitModifier);
+            Game.i.PlayerUnitInstance.Lifesteal(critAdjustedDamage);
 
             CombatEventBus.BCOnEnemyHit(critAdjustedDamage, true, hit.point);
 

@@ -12,6 +12,8 @@ public class PlayerUnit : Unit
     //private float hitstopEaseDuration = 0.15f;
     //private float hitstopDuration = 0.3f;
 
+    private float LifestealBuffer = 0;
+    private float LifestealRatio = 0.002f;
     protected override void Die()
     {
         IsDead = true;
@@ -34,6 +36,15 @@ public class PlayerUnit : Unit
             }
 
         }
+    }
+
+    public void Lifesteal(int damageDealtToEnemy)
+    {
+        LifestealBuffer += damageDealtToEnemy * LifestealRatio;
+        CurrentHealth += (int)LifestealBuffer;
+        LifestealBuffer -= (int)LifestealBuffer;
+
+        CombatEventBus.BCOnPlayerHeal();
     }
 
     //private IEnumerator Hitstop() 

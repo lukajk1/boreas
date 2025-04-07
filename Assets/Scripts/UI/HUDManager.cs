@@ -20,15 +20,17 @@ public class HUDManager : MonoBehaviour
         CombatEventBus.OnInventoryUpdated += OnInventoryUpdated;
         CombatEventBus.OnAmmoCountsModified += UpdateAmmoHUD;
         CombatEventBus.OnPlayerHit += OnPlayerHit;
+        CombatEventBus.OnPlayerHeal += OnPlayerHeal;
         MainEventBus.OnRunStart += Setup;
     }
 
     private void OnDisable()
     {
-        MainEventBus.OnRunStart -= Setup;
         CombatEventBus.OnInventoryUpdated -= OnInventoryUpdated;
         CombatEventBus.OnAmmoCountsModified -= UpdateAmmoHUD;
         CombatEventBus.OnPlayerHit -= OnPlayerHit;
+        CombatEventBus.OnPlayerHeal -= OnPlayerHeal;
+        MainEventBus.OnRunStart -= Setup;
     }
     private void Setup()
     {
@@ -36,6 +38,10 @@ public class HUDManager : MonoBehaviour
         OnInventoryUpdated();
     }
     private void OnPlayerHit(int damage, bool isCrit)
+    {
+        UpdateHealth();
+    }
+    private void OnPlayerHeal()
     {
         UpdateHealth();
     }

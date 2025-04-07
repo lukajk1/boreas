@@ -14,6 +14,10 @@ public abstract class Unit : MonoBehaviour
             {
                 _currentHealth = 0;
             }
+            else if (value > CurrentMaxHealth)
+            {
+                return;
+            }
             else
             {
                 _currentHealth = value;

@@ -18,7 +18,7 @@ public class CasterController : UnitController
     private float bulletMaxDuration = 5f;
     private float bulletSpeed = 7.4f;
     private bool canAttack = true;
-    private float windupLength = 1.9f;
+    private float windupLength = 0.9f;
 
     private float damping = 6f;
 
@@ -45,17 +45,17 @@ public class CasterController : UnitController
     {
         movespeed = enemyUnit.BaseMoveSpeed;
         allowedToMove = true;
-
-        agent = GetComponent<NavMeshAgent>();
-        agent.speed = movespeed;
-        agent.destination = Game.i.PlayerTransform.position;
     }
 
     protected override void Start()
     {
         base.Start();
-        bobbing.StartBobbing(); 
-        
+        bobbing.StartBobbing();
+
+        agent = GetComponent<NavMeshAgent>();
+        agent.speed = movespeed;
+        agent.destination = Game.i.PlayerTransform.position;
+
         if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 2f, NavMesh.AllAreas))
         {
             agent.transform.position = hit.position;
@@ -106,11 +106,14 @@ public class CasterController : UnitController
         canAttack = false;
         animator.SetTrigger("Cast");
 
+
+        Debug.Log("starting");
         float elapsed = 0f;
         while (elapsed < windupLength)
         {
             elapsed += Time.deltaTime;
             if (enemyUnit.IsDead) yield break;
+            yield return null;
         }
         Debug.Log("casting now");
 

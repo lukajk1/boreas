@@ -30,4 +30,7 @@ public static class CombatEventBus
     public static event Action OnWeaponBreak;
     public static void BCOnWeaponBreak() => OnWeaponBreak?.Invoke();   
 
+    public static event Action OnPlayerHeal;
+    public static void BCOnPlayerHeal() => OnPlayerHeal?.Invoke();   
+
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 public class Barehand : Weapon
 {
     public override string Name => "Barehand";
-    public override int ClipSize => 41;
+    public override int ClipSize => 999;
     public override int BaseDamage => 22;
     public override float FireRate => 0.10f;
     public override float ReloadSpeed => 1.25f;

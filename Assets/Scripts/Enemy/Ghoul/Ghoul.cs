@@ -3,7 +3,7 @@ using UnityEngine;
 public class Ghoul : EnemyUnit
 {
     public override string Name => "Ghoul";
-    public override int BaseMaxHealth => 300;
+    public override int BaseMaxHealth => 700;
     public override float BaseMoveSpeed => 4.5f;
     public override int ScoreWeight => 150;
     public override int BaseDamage => 60;
