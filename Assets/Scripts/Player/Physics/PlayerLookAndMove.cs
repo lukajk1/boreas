@@ -82,6 +82,9 @@ public class PlayerLookAndMove : MonoBehaviour
 
     public event Action<bool> OnGroundedChanged;
 
+    private bool canCrouch = true;
+    private float crouchCDLength = 1.0f;
+
     private bool _isCrouching;
     public bool IsCrouching
     {
@@ -105,6 +108,7 @@ public class PlayerLookAndMove : MonoBehaviour
             }
         }
     }
+
     private bool _isSlowfall;
     private bool IsSlowfall
     {
@@ -275,7 +279,7 @@ public class PlayerLookAndMove : MonoBehaviour
     }
     private void OnCrouchPerformed(InputAction.CallbackContext context)
     {
-        if (!Game.IsPaused) 
+        if (!Game.IsPaused && canCrouch) 
         {
             player.transform.localScale = crouchScale;
             IsCrouching = true;
@@ -288,6 +292,8 @@ public class PlayerLookAndMove : MonoBehaviour
             player.transform.localScale = playerScale;
             IsCrouching = false;
         }
+
+        CrouchCD();
     }
 
     private void DetermineCamMovement() // I guess this doesn't need to be broken out because where you're looking also determines how movement works?
@@ -315,7 +321,11 @@ public class PlayerLookAndMove : MonoBehaviour
         return new Vector3(combined.x, 0, combined.z);
     }
 
-
+    private void CrouchCD()
+    {
+        canCrouch = false;
+        StartCoroutine(timer.TimerCR(crouchCDLength, () => canCrouch = true));
+    }
     public void ResetValues()
     {
         JumpForce = initJumpForce;

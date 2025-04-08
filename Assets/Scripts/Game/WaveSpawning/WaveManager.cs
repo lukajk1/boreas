@@ -36,19 +36,6 @@ public class WaveManager : MonoBehaviour
     {
         if (i != null) Debug.LogError("multiple wavespawners");
         i = this;
-
-        // look away please
-        //Zombo zombo = new Zombo(); Caster caster = new Caster(); Bouncer bouncer = new Bouncer(); Ghoul ghoul = new Ghoul(); Spinner spinner = new Spinner(); Diver diver = new Diver();
-
-        //enemyWeightDict = new Dictionary<string, int>()
-        //{
-        //    {"Zombo", zombo.WaveWeight },
-        //    {"Caster", caster.WaveWeight },
-        //    {"Bouncer", bouncer.WaveWeight },
-        //    {"Ghoul", ghoul.WaveWeight },
-        //    {"Spinner", spinner.WaveWeight },
-        //    {"Diver", diver.WaveWeight },
-        //}; 
         
         enemyWeightDict = new Dictionary<string, int>()
         {
@@ -66,7 +53,7 @@ public class WaveManager : MonoBehaviour
             {"Caster", 0 },
             {"Bouncer", 15 },
             {"Diver", 20 },
-            {"Ghoul", 30 },
+            {"Ghoul", 0 },
             {"Spinner", 40 },
         };
     }

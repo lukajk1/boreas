@@ -8,6 +8,7 @@ public class GhoulController : UnitController
     [SerializeField] private EnemyUnit enemyUnit;
     [SerializeField] private GameObject criticalHitbox;
     [SerializeField] private Bobbing bobbing;
+    [SerializeField] private Transform rootParent;
 
     private Material dissolveMaterial;
     private Rigidbody rb;
@@ -108,6 +109,6 @@ public class GhoulController : UnitController
             if ((elapsed / dissolveTime) >= 0.5f) criticalHitbox.SetActive(false);
             yield return null;
         }
-        Destroy(enemyUnit.gameObject);
+        Destroy(rootParent.gameObject);
     }
 }

@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 4009108145039341418}
   - component: {fileID: 2321898721197603821}
   m_Layer: 0
-  m_Name: CasterV2
+  m_Name: Caster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -586,7 +586,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eee8f2e1794a30f499d5531c85557f1f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.27
+      value: 0.46
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eee8f2e1794a30f499d5531c85557f1f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -817,7 +817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bobbingSpeed: 2
-  bobbingHeight: 0.45
+  bobbingHeight: 0.35
 --- !u!1 &2693151702647755596 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 953861958895043745, guid: eee8f2e1794a30f499d5531c85557f1f, type: 3}

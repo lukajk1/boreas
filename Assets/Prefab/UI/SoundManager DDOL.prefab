@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1231482527195556753}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.423885, y: -1.054646, z: 2.365854}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca4f24dd278634348960051b8ed54b3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawn: {fileID: 8300000, guid: 7168e99e475075c4bb29a0fcb1340671, type: 3}
+  enemySpawn: {fileID: 8300000, guid: 6234afe38d537854fb48eedeb62a3655, type: 3}
   casterAttack: {fileID: 8300000, guid: 796ba77cea6eccd4b97acb49a596b7a0, type: 3}
   enemyDrop: {fileID: 8300000, guid: b8fde77f273bb2945ace3033767b4300, type: 3}
 --- !u!1 &6674023184821284709
@@ -253,7 +253,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.191
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
