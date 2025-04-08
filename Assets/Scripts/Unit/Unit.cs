@@ -60,11 +60,14 @@ public abstract class Unit : MonoBehaviour
             else
             {
                 CurrentHealth -= damage;
-                OnUnitDamaged?.Invoke(isCrit, damage);
+                BCTakeDamage(isCrit, damage);
             }
         }
     }
-
+    protected void BCTakeDamage(bool isCrit, int damage)
+    {
+        OnUnitDamaged?.Invoke(isCrit, damage);
+    }
     public void KillViaCommand()
     {
         Die();

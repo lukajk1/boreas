@@ -110,7 +110,7 @@ public class DiverController : UnitController
                     hasDamaged = true;
 
                     Vector3 xz = transform.position - Game.i.PlayerTransform.position;
-                    xz = xz.normalized * 27f;
+                    xz = xz.normalized * 13f;
                     Vector3 y = Vector3.up * 3f;
 
                     playerPhysicsBus.AddForceToPlayer(xz + y, ForceMode.Impulse);

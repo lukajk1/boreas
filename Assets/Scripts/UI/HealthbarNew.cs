@@ -4,14 +4,14 @@ using UnityEngine.UI;
 
 public class HealthbarNew : MonoBehaviour
 {
-    [SerializeField] private Unit unitTarget;
-    [SerializeField] private Image healthbar;
-    [SerializeField] private Image whiteHealth;
+    [SerializeField] protected Unit unitTarget;
+    [SerializeField] protected Image healthbar;
+    [SerializeField] protected Image whiteHealth;
 
-    private int currentHealth = 0;
-    private Coroutine lerpWhiteHealth;
-    private float lerpDuration = 0.40f;
-    void OnEnable()
+    protected int currentHealth = 0;
+    protected Coroutine lerpWhiteHealth;
+    protected float lerpDuration = 0.40f;
+    protected void OnEnable()
     {
         if (unitTarget != null)
         {
@@ -21,7 +21,7 @@ public class HealthbarNew : MonoBehaviour
         }
     }
 
-    void OnDisable()
+    protected void OnDisable()
     {
         if (unitTarget != null)
         {
@@ -32,19 +32,19 @@ public class HealthbarNew : MonoBehaviour
 
     }
 
-    private void Setup()
+    protected void Setup()
     {
         currentHealth = unitTarget.BaseMaxHealth; 
         healthbar.fillAmount = 1f;
         whiteHealth.fillAmount = 1f;
     }
 
-    private void OnDeath()
+    protected void OnDeath()
     {
         gameObject.SetActive(false);
     }
 
-    private void UpdateBar(bool isCrit, int damage)
+    protected void UpdateBar(bool isCrit, int damage)
     {
         currentHealth -= damage;
         healthbar.fillAmount = (float)currentHealth / unitTarget.BaseMaxHealth; // cast to float to avoid int division
@@ -60,7 +60,7 @@ public class HealthbarNew : MonoBehaviour
         }
     }
 
-    private IEnumerator LerpWhiteHealth()
+    protected IEnumerator LerpWhiteHealth()
     {
         float elapsed = 0;
         while (elapsed < lerpDuration) 

@@ -26,6 +26,7 @@ public class PlayerUnit : Unit
         if (damage > 0)
         {
             CurrentHealth -= damage * DebugDamageModifier;
+            BCTakeDamage(isCrit, damage);
             CombatEventBus.BCOnPlayerHit(damage, isCrit);
 
             SFXManager.i.PlaySFXClip(UISFXList.i.enemyBodyHit, Game.i.PlayerTransform.position, false); 
