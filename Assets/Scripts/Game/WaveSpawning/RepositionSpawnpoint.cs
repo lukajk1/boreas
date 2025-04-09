@@ -9,7 +9,7 @@ public class RepositionSpawnpoint : MonoBehaviour
             Vector3 pos = transform.position;
             pos.y = hit.point.y;
             transform.position = pos;
-            Debug.Log("hit");
+            //Debug.Log("hit");
         }
     }
 }

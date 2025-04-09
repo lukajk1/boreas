@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthbarNew : MonoBehaviour
+public class Healthbar : MonoBehaviour
 {
     [SerializeField] protected Unit unitTarget;
     [SerializeField] protected Image healthbar;
@@ -10,7 +10,7 @@ public class HealthbarNew : MonoBehaviour
 
     protected int currentHealth = 0;
     protected Coroutine lerpWhiteHealth;
-    protected float lerpDuration = 0.40f;
+    protected float lerpDuration = 0.60f;
     protected void OnEnable()
     {
         if (unitTarget != null)

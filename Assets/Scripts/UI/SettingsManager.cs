@@ -125,10 +125,10 @@ public class SettingsManager : MonoBehaviour
         manager.SetSFXVolume(settings.VolSFX / 100f);
         manager.SetMusicVolume(settings.VolMusic / 100f);
 
-        CameraDampen dampen = FindAnyObjectByType<CameraDampen>();
+        CameraDampenAndFOV dampen = FindAnyObjectByType<CameraDampenAndFOV>();
         if (dampen != null) 
         { 
-            dampen.GetComponent<Camera>().fieldOfView = settings.FOV;
+            dampen.SetFOV(settings.FOV);
         }
 
         QualitySettings.vSyncCount = settings.VSync; // 0 = off, 1 = match refresh rate

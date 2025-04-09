@@ -55,7 +55,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CutoffHeight: 1.17
+    - _CutoffHeight: 1.11
     - _EdgeWidth: 0.05
     - _Emissive: 23.33
     - _NoiseScale: 56.7

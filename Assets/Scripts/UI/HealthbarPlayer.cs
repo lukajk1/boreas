@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HealthbarPlayer : HealthbarNew
+public class HealthbarPlayer : Healthbar
 {
     new private void OnEnable()
     {
