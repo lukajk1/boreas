@@ -12,7 +12,7 @@ public class Inventory : MonoBehaviour
 
         ActiveSlot = 0;
 
-        inv[0] = new ChainDaggers();
+        inv[0] = new Barehand();
         inv[1] = null;
     }
 

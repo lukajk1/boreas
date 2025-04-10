@@ -83,7 +83,7 @@ public class PlayerLookAndMove : MonoBehaviour
     public event Action<bool> OnGroundedChanged;
 
     private bool canCrouch = true;
-    private float crouchCDLength = 1.0f;
+    private float crouchCDLength = 0.5f;
 
     private bool _isCrouching;
     public bool IsCrouching

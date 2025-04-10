@@ -15,9 +15,7 @@ public class CameraDampenAndFOV : MonoBehaviour
     private float verticalOffset = 0f; // not needed any more since target transform is now tied to a head, but here in case it's useful in the future
     private void Start()
     {
-        //Debug.Log(cam);
-        //Debug.Log(weaponCam);
-        weaponCam.SyncFOV(cam.fieldOfView);
+        //weaponCam.SyncFOV(cam.fieldOfView);
     }
     private void LateUpdate()
     {
@@ -31,7 +29,7 @@ public class CameraDampenAndFOV : MonoBehaviour
     public void SetFOV(float fov)
     {
         cam.fieldOfView = fov;
-        weaponCam.SyncFOV(fov);
+        //weaponCam.SyncFOV(fov);
     }
     
 }

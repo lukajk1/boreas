@@ -41,5 +41,6 @@ public class WeaponModelManager : MonoBehaviour
         else model = barehand; // just here to prevent use of unassigned field
 
         model.SetActive(true);
+        model.GetComponent<WeaponAnimator>().SwitchIn();
     }
 }

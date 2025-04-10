@@ -64,7 +64,7 @@ public class CasterController : UnitController
 
     void Update()
     {
-        if (Vector3.Distance(bulletOrigin.position, Game.i.PlayerTransform.position) > enemyUnit.AttackRange)
+        if (Vector3.Distance(transform.position, Game.i.PlayerTransform.position) > enemyUnit.AttackRange)
         {
             agent.isStopped = false;
             if (allowedToMove) agent.destination = Game.i.PlayerTransform.position;
