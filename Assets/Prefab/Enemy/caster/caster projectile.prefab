@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7346814596065662466}
   - component: {fileID: 4459401542602531543}
   m_Layer: 0
-  m_Name: caster bullet
+  m_Name: caster projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 301efd4574061624198cb60527da43da, type: 2}
+  - {fileID: 2100000, guid: 4290637d67eb81d4c9c87aff51b44cf2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

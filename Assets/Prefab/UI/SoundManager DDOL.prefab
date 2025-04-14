@@ -108,12 +108,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ffd843a0d60074fba080c8915f9a1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponFire: {fileID: 8300000, guid: 2ed0f528da56e13429ec06a1a57431b8, type: 3}
   reloadFinished: {fileID: 8300000, guid: 1e6ae0f5b7dbe4b45b00b2d82a7e34d5, type: 3}
   outOfBullets: {fileID: 8300000, guid: 184340ced1c05864bbf8d6590634bdc9, type: 3}
   enemyCritHit: {fileID: 8300000, guid: a19a7e6b7cfa14640b38cf05f7ac5b61, type: 3}
   enemyBodyHit: {fileID: 8300000, guid: b0566fcda45384341a0faba8a1f66981, type: 3}
-  weaponFire: {fileID: 8300000, guid: 2ed0f528da56e13429ec06a1a57431b8, type: 3}
   enemyDeath: {fileID: 8300000, guid: 4fb73bd8764b5eb4c8e09ff936bea697, type: 3}
+  daggerSwitchIn: {fileID: 8300000, guid: 0c432661e24d638488feae868d422837, type: 3}
 --- !u!1 &3581853832726998020
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,13 +249,13 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 1452404498980476775, guid: 56675e803a3fb0b4a9abef8dad5d3328, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 8e7483a4c4b6f5f4dab29c3c24ec7eb5, type: 3}
-  m_Resource: {fileID: 8300000, guid: 8e7483a4c4b6f5f4dab29c3c24ec7eb5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 5afd47cb4ab7b4543a3d102f02f67dce, type: 3}
+  m_Resource: {fileID: 8300000, guid: 5afd47cb4ab7b4543a3d102f02f67dce, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.191
   m_Pitch: 1
   Loop: 1
-  Mute: 1
+  Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128

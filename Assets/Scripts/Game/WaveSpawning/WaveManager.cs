@@ -20,8 +20,9 @@ public class WaveManager : MonoBehaviour
 
     private float minRangeFromPlayerForSpawning = 12f;
     private float spawnDelay = 1.5f;
+    private float firstSpawnDelay = 1.7f;
 
-    public int EnemyWeightCap = 50; // throwaway value, just here to avoid nullref
+    public int EnemyWeightCap = 1; // throwaway value, just here to avoid nullref
     private int killCount = 0;
 
     private Dictionary<string, int> enemyWeightDict;
@@ -75,7 +76,7 @@ public class WaveManager : MonoBehaviour
             point.Reposition();
         }
 
-        StartCoroutine(WaitOneFrame());
+        StartCoroutine(WaitOneFrame()); // + spawn delay 
     }
     private IEnumerator WaitOneFrame()
     {
@@ -85,6 +86,8 @@ public class WaveManager : MonoBehaviour
             arena1Spawnpoints.Add(t.position);
             t.gameObject.SetActive(false);
         }
+
+        yield return new WaitForSeconds(firstSpawnDelay);
         cycleReady = true;
         //Debug.Log(arena1Spawnpoints.Count);
     }
